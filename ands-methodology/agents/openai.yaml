@@ -1,0 +1,4 @@
+interface:
+  display_name: "ANDS Methodology"
+  short_description: "AI-native development adoption and practice"
+  default_prompt: "Use $ands-methodology to turn our team's AI-native development goal into an ANDS-T task and rollout plan."
