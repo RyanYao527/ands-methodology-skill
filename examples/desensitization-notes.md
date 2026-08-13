@@ -44,6 +44,16 @@
 | 某真实环境 | 测试环境或生产环境 |
 | 某真实指标 | 返工次数、Gate 一次通过率、知识回写及时率 |
 
+## 种子用户反馈脱敏
+
+v0.2 允许使用脱敏后的真实种子用户反馈。进入 examples 或 validation 前，先写入 `seed-user-feedback-intake-v0.2.md` 的 intake record，并完成以下转换：
+
+- 原始语句改成用户式 prompt 或事实描述，不保留聊天原文。
+- 真实组织、人员、仓库、域名、IP、本地路径、凭据和业务数据全部泛化。
+- 保留可复现的误解类型，例如 Track 误判、Acceptance / Gate 2 / Gate 3 混淆、Gate 5 回写边界不清。
+- 每条反馈必须生成一个 regression prompt，方便 Validation & Test Agent 回归。
+- 如果无法脱敏到不可识别，反馈不进入发布包，只保留在本地审查记录中。
+
 ## 发布前自检
 
 发布 examples 前至少检查：
@@ -54,6 +64,7 @@
 - Acceptance 是否只写业务可验证结果。
 - 是否出现真实组织、人员、仓库、网络地址、本地路径、凭据或业务敏感数据。
 - 是否把 v0.1 扩展成生产级 Gateway、Dashboard 或完整课程。
+- 是否把真实种子反馈原文直接放入 examples 或 validation。
 
 ## 本轮示例脱敏结论
 

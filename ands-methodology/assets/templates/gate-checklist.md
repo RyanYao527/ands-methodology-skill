@@ -19,6 +19,15 @@
 | Standard | Gate 1-5 默认执行 | 常规业务需求，有明确 Acceptance，需要 CI 与人验收 |
 | Enterprise | Gate 1-5 + 加强审查 | 生产关键路径、安全敏感、合规相关、跨团队或难回滚任务 |
 
+## Tailoring Questions
+
+- Risk Level: `[低 / 中 / 高]`
+- Reversibility: `[可快速回滚 / 可回滚但有成本 / 难回滚]`
+- Data Sensitivity: `[无敏感数据 / 内部数据 / 权限、隐私、合规或生产数据]`
+- Human Validation Owner: `[填写角色；无则不能进入 Standard/Enterprise Gate 3]`
+- Failure Action: `[返修 / 回滚 / 暂停发布 / 升级 Track / 人工接管]`
+- Tailoring Rationale: `[说明为什么保留、裁剪或加强对应 Gate]`
+
 ## Gate 1：需求准入
 
 - Owner: `[人类 Project Owner / AI PM]`
@@ -28,6 +37,7 @@
   - [ ] Constraint 写明红线、技术、安全和范围限制。
   - [ ] Acceptance 只包含业务可验证结果。
   - [ ] Track 为 `Quick`、`Standard`、`Enterprise` 三选一。
+  - [ ] 风险、可回滚性、敏感数据、验收人和失败动作已声明。
   - [ ] 需要 ADR 的决策已经记录或标记为待补。
 - 通过结论：`[通过 / 不通过 / 裁剪]`
 - 失败动作：`[退回补充 ANDS-T；必要时升级 Track；不进入执行阶段]`

@@ -11,7 +11,8 @@ $requiredTemplates = @(
     "gate-checklist.md",
     "track-decision-card.md",
     "agent-matrix-template.md",
-    "lessons-template.md"
+    "lessons-template.md",
+    "writeback-note-template.md"
 )
 
 $missing = @()

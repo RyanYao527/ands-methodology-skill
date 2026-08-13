@@ -101,3 +101,45 @@
 ```text
 我们试点一个月后发现：AI 交付速度变快，但返工仍然多。请按 ANDS 度量模型设计一次复盘，输出需要更新的标准、模板和后续 Issue。
 ```
+
+### F. Windows UTF-8 读取恢复
+
+```text
+我在 Windows PowerShell 里读取 ands-methodology 的中文 Markdown 时出现乱码。请说明如何重新读取，并给出验证命令。
+```
+
+期望观察：
+
+- 使用 `Get-Content -Raw -Encoding UTF8`。
+- 判断这是读取方式问题，不是 skill 内容损坏。
+- 给出可复制命令，例如读取 `SKILL.md` 或 governance reference。
+- 可选加固：设置 `[Console]::OutputEncoding` / `$OutputEncoding`，并用 `ContainsExpectedChinese` 与 `ContainsCommonMojibake` 判断读取结果。
+
+### G. 种子反馈归类
+
+```text
+一个种子用户反馈：他们理解 Track，但实际写任务时总把 Acceptance、Gate 2 和 Gate 3 混在一起。请按 ANDS 把这个反馈归类，并给出应修改的 skill 资产和回归 prompt。
+```
+
+期望观察：
+
+- 归类到 governance、template 或 validation。
+- 指向相关 reference/template。
+- 提醒真实反馈先按 `examples/seed-user-feedback-intake-v0.2.md` 脱敏。
+
+### H. Acceptance / Gate 2 / Gate 3 拆分纠偏
+
+```text
+请帮我纠正这张 ANDS-T：Acceptance 里写了“lint 通过、单测通过、导出文件字段正确、业务方确认可用”。请说明哪些应留在 Acceptance，哪些应进入 Gate 2，哪些应进入 Gate 3。
+```
+
+期望观察：
+
+- `lint 通过`、`单测通过` 归 Gate 2 机器质量。
+- `导出文件字段正确` 保留为业务可验证 Acceptance。
+- `业务方确认可用` 归 Gate 3 人验收。
+- 说明 Gate 2 通过不能替代 Gate 3，Gate 3 失败时应返工或重写 Acceptance。
+
+## Forward-Test Corpus
+
+更多独立 Agent forward-test 场景见 `examples/forward-test-scenarios-v0.2.md`。

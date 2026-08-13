@@ -26,6 +26,8 @@
 - Track 必须写进 ANDS-T。
 - Gate 2 校验 Track 声明是否合理，防止大任务走小轨。
 - 裁剪的是检查强度，不是责任本身。
+- Track 判断必须看风险、可回滚性、敏感数据、跨团队影响、验收人和失败动作。
+- Enterprise 条件不能通过“拆小描述”降级；只能拆成低风险子任务和单独的 Enterprise 审查任务。
 
 ### Gate 1-5
 
@@ -36,6 +38,25 @@
 | Gate 3 人验收 | 人 | Acceptance 的业务结果达成 | 返工或改写 Acceptance |
 | Gate 4 发布审批 | 人 | 五资产同步、发布说明、回滚方案、灰度要求满足 | 暂停发布并补证据 |
 | Gate 5 复盘审计 | AI 辅助，人确认 | Lessons 已写、知识已入库、改进 Issue 已创建、指标已更新 | 补写复盘或创建改进任务 |
+
+### FAQ：所有任务都必须过五道 Gate 吗？
+
+不是。ANDS 保留 Gate 1-5 的责任模型，但允许按 Track 裁剪证据强度。
+
+- Quick 可以豁免完整 Gate 1 / 3 / 4 / 5 流程，但必须记录 Track 理由，并保留最低质量证据，例如 Gate 2 或等价检查。
+- Standard 默认需要清楚的 ANDS-T、机器质量、人验收、发布审批和 Gate 5 回写或“无需回写”理由。
+- Enterprise 不能因为拆小描述而降级；只要涉及生产关键路径、安全合规、敏感数据、不可轻易回滚或跨团队影响，就需要加强审查。
+- 裁剪的是流程成本，不是责任；失败动作、验收人和可追溯证据仍要能说明清楚。
+
+### Acceptance / Gate 2 / Gate 3 拆分示例
+
+| 表述 | 放置位置 | 判断口径 |
+|---|---|---|
+| `lint 通过`、`类型检查通过`、`单测通过` | Gate 2 | 机器或 CI 能验证的工程质量 |
+| `导出周报包含指定字段，下载文件可被业务系统读取` | Acceptance | 业务方可直接验证的结果 |
+| `业务 Owner 确认导出结果满足试点需求` | Gate 3 | 人验收动作和验收记录 |
+
+错误写法是把三者都塞进 Acceptance；正确写法是 Acceptance 写业务结果，Gate 2 写机器检查，Gate 3 写人确认。Gate 2 通过不能替代 Gate 3，Gate 3 失败时应返工、补上下文或重写 Acceptance。
 
 ### Gate 5 / Obsidian 知识回写闭环
 
@@ -74,6 +95,18 @@ Gate 5 最小检查：
 - 同一任务连续失败达到团队阈值时，自动挂起。
 - 人决策：改任务、换 Agent、补上下文、降范围或人工接管。
 - 失败不可静默；No-Go 是有效治理结果。
+
+### 治理反模式
+
+| 反模式 | 风险 | 修正 |
+|---|---|---|
+| 五 Gate 一刀切 | 小任务被治理成本拖死，团队绕开流程 | 用 Quick / Standard / Enterprise 调整证据强度 |
+| Quick 无记录 | 低风险任务缺少最低质量证据，后续不可追溯 | Quick 至少保留 Track 理由、Gate 2 或替代检查 |
+| Acceptance / Gate 2 / Gate 3 混写 | 业务验收、机器质量和人验收互相替代 | Acceptance 写业务结果；Gate 2 写机器检查；Gate 3 写人验收 |
+| 假降级 | Enterprise 风险被写成 Standard 或 Quick | Gate 2 或 Governance Reviewer 必须要求升级 |
+| Gate 5 消失 | 问题重复发生，标准不迭代 | 每个 Standard / Enterprise 任务都要写 Lessons 或无需复盘理由 |
+| 只报指标不改标准 | Dashboard 变成汇报墙 | 指标必须进入 Gate 5，转成改进 Issue 或标准更新 |
+| 反馈原文入库 | 暴露真实用户、项目或业务细节 | 先脱敏和归类，再写 regression prompt |
 
 ## 输出口径
 

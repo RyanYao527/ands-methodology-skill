@@ -1,5 +1,60 @@
 # Release Notes
 
+## v0.2.0 - 2026-08-13
+
+`v0.2.0` 已完成公开发布审批、最终验证、tag 和 GitHub release。
+
+Release URL: <https://github.com/RyanYao527/ands-methodology-skill/releases/tag/v0.2.0>
+
+### Summary
+
+v0.2.0 聚焦内部反馈后的可用性补强：Windows UTF-8 读取、forward-test 场景、种子反馈 intake、Track/Gate 反模式、Acceptance / Gate 2 / Gate 3 拆分，以及 Obsidian writeback MVP。
+
+### Added
+
+- Windows PowerShell UTF-8 读取提示，帮助用户用 `Get-Content -Raw -Encoding UTF8` 恢复中文 Markdown 阅读。
+- Windows UTF-8 诊断命令，帮助 seed user 检查 `ContainsExpectedChinese` 与 `ContainsCommonMojibake`。
+- v0.2 forward-test scenario corpus，覆盖 UTF-8、反馈归类、反模式和 Obsidian writeback MVP。
+- 种子用户反馈 intake 模板，用于把脱敏后的真实反馈转成可分派任务和 regression prompt。
+- Obsidian writeback MVP：`new_writeback_note.ps1`、`test_writeback_mvp.ps1` 和 `writeback-note-template.md`。
+
+### Changed
+
+- 增强 management-facing overview/adoption guidance，强调结论先行、风险、投入、验收责任和度量。
+- 将常见反模式并入 `governance-and-metrics.md` 与 `adoption-playbook.md`。
+- 扩展 Track Decision Card 和 Gate Checklist，要求声明风险、可回滚性、敏感数据、验收人和失败动作。
+- 根据 5-Agent seed-user trial 小修 Gate FAQ、Acceptance / Gate 2 / Gate 3 拆分例和 writeback `type / domain / pipeline` 变体说明。
+
+### Validation Evidence
+
+- `test_writeback_mvp.ps1` 已按 TDD 流程先失败后通过。
+- `validate_templates.ps1` 已扩展到检查 writeback note template。
+- `quick_validate.py` PASS：`Skill is valid!`。
+- 5-Agent seed-user read-only trial PASS；FT-SU04 为 PASS_WITH_NOTE，已通过 seed-user feedback polish 修正。
+- T09/T10 Enterprise review：`CONDITIONAL_GO`，无 Critical blocker。
+- Project Owner Go 已确认。
+- final release execution validation PASS。
+
+### Security And Desensitization
+
+- 未发现真实公司、人员、仓库、域名、IP、凭据、本地绝对路径或业务敏感数据进入发布包。
+- secret/token 扫描的 `token` 命中位于“禁止凭据”的脱敏说明中，不代表真实泄露。
+- Obsidian writeback MVP 只生成草稿或写入用户显式提供的 `-OutputPath`；不扫描或批量改写 Vault。
+- 当显式 `-OutputPath` 的父目录不存在时，脚本可能创建该父目录；该行为只发生在用户明确给出的路径内。
+
+### Compatibility
+
+- 保持 Codex skill 结构：`ands-methodology/SKILL.md`、`agents/openai.yaml`、`references/`、`assets/templates/`、`scripts/`。
+- 不引入外部运行时依赖；PowerShell 脚本面向 Windows PowerShell / PowerShell Core 常规环境。
+- 不改变 LICENSE；当前仍为 MIT。
+
+### Known Limits
+
+- 不是完整课程仓库。
+- 不提供生产级 AI Gateway、Dashboard、GitHub Actions 或完整 Obsidian 自动化。
+- 不承诺所有团队都适合一次性全量引入五道 Gate。
+- 真实反馈进入 examples 或 validation 前仍需脱敏。
+
 ## v0.1.0 - 2026-08-12
 
 `ands-methodology` v0.1.0 将 ANDS 方法论整理为一个可安装的 Codex skill，优先支持管理落地与最小实践模板。
