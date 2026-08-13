@@ -20,7 +20,7 @@ Use this skill to help teams understand, adopt, practice, or review AI-Native De
 | User task | Read | Output |
 |---|---|---|
 | Explain ANDS | `references/overview.md` | One-page explanation with fit / non-fit boundaries |
-| Plan team adoption | `references/adoption-playbook.md`, `references/governance-and-metrics.md` | 30/60/90-day rollout, pilot plan, risks |
+| Plan team adoption | `references/adoption-playbook.md`, `references/governance-and-metrics.md`, `assets/templates/30-day-pilot-template.md` | 30/60/90-day rollout, pilot plan, risks |
 | Draft ANDS standards | `references/standards-k-t-a-w-g.md` | ANDS-K/T/A/W/G draft or review |
 | Rewrite a task as ANDS-T | `references/standards-k-t-a-w-g.md`, `assets/templates/ands-t-template.md` | ANDS-T task card |
 | Design Agent roles | `references/methodology-10-models.md`, `references/platform-5-components.md`, `assets/templates/agent-matrix-template.md` | L1/L2/L3 Agent matrix and AI PM prompt |
@@ -28,6 +28,7 @@ Use this skill to help teams understand, adopt, practice, or review AI-Native De
 | Review a delivery or incident | `references/demo-trace-guide.md`, `references/governance-and-metrics.md`, `assets/templates/lessons-template.md` | Lessons, follow-up issue, standard update |
 | Prepare internal training | `references/overview.md`, `references/demo-trace-guide.md`, `references/adoption-playbook.md` | Briefing outline or workshop script |
 | Triage seed-user feedback | `references/adoption-playbook.md`, `references/governance-and-metrics.md` | Desensitized feedback classification and regression prompt |
+| Triage post-release feedback | `examples/post-release-feedback-intake-v0.2.1.md`, `references/governance-and-metrics.md` | Desensitized feedback intake, Track decision, regression prompt |
 | Review ANDS anti-patterns | `references/adoption-playbook.md`, `references/governance-and-metrics.md` | Anti-pattern diagnosis and corrected Track/Gate guidance |
 | Draft Obsidian writeback | `references/governance-and-metrics.md`, `assets/templates/writeback-note-template.md` | Project-local writeback draft with backlinks |
 

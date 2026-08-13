@@ -8,9 +8,26 @@
 
 ## Status
 
-当前公开版本是 `v0.2.0`。
+当前公开版本是 `v0.2.1`。
 
-`v0.2.0` 已于 2026-08-13 完成公开发布审批、最终验证、tag 和 GitHub release。Release URL: <https://github.com/RyanYao527/ands-methodology-skill/releases/tag/v0.2.0>。
+`v0.2.1` 已于 2026-08-13 完成 patch release 审批、最终验证、tag 和 GitHub release。Release URL: <https://github.com/RyanYao527/ands-methodology-skill/releases/tag/v0.2.1>。
+
+v0.2.1 新增：
+
+- 30-day pilot template。
+- post-release feedback intake example。
+- `validate_release.ps1` 和 `test_validate_release.ps1`。
+- `.gitattributes` line-ending policy。
+
+v0.2.1 验证状态：
+
+- `test_validate_release.ps1`：PASS。
+- `validate_release.ps1 -QuickValidatePath ...`：PASS。
+- `quick_validate.py`：PASS。
+- v0.2.1 release readiness check：READY_FOR_OWNER_GO_NO_GO。
+- Governance & Security：PASS_WITH_NOTE，无 Critical / Important blocker。
+- Project Owner 已确认 patch release Go。
+- `v0.2.1` tag 与 GitHub release 已创建。
 
 v0.2.0 新增：
 
@@ -29,6 +46,8 @@ v0.2.0 验证状态：
 - T09/T10 Enterprise review：CONDITIONAL_GO，无 Critical blocker。
 - Project Owner 已确认公开发布。
 - `v0.2.0` tag 与 GitHub release 已创建。
+
+`v0.2.0` Release URL: <https://github.com/RyanYao527/ands-methodology-skill/releases/tag/v0.2.0>。
 
 v0.1.0 历史版本已完成：
 
@@ -60,6 +79,8 @@ Test-Path (Join-Path $target "SKILL.md")
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-methodology\scripts\validate_templates.ps1
 powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-methodology\scripts\test_writeback_mvp.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-methodology\scripts\test_validate_release.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-methodology\scripts\validate_release.ps1
 ```
 
 ### Windows UTF-8 Note
@@ -96,6 +117,7 @@ $text = Get-Content -LiteralPath .\ands-methodology\SKILL.md -Raw -Encoding UTF8
 - 内部培训：准备 ANDS 简报、工作坊脚本或演示 trace。
 - 种子反馈归类：把脱敏后的真实试用反馈转成修订任务和 regression prompt。
 - Obsidian 回写草稿：生成项目内 frontmatter、双链和回写边界说明。
+- 发布后反馈入口：把脱敏后的公开反馈转成 Track、修订任务和 regression prompt。
 
 ## Example Prompts
 
@@ -107,7 +129,7 @@ $text = Get-Content -LiteralPath .\ands-methodology\SKILL.md -Raw -Encoding UTF8
 4. 我们想让 AI PM 调度多个 Agent 做需求拆解、开发、测试和发布，请帮我设计最小 Agent 矩阵。
 5. 这次上线延期是因为验收标准写得太模糊，Agent 做完以后业务方说不是他们要的。请按 ANDS 写一次复盘。
 
-v0.2 forward-test 场景见 `examples/forward-test-scenarios-v0.2.md`；种子用户反馈 intake 见 `examples/seed-user-feedback-intake-v0.2.md`。
+v0.2 forward-test 场景见 `examples/forward-test-scenarios-v0.2.md`；种子用户反馈 intake 见 `examples/seed-user-feedback-intake-v0.2.md`；发布后反馈 intake 见 `examples/post-release-feedback-intake-v0.2.1.md`。
 
 ## Package Map
 
@@ -134,7 +156,7 @@ ands-methodology-skill/
 - 不承诺所有团队都适合一次性全量引入五道 Gate。
 - Obsidian writeback MVP 只生成草稿或写入显式指定路径；不扫描或批量改写 Vault。若显式 `-OutputPath` 的父目录不存在，脚本可能创建该父目录，且只作用于用户明确给出的路径。
 - 本包已经完成 v0.1.0 发布前脱敏审查。
-- `v0.2.0` 已完成公开发布前最终脱敏审查；后续真实反馈仍应先脱敏再进入 examples 或 validation。
+- `v0.2.1` 已完成公开发布前最终脱敏审查；后续真实反馈仍应先脱敏再进入 examples 或 validation。
 
 ## License
 

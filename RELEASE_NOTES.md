@@ -1,5 +1,57 @@
 # Release Notes
 
+## v0.2.1 - 2026-08-13
+
+`v0.2.1` 已完成 patch release 审批、最终验证、tag 和 GitHub release。
+
+Release URL: <https://github.com/RyanYao527/ands-methodology-skill/releases/tag/v0.2.1>
+
+### Summary
+
+v0.2.1 聚焦 v0.2.0 公开发布后的稳定化：新增反馈入口、30-day pilot template、release validation aggregator 和保守 line-ending policy，帮助后续 patch release 与试点扩围更稳。
+
+### Added
+
+- `30-day-pilot-template.md`：用于管理者把 ANDS 试点压缩成 30 天可执行计划。
+- `post-release-feedback-intake-v0.2.1.md`：用于公开发布后的脱敏反馈入口。
+- `validate_release.ps1`：聚合 template validation、writeback MVP test、optional skill quick validation、asset counts 和公开包扫描。
+- `test_validate_release.ps1`：覆盖 release validation aggregator 的 happy path、quick validation failure 和 public scan blocking 行为。
+- `.gitattributes`：为 Markdown、YAML、PowerShell 等文本文件声明 LF 行尾策略。
+
+### Changed
+
+- `SKILL.md` adoption route 增加 30-day pilot template。
+- `SKILL.md` feedback route 增加 post-release feedback intake。
+- README 更新为 v0.2.1 public patch release 状态和 release validation commands。
+
+### Validation Evidence
+
+- `test_validate_release.ps1` PASS：覆盖 aggregator happy path、quick validation failure 和 public scan blocking。
+- `validate_release.ps1 -QuickValidatePath ...` PASS：template validation、writeback MVP、skill quick validation、asset counts、public package scan。
+- `quick_validate.py` PASS：`Skill is valid!`。
+- v0.2.1 release readiness check：`READY_FOR_OWNER_GO_NO_GO`。
+- Governance & Security：`PASS_WITH_NOTE`，无 Critical / Important blocker。
+- Project Owner Go 已确认。
+- final patch release execution validation PASS。
+
+### Security And Desensitization
+
+- 未发现真实组织/公司、人员、仓库、域名、IP、凭据、本地绝对路径或业务敏感数据进入发布包。
+- public package scan 会阻断通用 user home path、URL、IP 和 secret-like patterns；公开 GitHub release URL 与 checklist 中的说明性扫描命令文本为允许项。
+- 发布后反馈 intake 要求先脱敏，再转成修订任务、regression prompt 或 Lessons。
+
+### Compatibility
+
+- 保持 Codex skill 结构：`ands-methodology/SKILL.md`、`agents/openai.yaml`、`references/`、`assets/templates/`、`scripts/`。
+- 不引入外部运行时依赖；新增验证脚本为可选 PowerShell helper。
+- 不改变 LICENSE；当前仍为 MIT。
+
+### Known Limits
+
+- 不是完整课程仓库。
+- 不提供生产级 AI Gateway、Dashboard、GitHub Actions 或完整 Obsidian 自动化。
+- 真实反馈进入 examples 或 validation 前仍需脱敏。
+
 ## v0.2.0 - 2026-08-13
 
 `v0.2.0` 已完成公开发布审批、最终验证、tag 和 GitHub release。

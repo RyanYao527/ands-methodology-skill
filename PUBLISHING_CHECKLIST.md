@@ -1,6 +1,6 @@
 # Publishing Checklist
 
-本清单用于 `ands-methodology` skill 的内部试用、release candidate 准备和公开发布执行检查。当前公开版本是 `v0.2.0`；GitHub release: <https://github.com/RyanYao527/ands-methodology-skill/releases/tag/v0.2.0>。
+本清单用于 `ands-methodology` skill 的内部试用、release candidate 准备和公开发布执行检查。当前公开版本是 `v0.2.1`；GitHub release: <https://github.com/RyanYao527/ands-methodology-skill/releases/tag/v0.2.1>。
 
 ## v0.1.0 Released Archive
 
@@ -45,6 +45,19 @@
 - [x] 创建 GitHub release，并记录 release URL：<https://github.com/RyanYao527/ands-methodology-skill/releases/tag/v0.2.0>。
 - [x] 完成 Gate 5 release closeout 与 Knowledge Writeback。
 
+## v0.2.1 Patch Release Execution
+
+公开 GitHub patch release 执行状态：
+
+- [x] Project Owner 明确确认可执行 `v0.2.1` patch release。
+- [x] 完成 `v0.2.1 release readiness check`，结论为 `READY_FOR_OWNER_GO_NO_GO`。
+- [x] release execution 前重新运行 `test_validate_release.ps1`、`validate_release.ps1 -QuickValidatePath ...`、`quick_validate.py`。
+- [x] release execution 前重新完成最终脱敏扫描，覆盖 README、release notes、publishing checklist、SKILL.md、references、templates、examples、scripts。
+- [x] 确认 tag 名、release notes 版本、GitHub release 标题和仓库可见性一致。
+- [x] 创建并推送 `v0.2.1` tag。
+- [x] 创建 GitHub release，并记录 release URL：<https://github.com/RyanYao527/ands-methodology-skill/releases/tag/v0.2.1>。
+- [x] 完成 Gate 5 release closeout 与 Knowledge Writeback。
+
 ## Validation Commands
 
 在仓库根目录运行：
@@ -52,6 +65,8 @@
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-methodology\scripts\validate_templates.ps1
 powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-methodology\scripts\test_writeback_mvp.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-methodology\scripts\test_validate_release.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-methodology\scripts\validate_release.ps1
 python <path-to-skill-creator>\scripts\quick_validate.py .\ands-methodology
 ```
 
@@ -66,6 +81,8 @@ rg -n "BEGIN (RSA|OPENSSH|PRIVATE)|api[_-]?key|secret|password|token|AKIA|sk-[A-
 rg -n "([A-Za-z]:\\Users\\|/Users/|/home/|http[s]?://|\b\d{1,3}(\.\d{1,3}){3}\b)" README.md RELEASE_NOTES.md PUBLISHING_CHECKLIST.md examples ands-methodology
 ```
 
+`validate_release.ps1` runs an automated version of the same local path / URL / IP scan with allowlisted public GitHub release links and explanatory checklist command text.
+
 说明性命中可以接受，例如“不要填写 token / 凭据”的脱敏红线；真实凭据、真实仓库、真实域名/IP 或本地绝对路径必须阻断发布。
 
 ## Gate 5 Writeback
@@ -74,6 +91,7 @@ rg -n "([A-Za-z]:\\Users\\|/Users/|/home/|http[s]?://|\b\d{1,3}(\.\d{1,3}){3}\b)
 
 - v0.2.0 release candidate prep 记录。
 - T09/T10 Enterprise review 的 `CONDITIONAL_GO` 结论。
+- v0.2.1 post-release stabilization 与 release readiness check 记录。
 - validation 结果与最终脱敏扫描结果。
 - Project Owner 发布决策：Go。
-- 公开发布结果：tag `v0.2.0`、release URL、release notes 快照和后续 Lessons。
+- 公开发布结果：tag、release URL、release notes 快照和后续 Lessons。
