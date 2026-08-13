@@ -8,7 +8,28 @@
 
 ## Status
 
-当前公开版本是 `v0.2.1`。
+当前公开版本是 `v0.2.2`。
+
+`v0.2.2` 已于 2026-08-13 完成公开发布审批、最终验证、tag 和 GitHub release。Release URL: <https://github.com/RyanYao527/ands-methodology-skill/releases/tag/v0.2.2>。
+
+v0.2.2 新增：
+
+- multi-agent/model adaptation reference。
+- capability matrix template。
+- agent/model adapter card template。
+- provider profile cards example。
+- agent/model adaptation forward-test suite。
+- execution / validation / writeback prompt boundary guardrails。
+- release validation guards for provider-native/API/tenant/writeback/benchmark claim overreach。
+
+v0.2.2 验证状态：
+
+- `test_validate_release.ps1`：PASS。
+- `validate_release.ps1 -QuickValidatePath ...`：PASS。
+- `quick_validate.py`：PASS。
+- `git diff --check`：PASS。
+- T09 provider-profile proxy trial：PASS_WITH_FIXES_FOR_T10_INPUT。
+- T10 release readiness decision：READY_FOR_PUBLIC_V0.2.2_RELEASE_EXECUTION，限定为 prompt/profile/template adapter pack。
 
 `v0.2.1` 已于 2026-08-13 完成 patch release 审批、最终验证、tag 和 GitHub release。Release URL: <https://github.com/RyanYao527/ands-methodology-skill/releases/tag/v0.2.1>。
 
@@ -18,6 +39,8 @@ v0.2.1 新增：
 - post-release feedback intake example。
 - `validate_release.ps1` 和 `test_validate_release.ps1`。
 - `.gitattributes` line-ending policy。
+
+v0.2.2 范围限定为 prompt-level multi-agent/model adaptation pack，覆盖 KIMI、GLM、MiniMax、Claude、DeepSeek、WorkBuddy 和 Codex/OpenAI baseline 的 profile、template、forward-test 适配；Non-Scope: no live provider API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking。
 
 v0.2.1 验证状态：
 
@@ -112,6 +135,7 @@ $text = Get-Content -LiteralPath .\ands-methodology\SKILL.md -Raw -Encoding UTF8
 - 管理落地：为研发团队设计 30/60/90 天试点计划。
 - ANDS-T 改写：把普通需求改写成 AI 可执行、可治理、可验收的任务卡。
 - Agent 矩阵：区分 AI PM、执行 Agent 和工具/模型实例。
+- 多模型适配：为 KIMI、GLM、MiniMax、Claude、DeepSeek、WorkBuddy 或其他 runtime 设计 ANDS-compatible prompt packet、capability matrix 和 forward-test。
 - Gate / Track：按 Quick、Standard、Enterprise 调整治理强度。
 - Lessons 回写：把延期、返工、失败或有效做法沉淀为可复用知识。
 - 内部培训：准备 ANDS 简报、工作坊脚本或演示 trace。
@@ -129,7 +153,7 @@ $text = Get-Content -LiteralPath .\ands-methodology\SKILL.md -Raw -Encoding UTF8
 4. 我们想让 AI PM 调度多个 Agent 做需求拆解、开发、测试和发布，请帮我设计最小 Agent 矩阵。
 5. 这次上线延期是因为验收标准写得太模糊，Agent 做完以后业务方说不是他们要的。请按 ANDS 写一次复盘。
 
-v0.2 forward-test 场景见 `examples/forward-test-scenarios-v0.2.md`；种子用户反馈 intake 见 `examples/seed-user-feedback-intake-v0.2.md`；发布后反馈 intake 见 `examples/post-release-feedback-intake-v0.2.1.md`。
+v0.2 forward-test 场景见 `examples/forward-test-scenarios-v0.2.md`；种子用户反馈 intake 见 `examples/seed-user-feedback-intake-v0.2.md`；发布后反馈 intake 见 `examples/post-release-feedback-intake-v0.2.1.md`；多 runtime 适配 forward-test 见 `examples/agent-model-adaptation-forward-test-v0.2.2.md`。
 
 ## Package Map
 
@@ -153,6 +177,7 @@ ands-methodology-skill/
 - 不提供完整 37 节课程内容。
 - 不构建生产级 AI Gateway。
 - 不提供一键部署 Dashboard、GitHub Actions 或 Obsidian 自动化。
+- Non-Scope: v0.2.2 adapter pack has no live provider API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking。
 - 不承诺所有团队都适合一次性全量引入五道 Gate。
 - Obsidian writeback MVP 只生成草稿或写入显式指定路径；不扫描或批量改写 Vault。若显式 `-OutputPath` 的父目录不存在，脚本可能创建该父目录，且只作用于用户明确给出的路径。
 - 本包已经完成 v0.1.0 发布前脱敏审查。

@@ -69,6 +69,17 @@
 
 Dashboard 可先是原型；Gateway 可先是 mock 日志；字段必须能追溯到演示 trace。
 
+### 多智能体/多模型试点
+
+当团队同时试用 KIMI、GLM、MiniMax、Claude、DeepSeek、WorkBuddy 或其他 runtime 时，先保持 ANDS-T、Track、Gate Checklist 和 validation rubric 不变，只更换一个 runtime 变量。
+
+试点记录建议使用 capability matrix：
+
+- 记录上下文处理、工具使用、结构化输出、治理行为、验证行为和知识回写。
+- 把未知项写成 `unknown`，不要写成能力缺陷。
+- 不把一次试跑结果写成公开 benchmark 或厂商排名。
+- 如需真实 API、密钥、企业连接器、真实数据或自动写回，升级 Enterprise Track。
+
 ### 常见阻力与应对
 
 | 阻力 | 应对 |

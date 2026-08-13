@@ -1,6 +1,6 @@
 # Publishing Checklist
 
-本清单用于 `ands-methodology` skill 的内部试用、release candidate 准备和公开发布执行检查。当前公开版本是 `v0.2.1`；GitHub release: <https://github.com/RyanYao527/ands-methodology-skill/releases/tag/v0.2.1>。
+本清单用于 `ands-methodology` skill 的内部试用、release candidate 准备和公开发布执行检查。当前公开版本是 `v0.2.2`；GitHub release: <https://github.com/RyanYao527/ands-methodology-skill/releases/tag/v0.2.2>。
 
 ## v0.1.0 Released Archive
 
@@ -58,6 +58,21 @@
 - [x] 创建 GitHub release，并记录 release URL：<https://github.com/RyanYao527/ands-methodology-skill/releases/tag/v0.2.1>。
 - [x] 完成 Gate 5 release closeout 与 Knowledge Writeback。
 
+## v0.2.2 Public Release Execution
+
+公开 GitHub release 执行状态：
+
+- [x] Project Owner 明确确认可公开发布 `v0.2.2`，范围限定为 prompt/profile/template adapter pack。
+- [x] 完成 `v0.2.2 release readiness check`，结论为 `READY_FOR_PUBLIC_V0.2.2_RELEASE_EXECUTION`。
+- [x] T09 provider-profile proxy trial 已记录为 `PASS_WITH_FIXES_FOR_T10_INPUT`，且未作为 provider-native / API / benchmark 证据。
+- [x] release execution 前修复 execution / validation / writeback prompt 边界。
+- [x] release execution 前重新运行 `test_validate_release.ps1`、`validate_release.ps1 -QuickValidatePath ...`、`quick_validate.py`。
+- [x] release validation 会阻断 unsupported overreach claims；Non-Scope: no provider-native validation, no API integration, no tenant connector readiness, no automated writeback, and no benchmark ranking。
+- [x] 确认 tag 名、release notes 版本、GitHub release 标题和仓库可见性一致。
+- [x] 创建并推送 `v0.2.2` tag。
+- [x] 创建 GitHub release，并记录 release URL：<https://github.com/RyanYao527/ands-methodology-skill/releases/tag/v0.2.2>。
+- [x] 完成 Gate 5 release closeout 与 Knowledge Writeback。
+
 ## Validation Commands
 
 在仓库根目录运行：
@@ -92,6 +107,8 @@ rg -n "([A-Za-z]:\\Users\\|/Users/|/home/|http[s]?://|\b\d{1,3}(\.\d{1,3}){3}\b)
 - v0.2.0 release candidate prep 记录。
 - T09/T10 Enterprise review 的 `CONDITIONAL_GO` 结论。
 - v0.2.1 post-release stabilization 与 release readiness check 记录。
+- v0.2.2 multi-agent/model adapter pack readiness、forward-test、release execution 和 provider-native/API/benchmark 边界。
+- v0.3 Enterprise discovery 的 V03-T00 Gate plan。
 - validation 结果与最终脱敏扫描结果。
 - Project Owner 发布决策：Go。
 - 公开发布结果：tag、release URL、release notes 快照和后续 Lessons。

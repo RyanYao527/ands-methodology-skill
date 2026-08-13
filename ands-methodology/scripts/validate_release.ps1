@@ -117,6 +117,150 @@ function Remove-AllowedPublicScanMatches {
     return $filtered
 }
 
+function Get-RgMatchPath {
+    param([Parameter(Mandatory = $true)][string]$Line)
+
+    $parts = $Line -split ":", 2
+    return $parts[0]
+}
+
+function Remove-AllowedIntegrationClaimMatches {
+    param([Parameter(Mandatory = $true)][string[]]$ScanMatches)
+
+    $filtered = @()
+    foreach ($scanMatch in $ScanMatches) {
+        $matchPath = Get-RgMatchPath -Line $scanMatch
+        if ($matchPath -like "ands-methodology\scripts\*") {
+            continue
+        }
+
+        if (Test-AllowedIntegrationClaimLine -Line $scanMatch) {
+            continue
+        }
+        $filtered += $scanMatch
+    }
+
+    return $filtered
+}
+
+function Test-AllowedIntegrationClaimLine {
+    param([Parameter(Mandatory = $true)][string]$Line)
+
+    $lower = $Line.ToLowerInvariant()
+
+    if ($lower.Contains("best model") -or $lower.Contains("guaranteed provider capability")) {
+        return $false
+    }
+
+    $positiveClaimPhrases = @(
+        " are available",
+        " is available",
+        " with no extra work",
+        " includes ",
+        " provides ",
+        " supports ",
+        " readiness",
+        " validated",
+        " validation for"
+    )
+
+    if (
+        $lower.Contains("enterprise trigger:") -or
+        $lower.Contains("enterprise triggers") -or
+        $lower.Contains("not fit without enterprise review")
+    ) {
+        foreach ($positiveClaimPhrase in $positiveClaimPhrases) {
+            if ($lower.Contains($positiveClaimPhrase)) {
+                return $false
+            }
+        }
+        return $true
+    }
+
+    $requirements = @(
+        @{
+            Patterns = @("provider-native validation")
+            Allowed = @("not provider-native validation", "not provider-native capability validation", "no provider-native validation")
+        },
+        @{
+            Patterns = @("native provider validation")
+            Allowed = @("not native provider validation", "no native provider validation")
+        },
+        @{
+            Patterns = @("api integration")
+            Allowed = @("no live provider api integration", "not an api integration guide", "not api integration", "no api integration")
+        },
+        @{
+            Patterns = @("live provider api integration")
+            Allowed = @("no live provider api integration")
+        },
+        @{
+            Patterns = @("credential setup")
+            Allowed = @("no credential setup", "no credential or tenant setup")
+        },
+        @{
+            Patterns = @("credential or tenant setup")
+            Allowed = @("no credential or tenant setup")
+        },
+        @{
+            Patterns = @("tenant setup")
+            Allowed = @("no tenant setup", "no credential or tenant setup")
+        },
+        @{
+            Patterns = @("tenant connectors")
+            Allowed = @("no tenant connectors")
+        },
+        @{
+            Patterns = @("tenant connector readiness")
+            Allowed = @("no tenant connector readiness", "not tenant connector readiness", "no tenant connectors")
+        },
+        @{
+            Patterns = @("automated writeback")
+            Allowed = @("no automated writeback")
+        },
+        @{
+            Patterns = @("api key setup")
+            Allowed = @("no api key setup")
+        },
+        @{
+            Patterns = @("oauth setup")
+            Allowed = @("no oauth setup")
+        },
+        @{
+            Patterns = @("benchmark ranking")
+            Allowed = @("no benchmark ranking", "no public benchmark ranking", "not benchmark rankings")
+        }
+    )
+
+    foreach ($requirement in $requirements) {
+        $hasPattern = $false
+        foreach ($pattern in $requirement.Patterns) {
+            if ($lower.Contains($pattern)) {
+                $hasPattern = $true
+                break
+            }
+        }
+
+        if (-not $hasPattern) {
+            continue
+        }
+
+        $hasAllowedPhrase = $false
+        foreach ($allowed in $requirement.Allowed) {
+            if ($lower.Contains($allowed)) {
+                $hasAllowedPhrase = $true
+                break
+            }
+        }
+
+        if (-not $hasAllowedPhrase) {
+            return $false
+        }
+    }
+
+    return $true
+}
+
 $templatesValidator = Join-Path $PSScriptRoot "validate_templates.ps1"
 $writebackTest = Join-Path $PSScriptRoot "test_writeback_mvp.ps1"
 
@@ -140,9 +284,9 @@ if ($QuickValidatePath) {
 }
 
 Invoke-Step -Name "asset_counts" -Block {
-    Assert-Count -Name "references" -Path (Join-Path $SkillRoot "references") -Expected 7
-    Assert-Count -Name "templates" -Path (Join-Path $SkillRoot "assets/templates") -Expected 8
-    Assert-Count -Name "examples" -Path (Join-Path $RepoRoot "examples") -Expected 10
+    Assert-Count -Name "references" -Path (Join-Path $SkillRoot "references") -Expected 8
+    Assert-Count -Name "templates" -Path (Join-Path $SkillRoot "assets/templates") -Expected 10
+    Assert-Count -Name "examples" -Path (Join-Path $RepoRoot "examples") -Expected 12
 }
 
 Invoke-Step -Name "public_package_scan" -Block {
@@ -158,6 +302,12 @@ Invoke-Step -Name "public_package_scan" -Block {
         $pathMatches = Remove-AllowedPublicScanMatches -Matches $pathMatches
         if ($pathMatches.Count -gt 0) {
             throw "Potential local path, URL, or IP matches found:`n$($pathMatches -join "`n")"
+        }
+
+        $claimMatches = Invoke-Rg -Pattern "(?i)provider-native validation|native provider validation|API integration|live provider API integration|credential setup|credential or tenant setup|tenant setup|tenant connectors|tenant connector readiness|automated writeback|API key setup|OAuth setup|benchmark ranking|best model|guaranteed provider capability" -Targets $targets
+        $claimMatches = Remove-AllowedIntegrationClaimMatches -ScanMatches $claimMatches
+        if ($claimMatches.Count -gt 0) {
+            throw "Potential unsupported integration or benchmark claims found:`n$($claimMatches -join "`n")"
         }
     }
     finally {

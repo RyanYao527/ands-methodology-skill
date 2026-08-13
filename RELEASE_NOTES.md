@@ -1,5 +1,45 @@
 # Release Notes
 
+## v0.2.2 - 2026-08-13
+
+`v0.2.2` 已完成公开发布执行。
+
+Release URL: <https://github.com/RyanYao527/ands-methodology-skill/releases/tag/v0.2.2>
+
+### Summary
+
+v0.2.2 adds a limited, provider-neutral multi-agent/model adapter pack for prompt/profile/template-level ANDS adaptation. It helps teams run comparable desensitized trials across Codex/OpenAI baseline, KIMI, GLM, MiniMax, Claude, DeepSeek, and WorkBuddy labels. Non-Scope: no provider-native validation, no API integration, no automated writeback, and no benchmark ranking.
+
+### Added
+
+- `multi-agent-model-adaptation.md`：provider-neutral guidance for adapting ANDS workflows to another agent/model runtime.
+- `capability-matrix-template.md`：shared matrix for comparing runtime observations.
+- `agent-model-adapter-card.md`：profile template for runtime-specific prompt packets.
+- `provider-profile-cards-v0.2.2.md`：initial profile labels for Codex/OpenAI baseline, KIMI, GLM, MiniMax, Claude, DeepSeek, and WorkBuddy.
+- `agent-model-adaptation-forward-test-v0.2.2.md`：shared five-role forward-test suite.
+
+### Changed
+
+- `SKILL.md` adds a route for adapting ANDS to another agent/model runtime.
+- `governance-and-metrics.md` and `adoption-playbook.md` add multi-runtime Standard / Enterprise boundaries.
+- README documents v0.2.2 development scope and non-scope.
+- Prompt packets now strengthen execution, validation, and writeback boundaries after T09 proxy-trial findings.
+
+### Validation Evidence
+
+- Template validation requires the adapter card and capability matrix templates.
+- Release validation checks updated reference/template/example counts.
+- Aggregator regression checks provider labels and unsupported integration-claim boundaries.
+- T09 provider-profile proxy trial completed with `PASS_WITH_FIXES_FOR_T10_INPUT`.
+- T10 release readiness decision is `READY_FOR_PUBLIC_V0.2.2_RELEASE_EXECUTION` for the limited prompt/profile/template adapter pack.
+- final release execution validation PASS.
+
+### Non-Scope
+
+- No live provider API integration.
+- No credential setup, no tenant connectors, and no automated writeback.
+- No public benchmark ranking or current vendor capability claims.
+
 ## v0.2.1 - 2026-08-13
 
 `v0.2.1` 已完成 patch release 审批、最终验证、tag 和 GitHub release。

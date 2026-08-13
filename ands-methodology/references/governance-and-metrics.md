@@ -108,6 +108,20 @@ Gate 5 最小检查：
 | 只报指标不改标准 | Dashboard 变成汇报墙 | 指标必须进入 Gate 5，转成改进 Issue 或标准更新 |
 | 反馈原文入库 | 暴露真实用户、项目或业务细节 | 先脱敏和归类，再写 regression prompt |
 
+### Multi-Runtime Governance Boundary
+
+Prompt-level adaptation across agent/model runtimes stays Standard Track when inputs are desensitized. Non-Scope: no live provider API integration, no credential setup, no tenant setup, no automated writeback, and no public benchmark ranking.
+
+升级 Enterprise Track 的条件：
+
+- 需要真实 API 调用、SDK 接入或企业连接器。
+- 需要保存、读取或传递 API key、token、OAuth 信息或租户配置。
+- 需要把真实项目材料发送给外部 runtime。
+- 需要由非当前受控环境自动写回 Obsidian、GitHub 或企业知识库。
+- Enterprise trigger: 需要公开发布厂商能力对比、benchmark ranking 或稳定性结论。
+
+多 runtime 试跑只能记录脱敏观察，不把单轮结果写成通用能力排名。
+
 ## 输出口径
 
 管理者输出：

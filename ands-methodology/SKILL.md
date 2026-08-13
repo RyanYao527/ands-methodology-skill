@@ -24,6 +24,7 @@ Use this skill to help teams understand, adopt, practice, or review AI-Native De
 | Draft ANDS standards | `references/standards-k-t-a-w-g.md` | ANDS-K/T/A/W/G draft or review |
 | Rewrite a task as ANDS-T | `references/standards-k-t-a-w-g.md`, `assets/templates/ands-t-template.md` | ANDS-T task card |
 | Design Agent roles | `references/methodology-10-models.md`, `references/platform-5-components.md`, `assets/templates/agent-matrix-template.md` | L1/L2/L3 Agent matrix and AI PM prompt |
+| Adapt ANDS to another agent/model runtime | `references/multi-agent-model-adaptation.md`, `assets/templates/agent-model-adapter-card.md`, `assets/templates/capability-matrix-template.md` | Provider profile, runtime prompt packet, forward-test plan |
 | Design governance | `references/governance-and-metrics.md`, `assets/templates/gate-checklist.md`, `assets/templates/track-decision-card.md` | Track decision and Gate checklist |
 | Review a delivery or incident | `references/demo-trace-guide.md`, `references/governance-and-metrics.md`, `assets/templates/lessons-template.md` | Lessons, follow-up issue, standard update |
 | Prepare internal training | `references/overview.md`, `references/demo-trace-guide.md`, `references/adoption-playbook.md` | Briefing outline or workshop script |
