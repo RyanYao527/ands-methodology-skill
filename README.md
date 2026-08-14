@@ -1,6 +1,6 @@
-# ands-nexus Skill
+# ANDS Nexus Skill
 
-`ands-nexus` 是一个 Codex skill，用于帮助团队采用或实践 AI-Native Development System (ANDS)。它聚焦两件事：管理落地和最小实践模板。
+**ANDS Nexus**（`ands-nexus`）是一个 Codex skill，用于帮助团队采用或实践 AI-Native Development System (ANDS)。它聚焦两件事：管理落地和最小实践模板。
 
 它可以辅助管理者评估适用边界、设计试点路线、定义治理与度量机制；也可以辅助实践者编写 ANDS-T、Agent 矩阵、Gate Checklist、Track 判定和 Lessons 回写。
 
@@ -84,7 +84,7 @@ v0.1.0 历史版本已完成：
 
 ## Installation
 
-将仓库中的 `ands-nexus/ands-nexus/` 文件夹复制或安装到 Codex 使用的 skills 目录中。安装后，目标 skills 目录下应直接出现 `ands-nexus/SKILL.md`。
+将本仓库根目录下的 `ands-nexus/` skill 文件夹复制或安装到 Codex 使用的 skills 目录中。安装后，目标 skills 目录下应直接出现 `ands-nexus/SKILL.md`。
 
 安装后，在 Codex 中使用 `$ands-nexus`，或用 ANDS、AI-Native Development System、ANDS-T、Gate、Track、Agent 矩阵、Lessons 等关键词触发。
 
