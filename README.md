@@ -1,6 +1,6 @@
-# ands-methodology Skill
+# ands-nexus Skill
 
-`ands-methodology` 是一个 Codex skill，用于帮助团队采用或实践 AI-Native Development System (ANDS)。它聚焦两件事：管理落地和最小实践模板。
+`ands-nexus` 是一个 Codex skill，用于帮助团队采用或实践 AI-Native Development System (ANDS)。它聚焦两件事：管理落地和最小实践模板。
 
 它可以辅助管理者评估适用边界、设计试点路线、定义治理与度量机制；也可以辅助实践者编写 ANDS-T、Agent 矩阵、Gate Checklist、Track 判定和 Lessons 回写。
 
@@ -10,7 +10,7 @@
 
 当前公开版本是 `v0.2.2`。
 
-`v0.2.2` 已于 2026-08-13 完成公开发布审批、最终验证、tag 和 GitHub release。Release URL: <https://github.com/RyanYao527/ands-methodology-skill/releases/tag/v0.2.2>。
+`v0.2.2` 已于 2026-08-13 完成公开发布审批、最终验证、tag 和 GitHub release。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.2.2>。
 
 v0.2.2 新增：
 
@@ -31,7 +31,7 @@ v0.2.2 验证状态：
 - T09 provider-profile proxy trial：PASS_WITH_FIXES_FOR_T10_INPUT。
 - T10 release readiness decision：READY_FOR_PUBLIC_V0.2.2_RELEASE_EXECUTION，限定为 prompt/profile/template adapter pack。
 
-`v0.2.1` 已于 2026-08-13 完成 patch release 审批、最终验证、tag 和 GitHub release。Release URL: <https://github.com/RyanYao527/ands-methodology-skill/releases/tag/v0.2.1>。
+`v0.2.1` 已于 2026-08-13 完成 patch release 审批、最终验证、tag 和 GitHub release。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.2.1>。
 
 v0.2.1 新增：
 
@@ -70,13 +70,13 @@ v0.2.0 验证状态：
 - Project Owner 已确认公开发布。
 - `v0.2.0` tag 与 GitHub release 已创建。
 
-`v0.2.0` Release URL: <https://github.com/RyanYao527/ands-methodology-skill/releases/tag/v0.2.0>。
+`v0.2.0` Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.2.0>。
 
 v0.1.0 历史版本已完成：
 
 - skill skeleton 与目录边界。
-- `ands-methodology/SKILL.md`。
-- `ands-methodology/agents/openai.yaml`。
+- `ands-nexus/SKILL.md`。
+- `ands-nexus/agents/openai.yaml`。
 - 7 个 references。
 - 6 个 templates。
 - 7 个 examples。
@@ -84,26 +84,26 @@ v0.1.0 历史版本已完成：
 
 ## Installation
 
-将仓库中的 `ands-methodology-skill/ands-methodology/` 文件夹复制或安装到 Codex 使用的 skills 目录中。安装后，目标 skills 目录下应直接出现 `ands-methodology/SKILL.md`。
+将仓库中的 `ands-nexus/ands-nexus/` 文件夹复制或安装到 Codex 使用的 skills 目录中。安装后，目标 skills 目录下应直接出现 `ands-nexus/SKILL.md`。
 
-安装后，在 Codex 中使用 `$ands-methodology`，或用 ANDS、AI-Native Development System、ANDS-T、Gate、Track、Agent 矩阵、Lessons 等关键词触发。
+安装后，在 Codex 中使用 `$ands-nexus`，或用 ANDS、AI-Native Development System、ANDS-T、Gate、Track、Agent 矩阵、Lessons 等关键词触发。
 
 Windows PowerShell 示例：
 
 ```powershell
-$target = Join-Path $env:USERPROFILE ".codex\skills\ands-methodology"
+$target = Join-Path $env:USERPROFILE ".codex\skills\ands-nexus"
 New-Item -ItemType Directory -Force (Split-Path $target) | Out-Null
-Copy-Item -Recurse -Force .\ands-methodology $target
+Copy-Item -Recurse -Force .\ands-nexus $target
 Test-Path (Join-Path $target "SKILL.md")
 ```
 
 仓库根目录验证：
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-methodology\scripts\validate_templates.ps1
-powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-methodology\scripts\test_writeback_mvp.ps1
-powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-methodology\scripts\test_validate_release.ps1
-powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-methodology\scripts\validate_release.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-nexus\scripts\validate_templates.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-nexus\scripts\test_writeback_mvp.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-nexus\scripts\test_validate_release.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-nexus\scripts\validate_release.ps1
 ```
 
 ### Windows UTF-8 Note
@@ -111,8 +111,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-methodology\scripts\v
 如果在 Windows PowerShell 里读取中文 Markdown 出现 mojibake，先用 UTF-8 重新读取文件：
 
 ```powershell
-Get-Content -Raw -Encoding UTF8 .\ands-methodology\SKILL.md
-Get-Content -Raw -Encoding UTF8 .\ands-methodology\references\governance-and-metrics.md
+Get-Content -Raw -Encoding UTF8 .\ands-nexus\SKILL.md
+Get-Content -Raw -Encoding UTF8 .\ands-nexus\references\governance-and-metrics.md
 ```
 
 这通常是读取方式问题，不代表 skill 内容损坏。
@@ -123,7 +123,7 @@ Get-Content -Raw -Encoding UTF8 .\ands-methodology\references\governance-and-met
 chcp 65001 > $null
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 $OutputEncoding = [System.Text.Encoding]::UTF8
-$text = Get-Content -LiteralPath .\ands-methodology\SKILL.md -Raw -Encoding UTF8
+$text = Get-Content -LiteralPath .\ands-nexus\SKILL.md -Raw -Encoding UTF8
 [pscustomobject]@{
   ContainsExpectedChinese = $text.Contains('方法论')
   ContainsCommonMojibake = $text.Contains('æ') -or $text.Contains('乱码')
@@ -158,13 +158,13 @@ v0.2 forward-test 场景见 `examples/forward-test-scenarios-v0.2.md`；种子�
 ## Package Map
 
 ```text
-ands-methodology-skill/
+ands-nexus/
   README.md
   LICENSE
   RELEASE_NOTES.md
   PUBLISHING_CHECKLIST.md
   examples/
-  ands-methodology/
+  ands-nexus/
     SKILL.md
     agents/openai.yaml
     references/

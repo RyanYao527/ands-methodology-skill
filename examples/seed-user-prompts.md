@@ -105,7 +105,7 @@
 ### F. Windows UTF-8 读取恢复
 
 ```text
-我在 Windows PowerShell 里读取 ands-methodology 的中文 Markdown 时出现乱码。请说明如何重新读取，并给出验证命令。
+我在 Windows PowerShell 里读取 ands-nexus 的中文 Markdown 时出现乱码。请说明如何重新读取，并给出验证命令。
 ```
 
 期望观察：

@@ -1,6 +1,6 @@
 # Post-Release Feedback Intake v0.2.1
 
-> 用途：记录 `ands-methodology` 公开发布后的脱敏反馈，并把反馈转成可验证的 v0.2.1 / v0.3 改进输入。不要粘贴真实反馈原文。
+> 用途：记录 `ands-nexus` 公开发布后的脱敏反馈，并把反馈转成可验证的 v0.2.1 / v0.3 改进输入。不要粘贴真实反馈原文。
 
 ## Intake Record
 

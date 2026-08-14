@@ -1,6 +1,6 @@
 # Publishing Checklist
 
-本清单用于 `ands-methodology` skill 的内部试用、release candidate 准备和公开发布执行检查。当前公开版本是 `v0.2.2`；GitHub release: <https://github.com/RyanYao527/ands-methodology-skill/releases/tag/v0.2.2>。
+本清单用于 `ands-nexus` skill 的内部试用、release candidate 准备和公开发布执行检查。当前公开版本是 `v0.2.2`；GitHub release: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.2.2>。
 
 ## v0.1.0 Released Archive
 
@@ -17,9 +17,9 @@
 本节记录公开 `v0.2.0` 候选包准备状态；release execution 已在 Project Owner Go 后完成。
 
 - [x] 仓库结构包含 `README.md`、`LICENSE`、`RELEASE_NOTES.md`、`PUBLISHING_CHECKLIST.md`。
-- [x] skill folder 名称为 `ands-methodology`。
-- [x] `ands-methodology/SKILL.md` frontmatter 只包含 `name` 与 `description`。
-- [x] `ands-methodology/agents/openai.yaml` 与 skill 定位一致。
+- [x] skill folder 名称为 `ands-nexus`。
+- [x] `ands-nexus/SKILL.md` frontmatter 只包含 `name` 与 `description`。
+- [x] `ands-nexus/agents/openai.yaml` 与 skill 定位一致。
 - [x] 7 个 references 齐备。
 - [x] 7 个 templates 齐备。
 - [x] 9 个 examples 齐备。
@@ -42,7 +42,7 @@
 - [x] release execution 前重新完成最终脱敏扫描，覆盖 README、release notes、publishing checklist、SKILL.md、references、templates、examples、scripts。
 - [x] 确认 tag 名、release notes 版本、GitHub release 标题和仓库可见性一致。
 - [x] 创建并推送 `v0.2.0` tag。
-- [x] 创建 GitHub release，并记录 release URL：<https://github.com/RyanYao527/ands-methodology-skill/releases/tag/v0.2.0>。
+- [x] 创建 GitHub release，并记录 release URL：<https://github.com/RyanYao527/ands-nexus/releases/tag/v0.2.0>。
 - [x] 完成 Gate 5 release closeout 与 Knowledge Writeback。
 
 ## v0.2.1 Patch Release Execution
@@ -55,7 +55,7 @@
 - [x] release execution 前重新完成最终脱敏扫描，覆盖 README、release notes、publishing checklist、SKILL.md、references、templates、examples、scripts。
 - [x] 确认 tag 名、release notes 版本、GitHub release 标题和仓库可见性一致。
 - [x] 创建并推送 `v0.2.1` tag。
-- [x] 创建 GitHub release，并记录 release URL：<https://github.com/RyanYao527/ands-methodology-skill/releases/tag/v0.2.1>。
+- [x] 创建 GitHub release，并记录 release URL：<https://github.com/RyanYao527/ands-nexus/releases/tag/v0.2.1>。
 - [x] 完成 Gate 5 release closeout 与 Knowledge Writeback。
 
 ## v0.2.2 Public Release Execution
@@ -70,7 +70,7 @@
 - [x] release validation 会阻断 unsupported overreach claims；Non-Scope: no provider-native validation, no API integration, no tenant connector readiness, no automated writeback, and no benchmark ranking。
 - [x] 确认 tag 名、release notes 版本、GitHub release 标题和仓库可见性一致。
 - [x] 创建并推送 `v0.2.2` tag。
-- [x] 创建 GitHub release，并记录 release URL：<https://github.com/RyanYao527/ands-methodology-skill/releases/tag/v0.2.2>。
+- [x] 创建 GitHub release，并记录 release URL：<https://github.com/RyanYao527/ands-nexus/releases/tag/v0.2.2>。
 - [x] 完成 Gate 5 release closeout 与 Knowledge Writeback。
 
 ## Validation Commands
@@ -78,11 +78,11 @@
 在仓库根目录运行：
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-methodology\scripts\validate_templates.ps1
-powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-methodology\scripts\test_writeback_mvp.ps1
-powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-methodology\scripts\test_validate_release.ps1
-powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-methodology\scripts\validate_release.ps1
-python <path-to-skill-creator>\scripts\quick_validate.py .\ands-methodology
+powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-nexus\scripts\validate_templates.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-nexus\scripts\test_writeback_mvp.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-nexus\scripts\test_validate_release.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-nexus\scripts\validate_release.ps1
+python <path-to-skill-creator>\scripts\quick_validate.py .\ands-nexus
 ```
 
 公开发布文档可以说明 `quick_validate.py` 来自 Codex skill creator；release execution 文案不应写入机器特定绝对路径。
@@ -93,7 +93,7 @@ release execution 前至少运行：
 
 ```powershell
 rg -n "BEGIN (RSA|OPENSSH|PRIVATE)|api[_-]?key|secret|password|token|AKIA|sk-[A-Za-z0-9]" .
-rg -n "([A-Za-z]:\\Users\\|/Users/|/home/|http[s]?://|\b\d{1,3}(\.\d{1,3}){3}\b)" README.md RELEASE_NOTES.md PUBLISHING_CHECKLIST.md examples ands-methodology
+rg -n "([A-Za-z]:\\Users\\|/Users/|/home/|http[s]?://|\b\d{1,3}(\.\d{1,3}){3}\b)" README.md RELEASE_NOTES.md PUBLISHING_CHECKLIST.md examples ands-nexus
 ```
 
 `validate_release.ps1` runs an automated version of the same local path / URL / IP scan with allowlisted public GitHub release links and explanatory checklist command text.

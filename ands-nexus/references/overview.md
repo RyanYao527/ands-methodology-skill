@@ -90,7 +90,7 @@ AI = 执行 + 辅助分析
 
 ## 来源文件
 
-- `docs/superpowers/specs/2026-08-11-ands-methodology-skill-design.md`
+- `docs/superpowers/specs/2026-08-11-ands-nexus-design.md`
 - `INDEX.canvas`
 - `01 Framework/AI-Native Development Manifesto.canvas`
 - `04 Knowledge/08 Lessons/LSN-跨Canvas模型口径一致性校验.md`

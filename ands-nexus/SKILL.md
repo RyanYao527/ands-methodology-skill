@@ -1,9 +1,9 @@
 ---
-name: ands-methodology
+name: ands-nexus
 description: "Use when helping teams adopt or practice AI-Native Development System (ANDS): organization-level AI-native software development standards, ANDS-K/T/A/W/G, AI-as-employee operating model, Obsidian knowledge systems, GitHub execution database, AI Agent matrices, AI Gateway concepts, ANDS-T task writing, Track selection, Gate governance, release asset snapshots, Lessons writeback, metrics, internal rollout plans, workshops, and management briefings."
 ---
 
-# ANDS Methodology
+# ANDS Nexus
 
 Use this skill to help teams understand, adopt, practice, or review AI-Native Development System (ANDS). Keep answers operational: produce decisions, routes, plans, templates, checklists, or review notes instead of long course-style explanations.
 

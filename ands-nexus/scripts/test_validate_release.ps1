@@ -61,8 +61,8 @@ foreach ($provider in $requiredProviders) {
 }
 
 $forwardTestSuite = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "examples/agent-model-adaptation-forward-test-v0.2.2.md")
-$adapterCard = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "ands-methodology/assets/templates/agent-model-adapter-card.md")
-$adaptationReference = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "ands-methodology/references/multi-agent-model-adaptation.md")
+$adapterCard = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "ands-nexus/assets/templates/agent-model-adapter-card.md")
+$adaptationReference = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "ands-nexus/references/multi-agent-model-adaptation.md")
 
 Assert-Contains -Text $forwardTestSuite -Expected "Execution boundary: return only the requested documentation deliverable, assumptions, evidence, and handoff notes."
 Assert-Contains -Text $forwardTestSuite -Expected "Validation boundary: map every Gate Checklist item to status, evidence, missing evidence, and requested fix."
@@ -98,7 +98,7 @@ finally {
 
 $privateWorkspaceFixture = Join-Path $repoRoot ("examples/release-private-workspace-fixture-{0}.txt" -f [guid]::NewGuid().ToString("N"))
 try {
-    $privateProject = "Projects" + "/ands-methodology-skill"
+    $privateProject = "Projects" + "/ands-nexus"
     $releaseWorkspace = "04-Implementation" + "/repo"
     Set-Content -LiteralPath $privateWorkspaceFixture -Encoding UTF8 -Value "Do not publish $privateProject or $releaseWorkspace"
     Assert-Fails -ExpectedMessage "Potential local path, URL, or IP matches found" -Block {
@@ -202,7 +202,7 @@ finally {
 
 $scriptPathMentionClaimFixture = Join-Path $repoRoot ("examples/release-script-path-mention-claim-fixture-{0}.txt" -f [guid]::NewGuid().ToString("N"))
 try {
-    $scriptPath = "ands-methodology" + "\scripts\validate_release.ps1"
+    $scriptPath = "ands-nexus" + "\scripts\validate_release.ps1"
     $bestModel = "best" + " model"
     Set-Content -LiteralPath $scriptPathMentionClaimFixture -Encoding UTF8 -Value "This public note mentions $scriptPath and says KIMI is the $bestModel."
     Assert-Fails -ExpectedMessage "Potential unsupported integration or benchmark claims found" -Block {

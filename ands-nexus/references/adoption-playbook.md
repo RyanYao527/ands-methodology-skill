@@ -123,7 +123,7 @@ Dashboard 可先是原型；Gateway 可先是 mock 日志；字段必须能追�
 
 ## 来源文件
 
-- `docs/superpowers/specs/2026-08-11-ands-methodology-skill-design.md`
+- `docs/superpowers/specs/2026-08-11-ands-nexus-design.md`
 - `INDEX.canvas`
 - `03 Methodology/07工作流模型.canvas`
 - `03 Methodology/09治理模型.canvas`

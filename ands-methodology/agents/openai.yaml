@@ -1,4 +1,0 @@
-interface:
-  display_name: "ANDS Methodology"
-  short_description: "AI-native adoption, governance, feedback, and writeback"
-  default_prompt: "Use $ands-methodology to turn our team's AI-native development goal or seed-user feedback into an ANDS-T task, rollout plan, Track/Gate decision, and writeback draft."

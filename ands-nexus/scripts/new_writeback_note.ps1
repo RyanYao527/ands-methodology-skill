@@ -15,7 +15,7 @@ param(
 
     [string]$Status = "draft",
     [string]$Version = "0.1",
-    [string]$Source = "ands-methodology writeback MVP",
+    [string]$Source = "ands-nexus writeback MVP",
     [string]$Summary = "Summarize the project-local knowledge here.",
     [string]$Upstream = "Upstream task, ADR, Gate record, or release record",
     [string]$Downstream = "Downstream standard update, template revision, or follow-up issue",

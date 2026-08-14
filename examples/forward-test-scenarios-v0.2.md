@@ -1,11 +1,11 @@
 # Forward-Test Scenarios v0.2
 
-> 用途：供内部反馈版验证 `ands-methodology` skill 是否能在新对话中按需读取 reference/template，并产出可用结果。所有场景均为脱敏或合成材料。
+> 用途：供内部反馈版验证 `ands-nexus` skill 是否能在新对话中按需读取 reference/template，并产出可用结果。所有场景均为脱敏或合成材料。
 
 ## 使用规则
 
 - 每条场景都使用用户式 prompt，不泄露期望答案。
-- 执行者应先读取 `ands-methodology/SKILL.md`，再按路由读取需要的 reference/template。
+- 执行者应先读取 `ands-nexus/SKILL.md`，再按路由读取需要的 reference/template。
 - 观察记录写输入、读取文件、输出摘要、expected observation、是否通过、改进建议。
 - 若使用真实种子用户反馈，先按 `seed-user-feedback-intake-v0.2.md` 脱敏和归类。
 
@@ -112,7 +112,7 @@ Likely reads:
 Prompt:
 
 ```text
-我在 Windows PowerShell 里读取中文 Markdown 时出现 mojibake。请告诉我如何重新读取 ands-methodology 的文件，并判断这是否说明 skill 内容损坏。
+我在 Windows PowerShell 里读取中文 Markdown 时出现 mojibake。请告诉我如何重新读取 ands-nexus 的文件，并判断这是否说明 skill 内容损坏。
 ```
 
 Expected observation:

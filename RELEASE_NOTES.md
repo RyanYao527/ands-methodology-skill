@@ -4,7 +4,7 @@
 
 `v0.2.2` 已完成公开发布执行。
 
-Release URL: <https://github.com/RyanYao527/ands-methodology-skill/releases/tag/v0.2.2>
+Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.2.2>
 
 ### Summary
 
@@ -44,7 +44,7 @@ v0.2.2 adds a limited, provider-neutral multi-agent/model adapter pack for promp
 
 `v0.2.1` 已完成 patch release 审批、最终验证、tag 和 GitHub release。
 
-Release URL: <https://github.com/RyanYao527/ands-methodology-skill/releases/tag/v0.2.1>
+Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.2.1>
 
 ### Summary
 
@@ -82,7 +82,7 @@ v0.2.1 聚焦 v0.2.0 公开发布后的稳定化：新增反馈入口、30-day p
 
 ### Compatibility
 
-- 保持 Codex skill 结构：`ands-methodology/SKILL.md`、`agents/openai.yaml`、`references/`、`assets/templates/`、`scripts/`。
+- 保持 Codex skill 结构：`ands-nexus/SKILL.md`、`agents/openai.yaml`、`references/`、`assets/templates/`、`scripts/`。
 - 不引入外部运行时依赖；新增验证脚本为可选 PowerShell helper。
 - 不改变 LICENSE；当前仍为 MIT。
 
@@ -96,7 +96,7 @@ v0.2.1 聚焦 v0.2.0 公开发布后的稳定化：新增反馈入口、30-day p
 
 `v0.2.0` 已完成公开发布审批、最终验证、tag 和 GitHub release。
 
-Release URL: <https://github.com/RyanYao527/ands-methodology-skill/releases/tag/v0.2.0>
+Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.2.0>
 
 ### Summary
 
@@ -136,7 +136,7 @@ v0.2.0 聚焦内部反馈后的可用性补强：Windows UTF-8 读取、forward-
 
 ### Compatibility
 
-- 保持 Codex skill 结构：`ands-methodology/SKILL.md`、`agents/openai.yaml`、`references/`、`assets/templates/`、`scripts/`。
+- 保持 Codex skill 结构：`ands-nexus/SKILL.md`、`agents/openai.yaml`、`references/`、`assets/templates/`、`scripts/`。
 - 不引入外部运行时依赖；PowerShell 脚本面向 Windows PowerShell / PowerShell Core 常规环境。
 - 不改变 LICENSE；当前仍为 MIT。
 
@@ -149,16 +149,16 @@ v0.2.0 聚焦内部反馈后的可用性补强：Windows UTF-8 读取、forward-
 
 ## v0.1.0 - 2026-08-12
 
-`ands-methodology` v0.1.0 将 ANDS 方法论整理为一个可安装的 Codex skill，优先支持管理落地与最小实践模板。
+`ands-nexus` v0.1.0 将 ANDS 方法论整理为一个可安装的 Codex skill，优先支持管理落地与最小实践模板。
 
 ### 新增内容
 
-- 新增 `ands-methodology/SKILL.md`，包含任务路由、输出层级、ANDS 原则检查和 Gate 5 回写提醒。
+- 新增 `ands-nexus/SKILL.md`，包含任务路由、输出层级、ANDS 原则检查和 Gate 5 回写提醒。
 - 新增 `agents/openai.yaml`，用于 Codex skill 展示元信息。
 - 新增 7 个 references：overview、五标准、十模型、五平台组件、采用路线、治理与度量、demo trace。
 - 新增 6 个 templates：ANDS-T、ADR、Gate Checklist、Track Decision Card、Agent Matrix、Lessons。
 - 新增 7 个 examples，覆盖管理落地、ANDS-T、Gate、Lessons、demo trace、脱敏说明和种子用户 prompt。
-- 新增模板校验脚本 `ands-methodology/scripts/validate_templates.ps1`。
+- 新增模板校验脚本 `ands-nexus/scripts/validate_templates.ps1`。
 - 更新 GitHub 读者文档：README、release notes、publishing checklist。
 
 ### 验证状态

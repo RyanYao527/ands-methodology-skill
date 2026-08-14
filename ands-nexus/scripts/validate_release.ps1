@@ -96,7 +96,7 @@ function Remove-AllowedPublicScanMatches {
 
     $filtered = @()
     foreach ($match in $Matches) {
-        if ($match.Contains("github.com/RyanYao527/ands-methodology-skill")) {
+        if ($match.Contains("github.com/RyanYao527/ands-nexus")) {
             continue
         }
         if ($match.Contains("rg -n ")) {
@@ -130,7 +130,7 @@ function Remove-AllowedIntegrationClaimMatches {
     $filtered = @()
     foreach ($scanMatch in $ScanMatches) {
         $matchPath = Get-RgMatchPath -Line $scanMatch
-        if ($matchPath -like "ands-methodology\scripts\*") {
+        if ($matchPath -like "ands-nexus\scripts\*") {
             continue
         }
 
@@ -292,13 +292,13 @@ Invoke-Step -Name "asset_counts" -Block {
 Invoke-Step -Name "public_package_scan" -Block {
     Push-Location $RepoRoot
     try {
-        $targets = @("README.md", "RELEASE_NOTES.md", "PUBLISHING_CHECKLIST.md", "examples", "ands-methodology")
+        $targets = @("README.md", "RELEASE_NOTES.md", "PUBLISHING_CHECKLIST.md", "examples", "ands-nexus")
         $secretMatches = Invoke-Rg -Pattern "BEGIN (RSA|OPENSSH|PRIVATE)|AKIA[0-9A-Z]{16}|sk-[A-Za-z0-9]{20,}|gh[opsu]_[A-Za-z0-9_]{20,}" -Targets @(".")
         if ($secretMatches.Count -gt 0) {
             throw "Potential secret-like matches found:`n$($secretMatches -join "`n")"
         }
 
-        $pathMatches = Invoke-Rg -Pattern "([A-Za-z]:\\Users\\|/Users/|/home/|http[s]?://|\b\d{1,3}(\.\d{1,3}){3}\b|Projects[\\/]ands-methodology-skill|04-Implementation[\\/]repo)" -Targets $targets
+        $pathMatches = Invoke-Rg -Pattern "([A-Za-z]:\\Users\\|/Users/|/home/|http[s]?://|\b\d{1,3}(\.\d{1,3}){3}\b|Projects[\\/]ands-nexus|04-Implementation[\\/]repo)" -Targets $targets
         $pathMatches = Remove-AllowedPublicScanMatches -Matches $pathMatches
         if ($pathMatches.Count -gt 0) {
             throw "Potential local path, URL, or IP matches found:`n$($pathMatches -join "`n")"
