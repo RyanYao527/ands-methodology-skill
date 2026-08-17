@@ -8,7 +8,41 @@
 
 ## Status
 
-当前公开版本是 `v0.2.2`。
+当前公开版本是 `v0.3.0`。
+
+`v0.3.0` 已于 2026-08-17 完成公开发布审批、最终验证、tag 和 GitHub release。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.3.0>。
+
+v0.3.0 新增：
+
+- multi-agent/model adaptation reference。
+- capability matrix template。
+- agent/model adapter card template。
+- provider profile cards example。
+- agent/model adaptation forward-test suite。
+- execution / validation / writeback prompt boundary guardrails。
+- provider adaptation references。
+- provider label 与 role-routing matrix patterns。
+- synthetic/proxy forward-test methodology。
+- release validation guards for provider-native/API/tenant/writeback/benchmark claim overreach。
+
+v0.3.0 验证状态：
+
+- `test_validate_release.ps1`：PASS。
+- `validate_release.ps1 -QuickValidatePath ...`：PASS。
+- `quick_validate.py`：PASS。
+- `git diff --check`：PASS。
+- AD57A Project Owner explicit release Go：`确认 v0.3.0 public release Go`。
+- final release execution validation：PASS。
+
+v0.3.0 范围限定为 offline/proxy provider adaptation documentation package：
+
+- offline/proxy provider adaptation references。
+- prompt/profile/template-level guidance。
+- provider label 与 role-routing matrix patterns。
+- synthetic/proxy forward-test methodology。
+- future provider-native/API/tenant/connector/writeback work 的治理边界。
+
+v0.3.0 Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking。
 
 `v0.2.2` 已于 2026-08-13 完成公开发布审批、最终验证、tag 和 GitHub release。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.2.2>。
 
@@ -30,20 +64,6 @@ v0.2.2 验证状态：
 - `git diff --check`：PASS。
 - T09 provider-profile proxy trial：PASS_WITH_FIXES_FOR_T10_INPUT。
 - T10 release readiness decision：READY_FOR_PUBLIC_V0.2.2_RELEASE_EXECUTION，限定为 prompt/profile/template adapter pack。
-
-`v0.3.0 release candidate` 正在准备中，尚未公开发布。当前公开版本仍是 `v0.2.2`。
-
-v0.3.0 candidate 只面向 offline/proxy provider adaptation：
-
-- provider adaptation references。
-- prompt/profile/template-level guidance。
-- provider label 与 role-routing matrix patterns。
-- synthetic/proxy forward-test methodology。
-- future provider-native/API/tenant/connector/writeback work 的治理边界。
-
-v0.3.0 candidate Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking。
-
-公开发布 v0.3.0 之前仍需要单独完成 release candidate validation、Project Owner release Go、tag、GitHub release 和 Gate 5 closeout。
 
 `v0.2.1` 已于 2026-08-13 完成 patch release 审批、最终验证、tag 和 GitHub release。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.2.1>。
 
@@ -196,8 +216,8 @@ ands-nexus/
 - Obsidian writeback MVP 只生成草稿或写入显式指定路径；不扫描或批量改写 Vault。若显式 `-OutputPath` 的父目录不存在，脚本可能创建该父目录，且只作用于用户明确给出的路径。
 - 本包已经完成 v0.1.0 发布前脱敏审查。
 - `v0.2.1` 已完成公开发布前最终脱敏审查；后续真实反馈仍应先脱敏再进入 examples 或 validation。
-- `v0.3.0 release candidate` 尚未公开发布；candidate 证据来自 design / provider-doc-reviewed / proxy 层级，不代表 runtime capability evidence。
+- `v0.3.0` 已公开发布；v0.3 证据来自 design / provider-doc-reviewed / proxy 层级，不代表 runtime capability evidence。
 
 ## License
 
-当前 `LICENSE` 使用 MIT 文本，Project Owner 已于 2026-08-12 确认正式采用 MIT License，并确认可公开发布 v0.1 / v0.2。
+当前 `LICENSE` 使用 MIT 文本，Project Owner 已于 2026-08-12 确认正式采用 MIT License，并已确认可公开发布 v0.1 / v0.2 / v0.3。

@@ -1,6 +1,6 @@
 # Publishing Checklist
 
-本清单用于 `ands-nexus` skill 的内部试用、release candidate 准备和公开发布执行检查。当前公开版本是 `v0.2.2`；GitHub release: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.2.2>。
+本清单用于 `ands-nexus` skill 的内部试用、release candidate 准备和公开发布执行检查。当前公开版本是 `v0.3.0`；GitHub release: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.3.0>。
 
 ## v0.1.0 Released Archive
 
@@ -73,22 +73,22 @@
 - [x] 创建 GitHub release，并记录 release URL：<https://github.com/RyanYao527/ands-nexus/releases/tag/v0.2.2>。
 - [x] 完成 Gate 5 release closeout 与 Knowledge Writeback。
 
-## v0.3.0 Release Candidate Prep
+## v0.3.0 Public Release Execution
 
-本节记录 `v0.3.0 release candidate` 候选文档准备状态；`v0.3.0` 尚未公开发布，当前公开版本仍是 `v0.2.2`。
+本节记录 `v0.3.0` 公开 GitHub release 执行状态。
 
 - [x] AD49 已授权 bounded candidate documentation prep。
 - [x] AD50 文件范围限定为 `README.md`、`RELEASE_NOTES.md`、`PUBLISHING_CHECKLIST.md`。
 - [x] Candidate scope 限定为 offline/proxy provider adaptation、prompt/profile/template guidance、role-routing matrix patterns 和 governance boundaries。
 - [x] Candidate Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking。
 - [x] AD50 bounded documentation edit validation 已完成。
-- [ ] Project Owner 已确认是否允许进入 public `v0.3.0` release execution。
-- [ ] release execution 前重新运行 `test_validate_release.ps1`、`validate_release.ps1 -QuickValidatePath ...`、`quick_validate.py`。
-- [ ] release execution 前重新完成最终脱敏扫描，覆盖 README、release notes、publishing checklist、SKILL.md、references、templates、examples、scripts。
-- [ ] 确认 tag 名、release notes 版本、GitHub release 标题和仓库可见性一致。
-- [ ] 创建并推送 `v0.3.0` tag。
-- [ ] 创建 GitHub release，并记录 release URL。
-- [ ] 完成 Gate 5 release closeout 与 Knowledge Writeback。
+- [x] Project Owner 已确认进入 public `v0.3.0` release execution：`确认 v0.3.0 public release Go`。
+- [x] release execution 前重新运行 `test_validate_release.ps1`、`validate_release.ps1 -QuickValidatePath ...`、`quick_validate.py`。
+- [x] release execution 前重新完成最终脱敏扫描，覆盖 README、release notes、publishing checklist、SKILL.md、references、templates、examples、scripts。
+- [x] 确认 tag 名、release notes 版本、GitHub release 标题和仓库可见性一致。
+- [x] 创建并推送 `v0.3.0` tag。
+- [x] 创建 GitHub release，并记录 release URL：<https://github.com/RyanYao527/ands-nexus/releases/tag/v0.3.0>。
+- [x] 完成 Gate 5 release closeout 与 Knowledge Writeback。
 
 ## Validation Commands
 
@@ -126,7 +126,7 @@ rg -n "([A-Za-z]:\\Users\\|/Users/|/home/|http[s]?://|\b\d{1,3}(\.\d{1,3}){3}\b)
 - v0.2.1 post-release stabilization 与 release readiness check 记录。
 - v0.2.2 multi-agent/model adapter pack readiness、forward-test、release execution 和 provider-native/API/benchmark 边界。
 - v0.3 Enterprise discovery 的 V03-T00 Gate plan。
-- v0.3.0 release candidate prep、readiness decision、candidate validation 和 release/non-release decision。
+- v0.3.0 release candidate prep、readiness decision、candidate validation、explicit Owner Go 和 public release execution。
 - validation 结果与最终脱敏扫描结果。
 - Project Owner 发布决策：Go。
 - 公开发布结果：tag、release URL、release notes 快照和后续 Lessons。

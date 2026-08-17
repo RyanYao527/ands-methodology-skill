@@ -1,16 +1,16 @@
 # Release Notes
 
-## v0.3.0 release candidate - Not released
+## v0.3.0 - 2026-08-17
 
-`v0.3.0 release candidate` is in candidate preparation only. The current public release remains `v0.2.2`.
+`v0.3.0` 已完成公开发布执行。
 
-No `v0.3.0` tag or GitHub release exists yet.
+Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.3.0>
 
-### Candidate Summary
+### Summary
 
-v0.3.0 candidate prepares public documentation for the v0.3 offline/provider-adaptation workstream. The candidate scope is limited to offline/proxy provider adaptation references, prompt/profile/template-level guidance, provider labels, role-routing matrix patterns, synthetic/proxy forward-test methodology, and governance boundaries for future Enterprise work.
+v0.3.0 publishes the v0.3 offline/provider-adaptation documentation package. The scope is limited to offline/proxy provider adaptation references, prompt/profile/template-level guidance, provider labels, role-routing matrix patterns, synthetic/proxy forward-test methodology, and governance boundaries for future Enterprise work.
 
-### Candidate Scope
+### Added
 
 - Offline provider adaptation references and handoff patterns.
 - Prompt/profile/template-level guidance for multi-runtime ANDS usage.
@@ -18,24 +18,23 @@ v0.3.0 candidate prepares public documentation for the v0.3 offline/provider-ada
 - Synthetic/proxy forward-test methodology.
 - Governance boundaries for future provider-native/API/tenant/connector/writeback work.
 
-### Candidate Validation Evidence
+### Validation Evidence
 
 - AD46 release readiness intake and evidence map completed.
 - AD47 v0.3 release-readiness review spec completed.
 - AD48 readiness decision: `READY_FOR_RELEASE_CANDIDATE_PREP_AUTHORIZATION_REVIEW`.
 - AD49 bounded candidate documentation prep authorization completed.
-- AD50 bounded documentation edit validation is required before any later release decision.
+- AD50 bounded documentation edit validation completed.
+- AD56 release candidate prep chain closeout completed.
+- AD57A Project Owner explicit release Go confirmed: `确认 v0.3.0 public release Go`.
+- Final release execution validation PASS.
 
-### Candidate Non-Scope
+### Non-Scope
 
 - No provider-native validation.
 - No API integration.
 - No credential setup, no tenant connectors, and no automated writeback.
 - No benchmark ranking, best-provider result, procurement guidance, or public provider capability claim.
-
-### Release Boundary
-
-v0.3.0 is not released. Public release still requires bounded candidate validation, Project Owner release Go, final release execution, tag creation, GitHub release creation, and Gate 5 closeout.
 
 ## v0.2.2 - 2026-08-13
 
