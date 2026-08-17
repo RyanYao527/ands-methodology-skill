@@ -46,6 +46,44 @@ Assert-Contains -Text $output -Expected "PASS asset_counts"
 Assert-Contains -Text $output -Expected "PASS public_package_scan"
 Assert-Contains -Text $output -Expected "PASS validate_release"
 
+$missingRequiredExampleRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("ands-release-manifest-fixture-{0}" -f [guid]::NewGuid().ToString("N"))
+try {
+    New-Item -ItemType Directory -Path (Join-Path $missingRequiredExampleRoot "examples") -Force | Out-Null
+    New-Item -ItemType Directory -Path (Join-Path $missingRequiredExampleRoot "ands-nexus") -Force | Out-Null
+    Set-Content -LiteralPath (Join-Path $missingRequiredExampleRoot "README.md") -Encoding UTF8 -Value "# Fixture"
+    Set-Content -LiteralPath (Join-Path $missingRequiredExampleRoot "RELEASE_NOTES.md") -Encoding UTF8 -Value "# Fixture"
+    Set-Content -LiteralPath (Join-Path $missingRequiredExampleRoot "PUBLISHING_CHECKLIST.md") -Encoding UTF8 -Value "# Fixture"
+
+    $manifestExampleFiles = @(
+        "agent-model-adaptation-forward-test-v0.2.2.md",
+        "ands-t-task-example.md",
+        "demo-trace-guide-example.md",
+        "desensitization-notes.md",
+        "forward-test-scenarios-v0.2.md",
+        "gate-checklist-example.md",
+        "lessons-writeback-example.md",
+        "management-rollout-plan.md",
+        "post-release-feedback-intake-v0.2.1.md",
+        "provider-profile-cards-v0.2.2.md",
+        "provider-profile-offline-adoption-packet-v0.3.md",
+        "release-manifest-placeholder.md",
+        "seed-user-feedback-intake-v0.2.md",
+        "seed-user-prompts.md"
+    )
+    foreach ($exampleFile in $manifestExampleFiles) {
+        Set-Content -LiteralPath (Join-Path $missingRequiredExampleRoot "examples/$exampleFile") -Encoding UTF8 -Value "# Fixture"
+    }
+
+    Assert-Fails -ExpectedMessage "Missing required example file: provider-profile-cards-v0.3-internal.md" -Block {
+        & $validator -SkipWritebackTest -RepoRoot $missingRequiredExampleRoot *>&1 | Out-String | Out-Null
+    }
+}
+finally {
+    if (Test-Path -LiteralPath $missingRequiredExampleRoot) {
+        Remove-Item -LiteralPath $missingRequiredExampleRoot -Recurse -Force
+    }
+}
+
 $providerProfiles = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "examples/provider-profile-cards-v0.2.2.md")
 $requiredProviders = @(
     "Codex/OpenAI baseline",

@@ -20,6 +20,12 @@ It does not provide:
 
 Enterprise trigger: escalate when real data, credentials, tenant integration, automated writeback, or public benchmark claims enter scope.
 
+## v0.3 Provider Profile Boundary
+
+v0.3 provider profile material is example-only prompt/profile proxy guidance. It is not provider-native evidence and it carries no live API authorization, no credential or tenant setup, no connectors, no tools, no transcripts, no automated writeback, no rankings, no procurement guidance, no release copy, and no public capability claims.
+
+Use provider labels as routing hypotheses for offline trials. Do not treat a label as proof of runtime behavior.
+
 ## Adapter Contract
 
 An ANDS-compatible runtime must preserve:
@@ -33,6 +39,11 @@ An ANDS-compatible runtime must preserve:
 | Evidence output | Return validation evidence, caveats, and next-step recommendations |
 | Desensitization | Avoid real names, organizations, repositories, domains, IPs, local paths, credentials, and sensitive business data |
 | Writeback boundary | Distinguish project-local facts, package assets, and cross-project reusable methodology rules |
+| Evidence class | Label provider profile observations as `proxy` unless a later approved trial records stronger evidence |
+| Secret class | Use S0/S1 only; do not ask for real keys, tokens, OAuth credentials, or secret-like values |
+| Tenant class | Use T0/T1 only; do not use real provider projects, workspaces, orgs, endpoints, consoles, or enterprise tenants |
+| Connector class | Keep tools, MCP, browser, shell, desktop, local files, WeCom, QQ, and enterprise connectors disabled unless approved |
+| Claim boundary | Record observations only; no scores, ranks, winners, public capability claims, or procurement guidance |
 
 ## Runtime Roles
 
@@ -90,6 +101,19 @@ Use provider profiles to choose a runtime for a role. Do not choose based on uns
 | Can it state uncertainty without inventing facts? | governance and validation |
 | Can it produce reusable Lessons without leaking project facts? | writeback |
 
+## Offline Provider Routing Hypotheses
+
+These are starting hypotheses for offline prompt/profile trials, not provider selection advice.
+
+| Request pattern | Starting role | Offline profile hypothesis | Required handoff | Stop condition |
+|---|---|---|---|---|
+| Convert unclear request into ANDS-T, Track, roles, and next actions | AI PM / Orchestrator | GLM / Z.AI | ANDS-T summary, Track, Gate, role map, acceptance checklist | Any claim of live API, tenant, tool, or public capability |
+| Produce a strict markdown deliverable from a supplied packet | Execution Agent | MiniMax | Deliverable only, preserved tables, exact requested sections | File, MCP, multimodal, tool, API, or extra-section expansion |
+| Produce bilingual Chinese/English execution output | Execution Agent | KIMI / Moonshot | Deliverable, assumptions, evidence, caveats, preserved bilingual wording | Endpoint, tool, long-context, retention, or live provider claim |
+| Review boundaries, risks, stop conditions, and governance fixes | Governance Reviewer | Claude / Anthropic | Critical / Important / Advisory findings with evidence references | Procurement, ranking, workspace, retention, or public capability claim |
+| Check acceptance criteria, evidence gaps, and correction requests | Validation Agent | DeepSeek | Acceptance criterion, evidence found, gap, correction request table | Behavior-parity, tool-call, API, or public capability claim |
+| Plan enterprise connector workflow and no-go triggers | AI PM / Enterprise Integration Reviewer | WorkBuddy / Tencent Cloud | Workflow observations, connector risks, blocked live actions | Install/open/connect/configure/authenticate/local/tenant/QQ/WeCom/writeback action |
+
 ## Failure Modes And Guardrails
 
 | Failure Mode | Guardrail |
@@ -102,6 +126,21 @@ Use provider profiles to choose a runtime for a role. Do not choose based on uns
 | Vague validation | Require PASS / PASS_WITH_NOTE / PASS_WITH_FIXES / FAIL plus per-item Gate evidence |
 | Accidental persistence | Keep writeback as candidate-only unless Enterprise review approves persistence |
 | Benchmark overreach | Record observations, not rankings |
+
+## Provider Profile Handoff
+
+When handing off provider profile work for validation, include:
+
+1. Provider label.
+2. Active role.
+3. Active Gate.
+4. Evidence level, normally `proxy`.
+5. Data class, normally synthetic-only.
+6. Secret, tenant, connector, and writeback classes.
+7. Routing reason.
+8. Packet used.
+9. Output to validate.
+10. Escalation boundary for API, secret, tenant, connector, tool, local operation, writeback, public claim, benchmark, or provider behavior claim.
 
 ## Enterprise Escalation
 

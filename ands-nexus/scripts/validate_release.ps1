@@ -40,6 +40,21 @@ function Assert-Count {
     }
 }
 
+function Assert-RequiredFiles {
+    param(
+        [Parameter(Mandatory = $true)][string]$Name,
+        [Parameter(Mandatory = $true)][string]$Path,
+        [Parameter(Mandatory = $true)][string[]]$RequiredFiles
+    )
+
+    foreach ($requiredFile in $RequiredFiles) {
+        $requiredPath = Join-Path $Path $requiredFile
+        if (-not (Test-Path -LiteralPath $requiredPath -PathType Leaf)) {
+            throw "Missing required $Name file: $requiredFile"
+        }
+    }
+}
+
 function Invoke-Rg {
     param(
         [Parameter(Mandatory = $true)][string]$Pattern,
@@ -286,7 +301,24 @@ if ($QuickValidatePath) {
 Invoke-Step -Name "asset_counts" -Block {
     Assert-Count -Name "references" -Path (Join-Path $SkillRoot "references") -Expected 8
     Assert-Count -Name "templates" -Path (Join-Path $SkillRoot "assets/templates") -Expected 10
-    Assert-Count -Name "examples" -Path (Join-Path $RepoRoot "examples") -Expected 12
+    $examplesRoot = Join-Path $RepoRoot "examples"
+    Assert-Count -Name "examples" -Path $examplesRoot -Expected 14
+    Assert-RequiredFiles -Name "example" -Path $examplesRoot -RequiredFiles @(
+        "agent-model-adaptation-forward-test-v0.2.2.md",
+        "ands-t-task-example.md",
+        "demo-trace-guide-example.md",
+        "desensitization-notes.md",
+        "forward-test-scenarios-v0.2.md",
+        "gate-checklist-example.md",
+        "lessons-writeback-example.md",
+        "management-rollout-plan.md",
+        "post-release-feedback-intake-v0.2.1.md",
+        "provider-profile-cards-v0.2.2.md",
+        "provider-profile-cards-v0.3-internal.md",
+        "provider-profile-offline-adoption-packet-v0.3.md",
+        "seed-user-feedback-intake-v0.2.md",
+        "seed-user-prompts.md"
+    )
 }
 
 Invoke-Step -Name "public_package_scan" -Block {
