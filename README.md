@@ -1,120 +1,55 @@
 # ANDS Nexus Skill
 
-**ANDS Nexus**（`ands-nexus`）是一个 Codex skill，用于帮助团队采用或实践 AI-Native Development System (ANDS)。它聚焦两件事：管理落地和最小实践模板。
+**ANDS Nexus**（`ands-nexus`）是一个公开的 Codex skill 包，用于把 AI-Native Development System (ANDS) 的团队协作方法整理成可复用的 references、templates、examples 和轻量验证脚本。
 
-它可以辅助管理者评估适用边界、设计试点路线、定义治理与度量机制；也可以辅助实践者编写 ANDS-T、Agent 矩阵、Gate Checklist、Track 判定和 Lessons 回写。
+它面向正在用 AI agent / 大模型参与研发、文档、产品或运营协作的团队，帮助团队把“让 AI 做事”拆成更清楚的任务、角色、证据、验收和知识回写流程。它更接近一个 adoption / governance toolkit，而不是完整课程、生产级平台或厂商能力评测项目。
 
-它不是完整课程仓库，也不是生产级 AI Gateway、Dashboard、GitHub Actions 或 Obsidian 自动化平台。
+## What It Helps With
 
-## Status
+- 管理落地：设计 30/60/90 天试点计划、选择 Quick / Standard / Enterprise Track、定义治理边界和度量。
+- 任务表达：把普通需求改写成 ANDS-T，并补齐目标、输入、约束、验收和 Gate。
+- Agent 协作：区分 AI PM / Orchestrator、Execution、Validation、Governance、Writeback 等角色。
+- 多 runtime 适配：在 prompt / profile / template 层面，为 Codex/OpenAI baseline、KIMI、GLM、MiniMax、Claude、DeepSeek、WorkBuddy 等 runtime 做离线适配准备。
+- 反馈沉淀：把脱敏后的试用反馈、延期原因、返工原因和有效做法转成 Lessons 或 regression prompt。
 
-当前公开版本是 `v0.3.0`。
+## Current Release
 
-`v0.3.0` 已于 2026-08-17 完成公开发布审批、最终验证、tag 和 GitHub release。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.3.0>。
+当前公开版本是 `v0.3.0`，已于 2026-08-17 发布。
 
-v0.3.0 新增：
+Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.3.0>
 
-- multi-agent/model adaptation reference。
-- capability matrix template。
-- agent/model adapter card template。
-- provider profile cards example。
-- agent/model adaptation forward-test suite。
-- execution / validation / writeback prompt boundary guardrails。
-- provider adaptation references。
-- provider label 与 role-routing matrix patterns。
-- synthetic/proxy forward-test methodology。
-- release validation guards for provider-native/API/tenant/writeback/benchmark claim overreach。
+`v0.3.0` 发布的是 **offline/provider-adaptation documentation package**。它提供 provider adaptation references、role-routing matrix patterns、prompt/profile/template-level guidance 和 synthetic/proxy forward-test methodology，用于帮助团队在进入真实 API、企业租户或连接器验证前，先把适配边界和证据口径说清楚。
 
-v0.3.0 验证状态：
+### Included In v0.3.0
 
-- `test_validate_release.ps1`：PASS。
-- `validate_release.ps1 -QuickValidatePath ...`：PASS。
-- `quick_validate.py`：PASS。
-- `git diff --check`：PASS。
-- AD57A Project Owner explicit release Go：`确认 v0.3.0 public release Go`。
-- final release execution validation：PASS。
+- Offline/proxy provider adaptation references and handoff patterns.
+- Prompt/profile/template-level guidance for multi-runtime ANDS usage.
+- Provider label and role-routing matrix patterns.
+- Synthetic/proxy forward-test methodology.
+- Governance boundaries for future provider-native/API/tenant/connector/writeback work.
+- Release validation guards for provider-native/API/tenant/writeback/benchmark claim overreach.
 
-v0.3.0 范围限定为 offline/proxy provider adaptation documentation package：
+### Validation Status
 
-- offline/proxy provider adaptation references。
-- prompt/profile/template-level guidance。
-- provider label 与 role-routing matrix patterns。
-- synthetic/proxy forward-test methodology。
-- future provider-native/API/tenant/connector/writeback work 的治理边界。
+- `test_validate_release.ps1`: PASS.
+- `validate_release.ps1 -QuickValidatePath ...`: PASS.
+- `quick_validate.py`: PASS.
+- `git diff --check`: PASS.
+- Public package scan: PASS.
+- GitHub release: non-draft, non-prerelease.
 
-v0.3.0 Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking。
+### Evidence Level And Boundaries
 
-`v0.2.2` 已于 2026-08-13 完成公开发布审批、最终验证、tag 和 GitHub release。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.2.2>。
+v0.3.0 的证据等级是 design / official-doc-reviewed / proxy or synthetic forward-test。它可以作为离线适配和后续 Enterprise discovery 的准备材料，但不能被解读为真实 runtime 能力证明。
 
-v0.2.2 新增：
+Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking.
 
-- multi-agent/model adaptation reference。
-- capability matrix template。
-- agent/model adapter card template。
-- provider profile cards example。
-- agent/model adaptation forward-test suite。
-- execution / validation / writeback prompt boundary guardrails。
-- release validation guards for provider-native/API/tenant/writeback/benchmark claim overreach。
+## Previous Releases
 
-v0.2.2 验证状态：
-
-- `test_validate_release.ps1`：PASS。
-- `validate_release.ps1 -QuickValidatePath ...`：PASS。
-- `quick_validate.py`：PASS。
-- `git diff --check`：PASS。
-- T09 provider-profile proxy trial：PASS_WITH_FIXES_FOR_T10_INPUT。
-- T10 release readiness decision：READY_FOR_PUBLIC_V0.2.2_RELEASE_EXECUTION，限定为 prompt/profile/template adapter pack。
-
-`v0.2.1` 已于 2026-08-13 完成 patch release 审批、最终验证、tag 和 GitHub release。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.2.1>。
-
-v0.2.1 新增：
-
-- 30-day pilot template。
-- post-release feedback intake example。
-- `validate_release.ps1` 和 `test_validate_release.ps1`。
-- `.gitattributes` line-ending policy。
-
-v0.2.2 范围限定为 prompt-level multi-agent/model adaptation pack，覆盖 KIMI、GLM、MiniMax、Claude、DeepSeek、WorkBuddy 和 Codex/OpenAI baseline 的 profile、template、forward-test 适配；Non-Scope: no live provider API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking。
-
-v0.2.1 验证状态：
-
-- `test_validate_release.ps1`：PASS。
-- `validate_release.ps1 -QuickValidatePath ...`：PASS。
-- `quick_validate.py`：PASS。
-- v0.2.1 release readiness check：READY_FOR_OWNER_GO_NO_GO。
-- Governance & Security：PASS_WITH_NOTE，无 Critical / Important blocker。
-- Project Owner 已确认 patch release Go。
-- `v0.2.1` tag 与 GitHub release 已创建。
-
-v0.2.0 新增：
-
-- Windows UTF-8 note。
-- Windows UTF-8 diagnostic command for seed-user troubleshooting。
-- 1 个 writeback note template。
-- 2 个 examples：forward-test scenarios 与 seed-user feedback intake。
-- Obsidian writeback MVP scripts。
-
-v0.2.0 验证状态：
-
-- `quick_validate.py`：PASS。
-- `validate_templates.ps1`：PASS。
-- `test_writeback_mvp.ps1`：PASS。
-- 5-Agent seed-user read-only trial：PASS。
-- T09/T10 Enterprise review：CONDITIONAL_GO，无 Critical blocker。
-- Project Owner 已确认公开发布。
-- `v0.2.0` tag 与 GitHub release 已创建。
-
-`v0.2.0` Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.2.0>。
-
-v0.1.0 历史版本已完成：
-
-- skill skeleton 与目录边界。
-- `ands-nexus/SKILL.md`。
-- `ands-nexus/agents/openai.yaml`。
-- 7 个 references。
-- 6 个 templates。
-- 7 个 examples。
-- template validation script。
+- `v0.2.2`：公开 prompt/profile/template-level multi-agent/model adapter pack，覆盖 capability matrix、adapter card、provider profile cards 和 forward-test suite。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.2.2>。
+- `v0.2.1`：新增 30-day pilot template、post-release feedback intake、release validation aggregator 和 `.gitattributes`。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.2.1>。
+- `v0.2.0`：补强 Windows UTF-8 说明、seed-user feedback intake、forward-test scenarios、Track/Gate 反模式和 Obsidian writeback MVP。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.2.0>。
+- `v0.1.0`：初始公开版本，包含 skill skeleton、core references、templates、examples 和 template validation script。
 
 ## Installation
 
@@ -187,7 +122,7 @@ $text = Get-Content -LiteralPath .\ands-nexus\SKILL.md -Raw -Encoding UTF8
 4. 我们想让 AI PM 调度多个 Agent 做需求拆解、开发、测试和发布，请帮我设计最小 Agent 矩阵。
 5. 这次上线延期是因为验收标准写得太模糊，Agent 做完以后业务方说不是他们要的。请按 ANDS 写一次复盘。
 
-v0.2 forward-test 场景见 `examples/forward-test-scenarios-v0.2.md`；种子用户反馈 intake 见 `examples/seed-user-feedback-intake-v0.2.md`；发布后反馈 intake 见 `examples/post-release-feedback-intake-v0.2.1.md`；多 runtime 适配 forward-test 见 `examples/agent-model-adaptation-forward-test-v0.2.2.md`。
+v0.2 forward-test 场景见 `examples/forward-test-scenarios-v0.2.md`；种子用户反馈 intake 见 `examples/seed-user-feedback-intake-v0.2.md`；发布后反馈 intake 见 `examples/post-release-feedback-intake-v0.2.1.md`；多 runtime 适配 forward-test 见 `examples/agent-model-adaptation-forward-test-v0.2.2.md`；v0.3 offline provider profile material 见 `examples/provider-profile-cards-v0.3-internal.md` 和 `examples/provider-profile-offline-adoption-packet-v0.3.md`。
 
 ## Package Map
 
@@ -211,12 +146,12 @@ ands-nexus/
 - 不提供完整 37 节课程内容。
 - 不构建生产级 AI Gateway。
 - 不提供一键部署 Dashboard、GitHub Actions 或 Obsidian 自动化。
-- Non-Scope: v0.2.2 adapter pack has no live provider API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking。
+- Non-Scope: v0.3.0 has no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking。
 - 不承诺所有团队都适合一次性全量引入五道 Gate。
 - Obsidian writeback MVP 只生成草稿或写入显式指定路径；不扫描或批量改写 Vault。若显式 `-OutputPath` 的父目录不存在，脚本可能创建该父目录，且只作用于用户明确给出的路径。
 - 本包已经完成 v0.1.0 发布前脱敏审查。
 - `v0.2.1` 已完成公开发布前最终脱敏审查；后续真实反馈仍应先脱敏再进入 examples 或 validation。
-- `v0.3.0` 已公开发布；v0.3 证据来自 design / provider-doc-reviewed / proxy 层级，不代表 runtime capability evidence。
+- `v0.3.0` 已公开发布；v0.3 证据来自 design / official-doc-reviewed / proxy or synthetic forward-test 层级，不代表 runtime capability evidence 或 provider selection advice。
 
 ## License
 
