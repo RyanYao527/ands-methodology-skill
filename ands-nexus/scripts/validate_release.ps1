@@ -145,7 +145,8 @@ function Remove-AllowedIntegrationClaimMatches {
     $filtered = @()
     foreach ($scanMatch in $ScanMatches) {
         $matchPath = Get-RgMatchPath -Line $scanMatch
-        if ($matchPath -like "ands-nexus\scripts\*") {
+        $normalizedMatchPath = $matchPath.Replace("\", "/")
+        if ($normalizedMatchPath -like "ands-nexus/scripts/*") {
             continue
         }
 
