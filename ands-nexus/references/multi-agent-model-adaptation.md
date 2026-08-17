@@ -114,6 +114,21 @@ These are starting hypotheses for offline prompt/profile trials, not provider se
 | Check acceptance criteria, evidence gaps, and correction requests | Validation Agent | DeepSeek | Acceptance criterion, evidence found, gap, correction request table | Behavior-parity, tool-call, API, or public capability claim |
 | Plan enterprise connector workflow and no-go triggers | AI PM / Enterprise Integration Reviewer | WorkBuddy / Tencent Cloud | Workflow observations, connector risks, blocked live actions | Install/open/connect/configure/authenticate/local/tenant/QQ/WeCom/writeback action |
 
+## Offline Role-Routing Matrix
+
+Use this matrix shape when checking whether a provider profile routes cleanly to one ANDS role. This is prompt/profile proxy guidance only. It is not live provider evidence.
+
+| Scenario focus | Starting role | Offline profile hypothesis | Output shape | Required handoff | Stop trigger |
+|---|---|---|---|---|---|
+| Bilingual documentation deliverable | Execution Agent | KIMI / Moonshot | Deliverable, assumptions, evidence, caveats, handoff notes | Provider label, active role, Gate, `proxy` evidence, synthetic-only data class, S/T/C/W classes | Endpoint, key, file, tool, connector, writeback, or provider-readiness claim |
+| Task decomposition and role routing | AI PM / Orchestrator | GLM / Z.AI | ANDS-T summary, Track, Gate map, role map, short acceptance checklist | Task summary, Track, role assignments, validation ask, Owner Go triggers | Runtime, tool, tenant, or public-capability claim |
+| Strict markdown artifact production | Execution Agent | MiniMax | Exact requested sections, preserved tables, no extra sections | Requested artifact title, template used, validation ask, boundary notes | File, MCP, multimodal, tool, API, tenant, or extra-section expansion |
+| Boundary and risk review | Governance Reviewer | Claude / Anthropic | Critical, Important, Advisory findings with evidence references | Risk class, evidence item, correction request, escalation boundary | Vendor guidance, ranking, workspace, retention, or public-release language |
+| Acceptance and evidence-gap validation | Validation Agent | DeepSeek | Acceptance criterion, Evidence found, Gap, Correction request table | Acceptance criterion, evidence path, gap, correction request, result label | Behavior-parity, tool-call, API, or public-capability claim |
+| Connector no-go trigger planning | Enterprise Integration Reviewer | WorkBuddy / Tencent Cloud | Workflow observations, connector risks, blocked live actions | Connector class `design-only`, blocked action, no-go trigger, escalation owner | Install, open, connect, configure, authenticate, local file, QQ, WeCom, tenant, connector, or writeback action |
+
+Every row must use synthetic-only or separately approved desensitized input, return one qualitative result label, and avoid rankings, provider selection advice, procurement guidance, release copy, and public capability claims.
+
 ## Failure Modes And Guardrails
 
 | Failure Mode | Guardrail |
