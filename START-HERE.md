@@ -16,30 +16,19 @@ It is most useful when a team needs to answer:
 - What evidence is enough to move forward?
 - What should be written back as reusable knowledge?
 
-## 10-Minute First Run
+## Guided Workflow First Run
 
-1. Open `examples/first-run-prompt-packet-v0.3.1.md`.
+1. Open `examples/guided-workflow-first-run-v0.4.md`.
 2. Copy the first prompt into Codex with `$ands-nexus` enabled.
 3. Use a synthetic or desensitized task, such as: "add a weekly export to an internal reporting tool."
-4. Ask for three artifacts only: an ANDS-T, a Gate Checklist, and a Lessons draft.
-5. Check whether the output names the Track, owner, acceptance evidence, and writeback boundary.
+4. Run one step at a time: Intake Snapshot, ANDS-T Task Card, Track + Gate Checklist, and Lessons Draft.
+5. Check whether each answer includes Current Artifact, State Packet, Gate / Evidence Check, Owner Decision, Next Prompt, and Boundary Reminder.
 
 Expected result: a small, reviewable workflow packet that a human owner can approve, reject, or revise.
 
-## Guided Workflow Candidate
+## Compact First Run
 
-For a step-by-step path, open `examples/guided-workflow-first-run-v0.4.md`.
-
-Use it when you want each answer to return:
-
-- Current Artifact.
-- State Packet.
-- Gate / Evidence Check.
-- Owner Decision.
-- Next Prompt.
-- Boundary Reminder.
-
-The v0.4 guided workflow material on main is a candidate package asset until a public release is explicitly approved. The current public release remains `v0.3.1`.
+For the older compact path, open `examples/first-run-prompt-packet-v0.3.1.md`. It returns a shorter ANDS-T + Gate + Lessons packet without the full visible state loop.
 
 ## Choose A Track
 
@@ -63,7 +52,7 @@ Write back to a broader methodology only after review confirms the lesson is reu
 
 ## Boundaries
 
-v0.3.1 keeps the same public boundary as v0.3.0:
+v0.4.0 keeps the same public boundary as v0.3.x:
 
 - no provider-native validation;
 - no API integration;

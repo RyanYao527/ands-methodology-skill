@@ -1,6 +1,6 @@
 # Guided Workflow First Run v0.4
 
-> Goal: run one four-step guided ANDS workflow with synthetic material only. This example is a v0.4 candidate asset and does not indicate a public v0.4.0 release.
+> Goal: run one four-step guided ANDS workflow with synthetic material only. This example is included in the public v0.4.0 guided workflow MVP.
 
 ## Scenario
 

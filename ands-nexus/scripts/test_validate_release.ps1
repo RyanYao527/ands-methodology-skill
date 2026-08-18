@@ -220,9 +220,10 @@ $guidedStatePacket = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $re
 $guidedFirstRun = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "examples/guided-workflow-first-run-v0.4.md")
 $guidedRegression = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "examples/guided-workflow-regression-v0.4.md")
 
-Assert-Contains -Text $startHere -Expected "10-Minute First Run"
+Assert-Contains -Text $startHere -Expected "Guided Workflow First Run"
 Assert-Contains -Text $startHere -Expected "examples/first-run-prompt-packet-v0.3.1.md"
 Assert-Contains -Text $startHere -Expected "examples/guided-workflow-first-run-v0.4.md"
+Assert-Contains -Text $startHere -Expected "Compact First Run"
 Assert-Contains -Text $examplesIndex -Expected "post-release-feedback-intake-v0.3.1.md"
 Assert-Contains -Text $examplesIndex -Expected "role-routing-regression-scenarios-v0.3.1.md"
 Assert-Contains -Text $examplesIndex -Expected "guided-workflow-first-run-v0.4.md"

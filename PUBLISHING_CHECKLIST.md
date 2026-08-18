@@ -1,6 +1,6 @@
 # Publishing Checklist
 
-本清单用于 `ands-nexus` skill 的内部试用、release candidate 准备和公开发布执行检查。当前公开版本是 `v0.3.1`；GitHub release: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.3.1>。
+本清单用于 `ands-nexus` skill 的内部试用、release candidate 准备和公开发布执行检查。当前公开版本是 `v0.4.0`；GitHub release: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.0>。
 
 ## v0.1.0 Released Archive
 
@@ -109,9 +109,9 @@
 - [x] 创建 GitHub release，并记录 release URL：<https://github.com/RyanYao527/ands-nexus/releases/tag/v0.3.1>。
 - [x] 完成 Gate 5 release closeout 与 Knowledge Writeback。
 
-## v0.4.0 Release Candidate Prep - Not Released
+## v0.4.0 Public Release Execution
 
-本节记录 `v0.4.0` guided workflow MVP 候选包准备状态。当前公开版本仍是 `v0.3.1`。
+本节记录 `v0.4.0` guided workflow MVP 公开 GitHub release 执行状态。
 
 - [x] V04-T01 package mapping review 已完成，结论为 `V04_GUIDED_WORKFLOW_PACKAGE_MAPPING_READY_FOR_EDIT_AUTHORIZATION`。
 - [x] 候选 scope 限定为 documentation-first guided workflow references、templates、examples、routing 和 validation。
@@ -124,9 +124,14 @@
 - [x] Candidate validation PASS：`test_validate_release.ps1`、`validate_release.ps1 -QuickValidatePath ...`、`quick_validate.py`、`git diff --check`。
 - [x] Reviewer Important findings 已修复：README candidate/release validation 口径、copy-ready state、Validation + Governance、candidate-only writeback 和 validator assertions。
 - [x] Candidate Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking。
-- [ ] Project Owner 尚未明确确认公开发布 `v0.4.0`。
-- [x] 未创建 `v0.4.0` tag。
-- [x] 未创建 `v0.4.0` GitHub release。
+- [x] Project Owner 已明确确认进入 public `v0.4.0` release execution。
+- [x] Current v0.4 candidate package 已先完整 commit：`fbe284e`。
+- [x] release execution 前重新运行 `test_validate_release.ps1`、`validate_release.ps1 -QuickValidatePath ...`、`quick_validate.py`、`git diff --check`。
+- [x] Release notes 已从 candidate wording 改为 public `v0.4.0 - 2026-08-18` 口径。
+- [x] 确认 tag 名、release notes 版本、GitHub release 标题和仓库可见性一致。
+- [x] 创建并推送 `v0.4.0` tag。
+- [x] 创建 GitHub release，并记录 release URL：<https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.0>。
+- [x] 完成 Gate 5 release closeout 与 Knowledge Writeback。
 
 ## Validation Commands
 

@@ -15,20 +15,25 @@
 
 ## Current Release
 
-当前公开版本是 `v0.3.1`，已于 2026-08-18 发布。
+当前公开版本是 `v0.4.0`，已于 2026-08-18 发布。
 
-Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.3.1>
+Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.0>
 
-`v0.3.1` 是 `v0.3.0` 之后的 post-release adoption hardening patch。它不扩大 provider 能力声明，而是补齐新用户上手、公开反馈入口、10 分钟首跑 prompt packet、examples index 和 role-routing regression scenarios。
+`v0.4.0` adds a documentation-first guided workflow MVP on top of the v0.3.x adoption and provider-adaptation materials. It helps first-time users move through Intake Snapshot, ANDS-T Task Card, Track + Gate Checklist, and Lessons Draft with visible state, owner decisions, and copy-ready next prompts.
 
 ### Start Here
 
-New users should begin with `START-HERE.md`, then run `examples/first-run-prompt-packet-v0.3.1.md`.
+New users should begin with `START-HERE.md`, then run `examples/guided-workflow-first-run-v0.4.md`.
 
-The main branch also contains v0.4 guided workflow candidate material for users who want a more explicit step-by-step path: `examples/guided-workflow-first-run-v0.4.md`.
+For the older compact first run, use `examples/first-run-prompt-packet-v0.3.1.md`.
 
-### Included In v0.3.1
+### Included In v0.4.0
 
+- `ands-nexus/references/guided-workflow-mvp.md` for the four-step guided workflow and role/state model.
+- `ands-nexus/assets/templates/guided-workflow-state-packet.md` for copyable workflow state.
+- `examples/guided-workflow-first-run-v0.4.md` for a synthetic Intake -> ANDS-T -> Gate -> Lessons run.
+- `examples/guided-workflow-regression-v0.4.md` for checking role drift, skipped Gate evidence, missing owner decision, writeback overreach, and Enterprise escalation.
+- `validate_release.ps1`, `validate_templates.ps1`, and `test_validate_release.ps1` checks for the v0.4 guided workflow assets.
 - `START-HERE.md` for a shorter first-run path.
 - `examples/INDEX.md` for choosing the right example.
 - `examples/post-release-feedback-intake-v0.3.1.md` for public feedback triage.
@@ -41,29 +46,7 @@ The main branch also contains v0.4 guided workflow candidate material for users 
 - Governance boundaries for future provider-native/API/tenant/connector/writeback work.
 - Release validation guards for provider-native/API/tenant/writeback/benchmark claim overreach.
 
-### v0.4.0 Candidate On Main
-
-The main branch contains candidate v0.4 guided workflow MVP assets. These materials are not a public `v0.4.0` release until Project Owner release Go, tag creation, GitHub release creation, and Gate 5 closeout are completed.
-
-Candidate scope:
-
-- `ands-nexus/references/guided-workflow-mvp.md` explains the four-step guided workflow and role/state model.
-- `ands-nexus/assets/templates/guided-workflow-state-packet.md` provides a copyable state packet.
-- `examples/guided-workflow-first-run-v0.4.md` walks through Intake Snapshot, ANDS-T Task Card, Track + Gate Checklist, and Lessons Draft.
-- `examples/guided-workflow-regression-v0.4.md` checks role drift, skipped Gate evidence, missing owner decision, writeback overreach, and Enterprise escalation.
-
-Candidate boundary: documentation-first workflow guidance only. Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking.
-
-Candidate validation on main:
-
-- `test_validate_release.ps1`: PASS.
-- `validate_release.ps1 -QuickValidatePath ...`: PASS.
-- `quick_validate.py`: PASS.
-- `git diff --check`: PASS.
-- Public package scan: PASS.
-- GitHub release: not created for `v0.4.0`.
-
-### v0.3.1 Release Validation Status
+### v0.4.0 Release Validation Status
 
 - `test_validate_release.ps1`: PASS.
 - `validate_release.ps1 -QuickValidatePath ...`: PASS.
@@ -74,12 +57,13 @@ Candidate validation on main:
 
 ### Evidence Level And Boundaries
 
-v0.3.1 的证据等级仍是 design / official-doc-reviewed / proxy or synthetic forward-test。它可以作为离线适配和后续 Enterprise discovery 的准备材料，但不能被解读为真实 runtime 能力证明。
+v0.4.0 的证据等级仍是 documentation / local validation / synthetic example。它可以作为 guided ANDS first-run 和后续 workflow automation discovery 的准备材料，但不能被解读为真实 runtime 能力证明。
 
 Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking.
 
 ## Previous Releases
 
+- `v0.3.1`：post-release adoption hardening patch，新增 START-HERE、examples index、feedback intake、10 分钟首跑 prompt packet 和 role-routing regression scenarios。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.3.1>。
 - `v0.3.0`：公开 offline/provider-adaptation documentation package，覆盖 provider adaptation references、role-routing matrix patterns、prompt/profile/template-level guidance 和 synthetic/proxy forward-test methodology。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.3.0>。
 - `v0.2.2`：公开 prompt/profile/template-level multi-agent/model adapter pack，覆盖 capability matrix、adapter card、provider profile cards 和 forward-test suite。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.2.2>。
 - `v0.2.1`：新增 30-day pilot template、post-release feedback intake、release validation aggregator 和 `.gitattributes`。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.2.1>。
@@ -158,7 +142,7 @@ $text = Get-Content -LiteralPath .\ands-nexus\SKILL.md -Raw -Encoding UTF8
 4. 我们想让 AI PM 调度多个 Agent 做需求拆解、开发、测试和发布，请帮我设计最小 Agent 矩阵。
 5. 这次上线延期是因为验收标准写得太模糊，Agent 做完以后业务方说不是他们要的。请按 ANDS 写一次复盘。
 
-v0.2 forward-test 场景见 `examples/forward-test-scenarios-v0.2.md`；种子用户反馈 intake 见 `examples/seed-user-feedback-intake-v0.2.md`；发布后反馈 intake 见 `examples/post-release-feedback-intake-v0.2.1.md`；多 runtime 适配 forward-test 见 `examples/agent-model-adaptation-forward-test-v0.2.2.md`；v0.3 offline provider profile material 见 `examples/provider-profile-cards-v0.3-internal.md` 和 `examples/provider-profile-offline-adoption-packet-v0.3.md`；v0.4 guided workflow candidate material 见 `examples/guided-workflow-first-run-v0.4.md` 和 `examples/guided-workflow-regression-v0.4.md`。
+v0.2 forward-test 场景见 `examples/forward-test-scenarios-v0.2.md`；种子用户反馈 intake 见 `examples/seed-user-feedback-intake-v0.2.md`；发布后反馈 intake 见 `examples/post-release-feedback-intake-v0.2.1.md`；多 runtime 适配 forward-test 见 `examples/agent-model-adaptation-forward-test-v0.2.2.md`；v0.3 offline provider profile material 见 `examples/provider-profile-cards-v0.3-internal.md` 和 `examples/provider-profile-offline-adoption-packet-v0.3.md`；v0.4 guided workflow material 见 `examples/guided-workflow-first-run-v0.4.md` 和 `examples/guided-workflow-regression-v0.4.md`。
 
 ## Package Map
 
@@ -182,14 +166,14 @@ ands-nexus/
 - 不提供完整 37 节课程内容。
 - 不构建生产级 AI Gateway。
 - 不提供一键部署 Dashboard、GitHub Actions 或 Obsidian 自动化。
-- Non-Scope: v0.3.1 has no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking。
+- Non-Scope: v0.4.0 has no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking。
 - 不承诺所有团队都适合一次性全量引入五道 Gate。
 - Obsidian writeback MVP 只生成草稿或写入显式指定路径；不扫描或批量改写 Vault。若显式 `-OutputPath` 的父目录不存在，脚本可能创建该父目录，且只作用于用户明确给出的路径。
 - 本包已经完成 v0.1.0 发布前脱敏审查。
 - `v0.2.1` 已完成公开发布前最终脱敏审查；后续真实反馈仍应先脱敏再进入 examples 或 validation。
-- `v0.3.1` 已公开发布；v0.3.x 证据来自 design / official-doc-reviewed / proxy or synthetic forward-test 层级，不代表 runtime capability evidence 或 provider selection advice。
-- `v0.4.0` guided workflow material on main is candidate-only until explicit public release Go.
+- `v0.3.x` 证据来自 design / official-doc-reviewed / proxy or synthetic forward-test 层级，不代表 runtime capability evidence 或 provider selection advice。
+- `v0.4.0` guided workflow material is documentation-first and does not provide workflow automation, hosted UI, or provider-native execution evidence.
 
 ## License
 
-当前 `LICENSE` 使用 MIT 文本，Project Owner 已于 2026-08-12 确认正式采用 MIT License，并已确认可公开发布 v0.1 / v0.2 / v0.3。
+当前 `LICENSE` 使用 MIT 文本，Project Owner 已于 2026-08-12 确认正式采用 MIT License，并已确认可公开发布 v0.1 / v0.2 / v0.3 / v0.4。
