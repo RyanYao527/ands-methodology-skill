@@ -1,5 +1,44 @@
 # Release Notes
 
+## v0.4.1 - 2026-08-18
+
+`v0.4.1` 已完成公开 patch release execution。
+
+Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.1>
+
+### Summary
+
+v0.4.1 is a bounded stabilization patch for the v0.4 guided workflow first-run path, opened from U1-U5 real/desensitized first-user feedback. It keeps the v0.4 documentation-first scope and improves package availability, onboarding clarity, owner decision carry-forward, writeback boundary wording, template mapping, validation transparency, and Track/Gate ownership language.
+
+### Changed
+
+- Improve non-Codex and macOS/Linux onboarding.
+- Add first-run glossary coverage.
+- Make SKILL-routed examples available inside the installable skill folder.
+- Add `owner_response` carry-forward to the guided workflow.
+- Unify writeback wording: no unattended or automated writeback; user-invoked draft generation to an explicit path is allowed only when explicitly requested.
+- Add guided lite to formal template mapping.
+- Make `quick_validate.py` status explicit as external / skipped when no path is supplied.
+- Clarify Track gray zones and Gate 1 human owner responsibility.
+
+### Validation Evidence
+
+- `test_validate_release.ps1`: PASS.
+- `validate_release.ps1`: PASS, including `SKIP quick_validate` when no external `-QuickValidatePath` is supplied.
+- `validate_templates.ps1`: PASS.
+- `git diff --check`: PASS.
+- Release readiness Go / No-Go: `GO_FOR_V0_4_1_RELEASE_EXECUTION_AFTER_FINAL_VALIDATION`.
+- Final release execution validation: PASS.
+
+### Non-Scope
+
+- No provider-native validation.
+- No API integration.
+- No credential setup.
+- No tenant connectors.
+- No unattended or automated writeback.
+- No benchmark ranking, best-provider result, procurement guidance, or public provider capability claim.
+
 ## v0.4.0 - 2026-08-18
 
 `v0.4.0` 已完成公开发布执行。
@@ -10,7 +49,7 @@ Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.0>
 
 v0.4.0 adds a documentation-first guided workflow MVP. It helps a first-time user move through Intake Snapshot, ANDS-T Task Card, Track + Gate Checklist, and Lessons Draft with visible state, owner decisions, and copy-ready next prompts.
 
-Scope remains bounded to references, templates, examples, routing, and validation. Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking.
+Scope remains bounded to references, templates, examples, routing, and validation. Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no unattended or automated writeback, no benchmark ranking.
 
 ### Added
 
@@ -22,7 +61,8 @@ Scope remains bounded to references, templates, examples, routing, and validatio
 ### Changed
 
 - `SKILL.md`, `START-HERE.md`, `README.md`, and `examples/INDEX.md`: routing and reader entry updates.
-- `validate_release.ps1`, `validate_templates.ps1`, and `test_validate_release.ps1`: v0.4 asset manifest and content assertions.
+- `validate_templates.ps1`: template manifest checks.
+- `validate_release.ps1` and `test_validate_release.ps1`: v0.4 asset manifest and content assertions.
 
 ### Validation Evidence
 
@@ -30,7 +70,7 @@ Candidate package validation on 2026-08-18:
 
 - `test_validate_release.ps1`: PASS.
 - `validate_release.ps1 -QuickValidatePath ...`: PASS.
-- `quick_validate.py`: PASS.
+- `quick_validate.py`: PASS during release execution; external Codex skill-creator tool, not included in this repository.
 - `git diff --check`: PASS.
 - Public package scan: PASS.
 
@@ -38,7 +78,7 @@ Candidate package validation on 2026-08-18:
 
 - No provider-native validation.
 - No API integration.
-- No credential setup, no tenant connectors, and no automated writeback.
+- No credential setup, no tenant connectors, and no unattended or automated writeback.
 - No benchmark ranking, best-provider result, procurement guidance, or public provider capability claim.
 
 ## v0.3.1 - 2026-08-18

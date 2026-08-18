@@ -16,13 +16,25 @@ It is most useful when a team needs to answer:
 - What evidence is enough to move forward?
 - What should be written back as reusable knowledge?
 
+## If you are not using Codex
+
+`$ands-nexus` is the Codex skill trigger. If you are not using Codex, load `ands-nexus/SKILL.md` as the main instruction and attach or paste only the mapped reference/template files listed in its Task Routing table.
+
+For a first guided run, use `ands-nexus/references/guided-workflow-mvp.md`, `ands-nexus/references/glossary.md`, `ands-nexus/assets/templates/guided-workflow-state-packet.md`, and `examples/guided-workflow-first-run-v0.4.md`.
+
+## Core Terms
+
+Read `ands-nexus/references/glossary.md` first if State Packet, Gate, Track, ANDS-T, Writeback, `data_class`, or `owner_response` is unfamiliar.
+
 ## Guided Workflow First Run
 
 1. Open `examples/guided-workflow-first-run-v0.4.md`.
-2. Copy the first prompt into Codex with `$ands-nexus` enabled.
-3. Use a synthetic or desensitized task, such as: "add a weekly export to an internal reporting tool."
+2. Copy the first prompt into Codex with `$ands-nexus` enabled, or follow the non-Codex loading path above.
+3. Use a synthetic or desensitized task, such as: "add a weekly export to an internal reporting tool." First-run users should use a fictional task because this package rehearses the process; it does not connect to your systems.
 4. Run one step at a time: Intake Snapshot, ANDS-T Task Card, Track + Gate Checklist, and Lessons Draft.
 5. Check whether each answer includes Current Artifact, State Packet, Gate / Evidence Check, Owner Decision, Next Prompt, and Boundary Reminder.
+
+If a guided answer misses one of the six sections, reply: "Your output is missing [section name]. Please return the current guided workflow step again with Current Artifact, State Packet, Gate / Evidence Check, Owner Decision, Next Prompt, and Boundary Reminder."
 
 Expected result: a small, reviewable workflow packet that a human owner can approve, reject, or revise.
 
@@ -34,9 +46,11 @@ For the older compact path, open `examples/first-run-prompt-packet-v0.3.1.md`. I
 
 | Track | Use When | Keep It Small By |
 |---|---|---|
-| Quick | Low-risk writing, planning, or explanation | One output, light checklist |
+| Quick | Low-risk writing, planning, or explanation; no sensitive data, low blast radius, quick rollback | One output, Track reason, Gate 2 or equivalent check |
 | Standard | Internal workflow, reusable template, or agent handoff | Explicit owner, Gate checklist, validation evidence |
-| Enterprise | Real customer data, credentials, tenant systems, connectors, live provider work, or public claims | Require approval, preflight, audit trail, and rollback plan |
+| Enterprise | Real customer data, production-critical path, security/compliance risk, hard rollback, cross-team impact, credentials, tenant systems, connectors, live provider work, or public claims | Require approval, preflight, audit trail, and rollback plan |
+
+External delivery or contractual impact without sensitive data usually starts as Standard with stronger Gate 4 review unless production-critical, sensitive, hard to rollback, or cross-team facts make it Enterprise.
 
 ## What To Save
 
@@ -52,13 +66,15 @@ Write back to a broader methodology only after review confirms the lesson is reu
 
 ## Boundaries
 
-v0.4.0 keeps the same public boundary as v0.3.x:
+v0.4.1 keeps the same public boundary as v0.3.x:
 
 - no provider-native validation;
 - no API integration;
 - no credential setup;
 - no tenant connectors;
-- no automated writeback;
+- no unattended or automated writeback;
 - no benchmark ranking.
 
 For provider/runtime adaptation, treat labels as routing hypotheses until stronger evidence exists.
+
+Writeback boundary: user-invoked draft generation to an explicit path is allowed only when explicitly requested. It does not authorize unattended persistence, Vault scans, GitHub sync, provider workspace writes, or enterprise-system updates.

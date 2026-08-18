@@ -45,8 +45,28 @@ function New-ReleaseValidationRepoFixture {
     $fixtureRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("{0}-{1}" -f $NamePrefix, [guid]::NewGuid().ToString("N"))
     New-Item -ItemType Directory -Path (Join-Path $fixtureRoot "examples") -Force | Out-Null
     New-Item -ItemType Directory -Path (Join-Path $fixtureRoot "ands-nexus/scripts") -Force | Out-Null
-    Set-Content -LiteralPath (Join-Path $fixtureRoot "README.md") -Encoding UTF8 -Value "# Fixture`nhttps://github.com/RyanYao527/ands-nexus"
-    Set-Content -LiteralPath (Join-Path $fixtureRoot "START-HERE.md") -Encoding UTF8 -Value "# Fixture"
+    Set-Content -LiteralPath (Join-Path $fixtureRoot "README.md") -Encoding UTF8 -Value @'
+# Fixture
+
+https://github.com/RyanYao527/ands-nexus
+
+If you are not using Codex
+macOS/Linux
+brew install powershell ripgrep
+quick_validate.py is external
+'@
+    Set-Content -LiteralPath (Join-Path $fixtureRoot "START-HERE.md") -Encoding UTF8 -Value @'
+# Fixture
+
+Guided Workflow First Run
+examples/first-run-prompt-packet-v0.3.1.md
+examples/guided-workflow-first-run-v0.4.md
+Compact First Run
+If you are not using Codex
+Core Terms
+If a guided answer misses one of the six sections
+use a fictional task because this package rehearses the process; it does not connect to your systems
+'@
     Set-Content -LiteralPath (Join-Path $fixtureRoot "RELEASE_NOTES.md") -Encoding UTF8 -Value "# Fixture"
     Set-Content -LiteralPath (Join-Path $fixtureRoot "PUBLISHING_CHECKLIST.md") -Encoding UTF8 -Value "# Fixture"
 
@@ -76,6 +96,16 @@ function New-ReleaseValidationRepoFixture {
         Set-Content -LiteralPath (Join-Path $fixtureRoot "examples/$exampleFile") -Encoding UTF8 -Value "# Fixture"
     }
 
+    Set-Content -LiteralPath (Join-Path $fixtureRoot "examples/INDEX.md") -Encoding UTF8 -Value @'
+# Fixture
+
+post-release-feedback-intake-v0.3.1.md
+role-routing-regression-scenarios-v0.3.1.md
+guided-workflow-first-run-v0.4.md
+guided-workflow-regression-v0.4.md
+Installable routed examples are also copied under `ands-nexus/examples/`
+'@
+
     Set-Content -LiteralPath (Join-Path $fixtureRoot "examples/guided-workflow-first-run-v0.4.md") -Encoding UTF8 -Value @'
 # Fixture
 
@@ -86,12 +116,14 @@ function New-ReleaseValidationRepoFixture {
 ## Next Prompt
 ## Boundary Reminder
 - owner_decision: Confirm Standard Track and provide missing evidence
-- boundary_flags: Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking
+- boundary_flags: Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no unattended or automated writeback, no benchmark ranking
 - active_role: Validation + Governance
 | `active_role` | Validation + Governance |
 Gate 2 test evidence; Gate 3 owner acceptance; human review before reuse
 do not authorize broader writeback from this prompt
 confirmation that no broader writeback is authorized by this prompt
+Status legend
+- owner_response: confirm:
 '@
     Set-Content -LiteralPath (Join-Path $fixtureRoot "examples/guided-workflow-regression-v0.4.md") -Encoding UTF8 -Value @'
 # Fixture
@@ -130,6 +162,7 @@ function Assert-PublicScanFails {
 $output = & $validator -SkipWritebackTest *>&1 | Out-String
 
 Assert-Contains -Text $output -Expected "PASS validate_templates"
+Assert-Contains -Text $output -Expected "SKIP quick_validate (no -QuickValidatePath; external Codex skill-creator tool not in repo)"
 Assert-Contains -Text $output -Expected "PASS asset_counts"
 Assert-Contains -Text $output -Expected "PASS public_package_scan"
 Assert-Contains -Text $output -Expected "PASS validate_release"
@@ -216,29 +249,68 @@ $firstRunPacket = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoR
 $postReleaseFeedback = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "examples/post-release-feedback-intake-v0.3.1.md")
 $roleRoutingRegression = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "examples/role-routing-regression-scenarios-v0.3.1.md")
 $guidedReference = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "ands-nexus/references/guided-workflow-mvp.md")
+$glossaryReferencePath = Join-Path $repoRoot "ands-nexus/references/glossary.md"
 $guidedStatePacket = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "ands-nexus/assets/templates/guided-workflow-state-packet.md")
 $guidedFirstRun = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "examples/guided-workflow-first-run-v0.4.md")
 $guidedRegression = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "examples/guided-workflow-regression-v0.4.md")
+$gateChecklist = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "ands-nexus/assets/templates/gate-checklist.md")
+$trackDecisionCard = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "ands-nexus/assets/templates/track-decision-card.md")
+
+if (-not (Test-Path -LiteralPath $glossaryReferencePath -PathType Leaf)) {
+    throw "Missing v0.4.1 glossary reference: $glossaryReferencePath"
+}
+$glossaryReference = Get-Content -Raw -Encoding UTF8 -LiteralPath $glossaryReferencePath
 
 Assert-Contains -Text $startHere -Expected "Guided Workflow First Run"
 Assert-Contains -Text $startHere -Expected "examples/first-run-prompt-packet-v0.3.1.md"
 Assert-Contains -Text $startHere -Expected "examples/guided-workflow-first-run-v0.4.md"
 Assert-Contains -Text $startHere -Expected "Compact First Run"
+Assert-Contains -Text $startHere -Expected "If you are not using Codex"
+Assert-Contains -Text $startHere -Expected "Core Terms"
+Assert-Contains -Text $startHere -Expected "If a guided answer misses one of the six sections"
+Assert-Contains -Text $startHere -Expected "use a fictional task because this package rehearses the process; it does not connect to your systems"
 Assert-Contains -Text $examplesIndex -Expected "post-release-feedback-intake-v0.3.1.md"
 Assert-Contains -Text $examplesIndex -Expected "role-routing-regression-scenarios-v0.3.1.md"
 Assert-Contains -Text $examplesIndex -Expected "guided-workflow-first-run-v0.4.md"
 Assert-Contains -Text $examplesIndex -Expected "guided-workflow-regression-v0.4.md"
+Assert-Contains -Text $examplesIndex -Expected 'Installable routed examples are also copied under `ands-nexus/examples/`'
 Assert-Contains -Text $skillDefinition -Expected "Run guided ANDS workflow"
+Assert-Contains -Text $skillDefinition -Expected "references/glossary.md"
+Assert-Contains -Text $skillDefinition -Expected "assets/templates/ands-t-template.md"
+Assert-Contains -Text $skillDefinition -Expected "assets/templates/gate-checklist.md"
+Assert-Contains -Text $skillDefinition -Expected "assets/templates/lessons-template.md"
+Assert-Contains -Text $skillDefinition -Expected "examples/management-rollout-plan.md"
 Assert-Contains -Text $firstRunPacket -Expected "Expected output: a candidate Lessons draft, not an automatic writeback."
 Assert-Contains -Text $postReleaseFeedback -Expected 'If any answer is `yes` or `unclear`, route to Enterprise review before changing public guidance.'
 Assert-Contains -Text $roleRoutingRegression -Expected "Scenario RR-04: Governance Should Escalate Enterprise Scope"
+
+$routedInstallExamples = @(
+    "first-run-prompt-packet-v0.3.1.md",
+    "guided-workflow-first-run-v0.4.md",
+    "guided-workflow-regression-v0.4.md",
+    "management-rollout-plan.md",
+    "post-release-feedback-intake-v0.3.1.md",
+    "role-routing-regression-scenarios-v0.3.1.md"
+)
+foreach ($routedExample in $routedInstallExamples) {
+    $skillExamplePath = Join-Path $repoRoot "ands-nexus/examples/$routedExample"
+    if (-not (Test-Path -LiteralPath $skillExamplePath -PathType Leaf)) {
+        throw "Missing installable routed example copy: $routedExample"
+    }
+}
 
 Assert-Contains -Text $guidedReference -Expected "Intake Snapshot"
 Assert-Contains -Text $guidedReference -Expected "ANDS-T Task Card"
 Assert-Contains -Text $guidedReference -Expected "Track + Gate Checklist"
 Assert-Contains -Text $guidedReference -Expected "Lessons Draft"
 Assert-Contains -Text $guidedReference -Expected "Role Boundaries"
-Assert-Contains -Text $guidedReference -Expected "no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking"
+Assert-Contains -Text $guidedReference -Expected "Guided Lite To Formal Template Mapping"
+Assert-Contains -Text $guidedReference -Expected "Next Prompt embedded state"
+Assert-Contains -Text $guidedReference -Expected "no unattended or automated writeback"
+Assert-Contains -Text $guidedReference -Expected "user-invoked draft generation to an explicit path is allowed only when explicitly requested"
+Assert-Contains -Text $glossaryReference -Expected "State Packet"
+Assert-Contains -Text $glossaryReference -Expected "Gate"
+Assert-Contains -Text $glossaryReference -Expected "owner_response"
 
 $guidedStateFields = @(
     "workflow_id",
@@ -251,6 +323,7 @@ $guidedStateFields = @(
     "artifacts_created",
     "missing_evidence",
     "owner_decision",
+    "owner_response",
     "next_prompt",
     "boundary_flags"
 )
@@ -265,18 +338,23 @@ Assert-Contains -Text $guidedFirstRun -Expected "Owner Decision"
 Assert-Contains -Text $guidedFirstRun -Expected "Next Prompt"
 Assert-Contains -Text $guidedFirstRun -Expected "Boundary Reminder"
 Assert-Contains -Text $guidedFirstRun -Expected "- owner_decision: Confirm Standard Track and provide missing evidence"
-Assert-Contains -Text $guidedFirstRun -Expected "- boundary_flags: Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking"
+Assert-Contains -Text $guidedFirstRun -Expected "- owner_response: confirm:"
+Assert-Contains -Text $guidedFirstRun -Expected "- boundary_flags: Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no unattended or automated writeback, no benchmark ranking"
 Assert-Contains -Text $guidedFirstRun -Expected "- active_role: Validation + Governance"
 Assert-Contains -Text $guidedFirstRun -Expected '| `active_role` | Validation + Governance |'
 Assert-Contains -Text $guidedFirstRun -Expected "Gate 2 test evidence; Gate 3 owner acceptance; human review before reuse"
 Assert-Contains -Text $guidedFirstRun -Expected "do not authorize broader writeback from this prompt"
 Assert-Contains -Text $guidedFirstRun -Expected "confirmation that no broader writeback is authorized by this prompt"
+Assert-Contains -Text $guidedFirstRun -Expected "Status legend"
 
 Assert-Contains -Text $guidedRegression -Expected "role drift"
 Assert-Contains -Text $guidedRegression -Expected "skipped Gate evidence"
 Assert-Contains -Text $guidedRegression -Expected "missing owner decision"
 Assert-Contains -Text $guidedRegression -Expected "writeback overreach"
 Assert-Contains -Text $guidedRegression -Expected "Enterprise escalation"
+Assert-Contains -Text $gateChecklist -Expected 'Owner: `[人类 Project Owner'
+Assert-Contains -Text $gateChecklist -Expected "AI PM 仅准备材料与质检，不作准入决策"
+Assert-Contains -Text $trackDecisionCard -Expected "External delivery or contractual impact"
 
 $readmeAsQuickValidate = Join-Path $repoRoot "README.md"
 Assert-Fails -ExpectedMessage "quick_validate.py failed" -Block {
@@ -288,31 +366,31 @@ $fakeRgDir = Join-Path ([System.IO.Path]::GetTempPath()) ("ands-release-fake-rg-
 try {
     New-Item -ItemType Directory -Path $fakeRgDir -Force | Out-Null
     $fakeRgCounter = Join-Path $fakeRgDir "rg-counter.txt"
-    $fakeRgScript = @"
-param([Parameter(ValueFromRemainingArguments = `$true)][string[]]`$Arguments)
+    $fakeRgScript = @'
+param([Parameter(ValueFromRemainingArguments = $true)][string[]]$Arguments)
 
-`$count = 0
-if (Test-Path -LiteralPath "$fakeRgCounter") {
-    `$rawCount = Get-Content -Raw -LiteralPath "$fakeRgCounter"
-    if (`$rawCount) {
-        `$count = [int]`$rawCount.Trim()
+$count = 0
+if (Test-Path -LiteralPath "__COUNTER_PATH__") {
+    $rawCount = Get-Content -Raw -LiteralPath "__COUNTER_PATH__"
+    if ($rawCount) {
+        $count = [int]$rawCount.Trim()
     }
 }
-`$count += 1
-Set-Content -LiteralPath "$fakeRgCounter" -Encoding ASCII -Value `$count
+$count += 1
+Set-Content -LiteralPath "__COUNTER_PATH__" -Encoding ASCII -Value $count
 
-if (`$count -eq 2) {
+if ($count -eq 2) {
     Write-Output "README.md:1:https://github.com/RyanYao527/ands-nexus"
     exit 0
 }
 
-if (`$count -eq 3) {
+if ($count -eq 3) {
     Write-Output "ands-nexus/scripts/validate_release.ps1:1:best model"
     exit 0
 }
 
 exit 1
-"@
+'@.Replace("__COUNTER_PATH__", $fakeRgCounter)
     Set-Content -LiteralPath (Join-Path $fakeRgDir "rg.ps1") -Encoding UTF8 -Value $fakeRgScript
 
     $oldPath = $env:PATH

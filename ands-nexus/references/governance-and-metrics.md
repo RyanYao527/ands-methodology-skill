@@ -28,6 +28,7 @@
 - 裁剪的是检查强度，不是责任本身。
 - Track 判断必须看风险、可回滚性、敏感数据、跨团队影响、验收人和失败动作。
 - Enterprise 条件不能通过“拆小描述”降级；只能拆成低风险子任务和单独的 Enterprise 审查任务。
+- 外部交付或合同影响但不涉及真实客户数据、生产关键路径、跨团队接口或难回滚承诺时，默认 Standard，并加强 Gate 4 审查；一旦出现客户真实数据、合规、安全、生产关键路径或难回滚承诺，升级 Enterprise。
 
 ### Gate 1-5
 
@@ -110,7 +111,7 @@ Gate 5 最小检查：
 
 ### Multi-Runtime Governance Boundary
 
-Prompt-level adaptation across agent/model runtimes stays Standard Track when inputs are desensitized. Non-Scope: no live provider API integration, no credential setup, no tenant setup, no automated writeback, and no public benchmark ranking.
+Prompt-level adaptation across agent/model runtimes stays Standard Track when inputs are desensitized. Non-Scope: no live provider API integration, no credential setup, no tenant setup, no unattended or automated writeback, and no public benchmark ranking.
 
 升级 Enterprise Track 的条件：
 

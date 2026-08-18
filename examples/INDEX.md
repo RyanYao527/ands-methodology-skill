@@ -2,6 +2,8 @@
 
 Use this index to choose the smallest example that matches your task.
 
+Installable routed examples are also copied under `ands-nexus/examples/` so SKILL.md routes still work after a skill-folder-only install. This root `examples/` directory remains the public browsing index.
+
 ## First Run
 
 | File | Use When |
@@ -48,4 +50,6 @@ Use this index to choose the smallest example that matches your task.
 
 ## Boundary Reminder
 
-These examples are synthetic, desensitized, or proxy-level materials unless a file says otherwise. Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking.
+These examples are synthetic, desensitized, or proxy-level materials unless a file says otherwise. Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no unattended or automated writeback, no benchmark ranking.
+
+Writeback boundary: user-invoked draft generation to an explicit path is allowed only when explicitly requested. It does not authorize unattended persistence, Vault scans, GitHub sync, provider workspace writes, or enterprise-system updates.

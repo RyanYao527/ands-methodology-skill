@@ -19,14 +19,14 @@ Use this skill to help teams understand, adopt, practice, or review AI-Native De
 
 | User task | Read | Output |
 |---|---|---|
-| Explain ANDS | `references/overview.md` | One-page explanation with fit / non-fit boundaries |
-| Plan team adoption | `references/adoption-playbook.md`, `references/governance-and-metrics.md`, `assets/templates/30-day-pilot-template.md` | 30/60/90-day rollout, pilot plan, risks |
+| Explain ANDS | `references/overview.md`, `references/glossary.md` | One-page explanation with fit / non-fit boundaries |
+| Plan team adoption | `references/adoption-playbook.md`, `references/governance-and-metrics.md`, `assets/templates/30-day-pilot-template.md`, `examples/management-rollout-plan.md` | 30/60/90-day rollout, pilot plan, risks |
 | Draft ANDS standards | `references/standards-k-t-a-w-g.md` | ANDS-K/T/A/W/G draft or review |
 | Rewrite a task as ANDS-T | `references/standards-k-t-a-w-g.md`, `assets/templates/ands-t-template.md` | ANDS-T task card |
 | Design Agent roles | `references/methodology-10-models.md`, `references/platform-5-components.md`, `assets/templates/agent-matrix-template.md` | L1/L2/L3 Agent matrix and AI PM prompt |
 | Adapt ANDS to another agent/model runtime | `references/multi-agent-model-adaptation.md`, `assets/templates/agent-model-adapter-card.md`, `assets/templates/capability-matrix-template.md` | Provider profile, runtime prompt packet, forward-test plan |
-| Run a first ANDS workflow | `examples/first-run-prompt-packet-v0.3.1.md`, `assets/templates/ands-t-template.md`, `assets/templates/gate-checklist.md`, `assets/templates/lessons-template.md` | 10-minute ANDS-T, Gate Checklist, and Lessons draft |
-| Run guided ANDS workflow | `references/guided-workflow-mvp.md`, `assets/templates/guided-workflow-state-packet.md`, `examples/guided-workflow-first-run-v0.4.md` | Current Artifact, State Packet, Gate / Evidence Check, Owner Decision, Next Prompt, and Boundary Reminder |
+| Run a first ANDS workflow | `examples/first-run-prompt-packet-v0.3.1.md`, `references/glossary.md`, `assets/templates/ands-t-template.md`, `assets/templates/gate-checklist.md`, `assets/templates/lessons-template.md` | 10-minute ANDS-T, Gate Checklist, and Lessons draft |
+| Run guided ANDS workflow | `references/guided-workflow-mvp.md`, `references/glossary.md`, `assets/templates/guided-workflow-state-packet.md`, `assets/templates/ands-t-template.md`, `assets/templates/gate-checklist.md`, `assets/templates/lessons-template.md`, `examples/guided-workflow-first-run-v0.4.md` | Current Artifact, State Packet, Gate / Evidence Check, Owner Decision, Next Prompt, and Boundary Reminder |
 | Check role-routing regressions | `examples/role-routing-regression-scenarios-v0.3.1.md`, `references/multi-agent-model-adaptation.md`, `references/governance-and-metrics.md` | Role-routing pass/fail notes and regression prompt candidates |
 | Design governance | `references/governance-and-metrics.md`, `assets/templates/gate-checklist.md`, `assets/templates/track-decision-card.md` | Track decision and Gate checklist |
 | Review a delivery or incident | `references/demo-trace-guide.md`, `references/governance-and-metrics.md`, `assets/templates/lessons-template.md` | Lessons, follow-up issue, standard update |
@@ -37,6 +37,8 @@ Use this skill to help teams understand, adopt, practice, or review AI-Native De
 | Draft Obsidian writeback | `references/governance-and-metrics.md`, `assets/templates/writeback-note-template.md` | Project-local writeback draft with backlinks |
 
 If a referenced file or template is missing, state the missing artifact and proceed with the best available concise structure.
+
+If a request matches multiple routing rows, choose the row matching the user's primary ask first, then include only the extra mapped files needed to satisfy explicit secondary asks. Keep non-scope wording explicit when declining expansions: no live provider API integration, no tenant connectors, no unattended or automated writeback, and no benchmark ranking.
 
 ## Output Level
 
@@ -67,4 +69,4 @@ Before answering, verify that the output:
 
 When the answer produces reusable knowledge, suggest where it should be written back: Technical, Prompt, Product, Decision, or Lessons. Do not modify a knowledge base unless the user explicitly asks.
 
-For Obsidian writeback drafts, keep project facts in the project first. If script automation is appropriate, use `scripts/new_writeback_note.ps1` only to generate a draft or write an explicitly provided output path; do not scan or bulk-modify a Vault.
+For Obsidian writeback drafts, keep project facts in the project first. Boundary wording: no unattended or automated writeback; user-invoked draft generation to an explicit path is allowed only when explicitly requested. If script automation is appropriate, use `scripts/new_writeback_note.ps1` only to generate a draft or write an explicitly provided output path; do not scan or bulk-modify a Vault.

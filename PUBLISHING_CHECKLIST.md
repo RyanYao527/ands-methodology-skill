@@ -1,6 +1,27 @@
 # Publishing Checklist
 
-本清单用于 `ands-nexus` skill 的内部试用、release candidate 准备和公开发布执行检查。当前公开版本是 `v0.4.0`；GitHub release: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.0>。
+本清单用于 `ands-nexus` skill 的内部试用、release candidate 准备和公开发布执行检查。当前公开版本是 `v0.4.1`；GitHub release: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.1>。
+
+## v0.4.1 Public Patch Release Execution
+
+本节记录 `v0.4.1` guided workflow 首用户反馈稳定化补丁公开 release execution 状态。
+
+- [x] 修复 non-Codex 使用路径说明：`$ands-nexus` 是 Codex trigger，其他 runtime 可加载 `ands-nexus/SKILL.md` 并按 Task Routing 附加映射文件。
+- [x] 修复 macOS/Linux 验证说明：说明 `pwsh` / PowerShell Core 与 `rg` / ripgrep 依赖。
+- [x] 修复包结构可达性：`SKILL.md` 路由引用的 examples 在 `ands-nexus/examples/` 中有 installable copy。
+- [x] 新增或验证 `ands-nexus/references/glossary.md`，并从 START-HERE / SKILL / validator 链接。
+- [x] guided workflow 增加 `owner_response` slot，支持 `confirm:` / `revise:` / `escalate:` / `stop:` 回填。
+- [x] 统一 writeback 边界：no unattended or automated writeback；user-invoked draft generation to an explicit path is allowed only when explicitly requested。
+- [x] 明确 guided lite output 到正式 `ands-t-template.md`、`gate-checklist.md`、`lessons-template.md` 的映射。
+- [x] validation status 明确 `quick_validate.py` 为 external tool，不传 `-QuickValidatePath` 时输出 SKIP。
+- [x] Track/Gate owner 口径：Gate 1 owner 是人类 Project Owner，AI PM 仅准备材料与质检；外部交付/合同影响默认至少 Standard + Gate 4 加强，除非 Enterprise 条件出现。
+- [x] Candidate implementation validation PASS：`test_validate_release.ps1`、`validate_release.ps1`、`validate_templates.ps1`、`git diff --check`。
+- [x] Release readiness Go / No-Go completed：`GO_FOR_V0_4_1_RELEASE_EXECUTION_AFTER_FINAL_VALIDATION`。
+- [x] Release notes 已从 candidate wording 改为 public `v0.4.1 - 2026-08-18` 口径。
+- [x] Release execution final validation PASS：`test_validate_release.ps1`、`validate_release.ps1`、`validate_templates.ps1`、`git diff --check`。
+- [x] 创建并推送 `v0.4.1` tag。
+- [x] 创建 GitHub release，并记录 release URL：<https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.1>。
+- [x] 完成 Gate 5 release closeout 与 Knowledge Writeback。
 
 ## v0.1.0 Released Archive
 
@@ -145,7 +166,17 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-nexus\scripts\validat
 python <path-to-skill-creator>\scripts\quick_validate.py .\ands-nexus
 ```
 
-公开发布文档可以说明 `quick_validate.py` 来自 Codex skill creator；release execution 文案不应写入机器特定绝对路径。
+macOS/Linux 可使用 PowerShell Core：
+
+```bash
+brew install powershell ripgrep
+pwsh -NoProfile -File ./ands-nexus/scripts/validate_templates.ps1
+pwsh -NoProfile -File ./ands-nexus/scripts/test_writeback_mvp.ps1
+pwsh -NoProfile -File ./ands-nexus/scripts/test_validate_release.ps1
+pwsh -NoProfile -File ./ands-nexus/scripts/validate_release.ps1
+```
+
+`validate_release.ps1` 需要 `rg` / ripgrep 进行 public package scan。公开发布文档可以说明 `quick_validate.py` 来自 Codex skill creator；`quick_validate.py` is external and not included in this repository。release execution 文案不应写入机器特定绝对路径。
 
 ## Desensitization Scan
 

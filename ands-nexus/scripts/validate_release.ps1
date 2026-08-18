@@ -36,7 +36,7 @@ function Assert-Count {
 
     $actual = Get-FileCount -Path $Path
     if ($actual -ne $Expected) {
-        throw "$Name count mismatch: expected $Expected, got $actual"
+        throw "$Name count mismatch: expected $Expected, got $actual. If this was an intentional asset change, update validate_release.ps1 and PUBLISHING_CHECKLIST.md together."
     }
 }
 
@@ -88,7 +88,7 @@ function Invoke-Rg {
 
     $rg = Get-Command rg -ErrorAction SilentlyContinue
     if (-not $rg) {
-        throw "rg is required for release scans"
+        throw "rg is required for release scans. Install ripgrep and ensure rg is on PATH. Examples: macOS `brew install ripgrep`; Windows `winget install BurntSushi.ripgrep.MSVC`; Linux `apt install ripgrep`."
     }
 
     $output = & rg -n $Pattern @Targets 2>$null
@@ -257,7 +257,7 @@ function Test-AllowedIntegrationClaimLine {
         },
         @{
             Patterns = @("automated writeback")
-            Allowed = @("no automated writeback")
+            Allowed = @("no automated writeback", "no unattended or automated writeback", "no unattended/automatic writeback")
         },
         @{
             Patterns = @("api key setup")
@@ -323,13 +323,17 @@ if ($QuickValidatePath) {
         Invoke-NativeChecked -Name "quick_validate.py" -Command "python" -Arguments @($QuickValidatePath, $SkillRoot)
     }
 }
+else {
+    Write-Host "SKIP quick_validate (no -QuickValidatePath; external Codex skill-creator tool not in repo)"
+}
 
 Invoke-Step -Name "asset_counts" -Block {
     $referencesRoot = Join-Path $SkillRoot "references"
     $templatesRoot = Join-Path $SkillRoot "assets/templates"
-    Assert-Count -Name "references" -Path $referencesRoot -Expected 9
+    Assert-Count -Name "references" -Path $referencesRoot -Expected 10
     Assert-RequiredFiles -Name "reference" -Path $referencesRoot -RequiredFiles @(
-        "guided-workflow-mvp.md"
+        "guided-workflow-mvp.md",
+        "glossary.md"
     )
     Assert-Count -Name "templates" -Path $templatesRoot -Expected 11
     Assert-RequiredFiles -Name "template" -Path $templatesRoot -RequiredFiles @(
@@ -359,20 +363,57 @@ Invoke-Step -Name "asset_counts" -Block {
         "seed-user-feedback-intake-v0.2.md",
         "seed-user-prompts.md"
     )
+    $skillExamplesRoot = Join-Path $SkillRoot "examples"
+    Assert-Count -Name "installable routed examples" -Path $skillExamplesRoot -Expected 6
+    Assert-RequiredFiles -Name "installable routed example" -Path $skillExamplesRoot -RequiredFiles @(
+        "first-run-prompt-packet-v0.3.1.md",
+        "guided-workflow-first-run-v0.4.md",
+        "guided-workflow-regression-v0.4.md",
+        "management-rollout-plan.md",
+        "post-release-feedback-intake-v0.3.1.md",
+        "role-routing-regression-scenarios-v0.3.1.md"
+    )
 }
 
 Invoke-Step -Name "guided_workflow_assets" -Block {
+    $readme = Join-Path $RepoRoot "README.md"
+    $startHere = Join-Path $RepoRoot "START-HERE.md"
+    $examplesIndex = Join-Path $RepoRoot "examples/INDEX.md"
+    $skillDefinition = Join-Path $SkillRoot "SKILL.md"
+    $gateChecklist = Join-Path $SkillRoot "assets/templates/gate-checklist.md"
+    $trackDecisionCard = Join-Path $SkillRoot "assets/templates/track-decision-card.md"
     $guidedReference = Join-Path $SkillRoot "references/guided-workflow-mvp.md"
+    $glossaryReference = Join-Path $SkillRoot "references/glossary.md"
     $guidedStatePacket = Join-Path $SkillRoot "assets/templates/guided-workflow-state-packet.md"
     $guidedFirstRun = Join-Path $RepoRoot "examples/guided-workflow-first-run-v0.4.md"
     $guidedRegression = Join-Path $RepoRoot "examples/guided-workflow-regression-v0.4.md"
 
+    Assert-FileContains -Path $readme -Expected "If you are not using Codex"
+    Assert-FileContains -Path $readme -Expected "macOS/Linux"
+    Assert-FileContains -Path $readme -Expected "brew install powershell ripgrep"
+    Assert-FileContains -Path $readme -Expected "quick_validate.py is external"
+    Assert-FileContains -Path $startHere -Expected "If you are not using Codex"
+    Assert-FileContains -Path $startHere -Expected "Core Terms"
+    Assert-FileContains -Path $startHere -Expected "If a guided answer misses one of the six sections"
+    Assert-FileContains -Path $startHere -Expected "use a fictional task because this package rehearses the process; it does not connect to your systems"
+    Assert-FileContains -Path $examplesIndex -Expected 'Installable routed examples are also copied under `ands-nexus/examples/`'
+    Assert-FileContains -Path $skillDefinition -Expected "references/glossary.md"
+    Assert-FileContains -Path $skillDefinition -Expected "assets/templates/ands-t-template.md"
+    Assert-FileContains -Path $skillDefinition -Expected "assets/templates/gate-checklist.md"
+    Assert-FileContains -Path $skillDefinition -Expected "assets/templates/lessons-template.md"
+    Assert-FileContains -Path $skillDefinition -Expected "examples/management-rollout-plan.md"
     Assert-FileContains -Path $guidedReference -Expected "Intake Snapshot"
     Assert-FileContains -Path $guidedReference -Expected "ANDS-T Task Card"
     Assert-FileContains -Path $guidedReference -Expected "Track + Gate Checklist"
     Assert-FileContains -Path $guidedReference -Expected "Lessons Draft"
     Assert-FileContains -Path $guidedReference -Expected "Role Boundaries"
-    Assert-FileContains -Path $guidedReference -Expected "no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking"
+    Assert-FileContains -Path $guidedReference -Expected "Guided Lite To Formal Template Mapping"
+    Assert-FileContains -Path $guidedReference -Expected "Next Prompt embedded state"
+    Assert-FileContains -Path $guidedReference -Expected "no unattended or automated writeback"
+    Assert-FileContains -Path $guidedReference -Expected "user-invoked draft generation to an explicit path is allowed only when explicitly requested"
+    Assert-FileContains -Path $glossaryReference -Expected "State Packet"
+    Assert-FileContains -Path $glossaryReference -Expected "Gate"
+    Assert-FileContains -Path $glossaryReference -Expected "owner_response"
 
     $guidedStateFields = @(
         "workflow_id",
@@ -385,6 +426,7 @@ Invoke-Step -Name "guided_workflow_assets" -Block {
         "artifacts_created",
         "missing_evidence",
         "owner_decision",
+        "owner_response",
         "next_prompt",
         "boundary_flags"
     )
@@ -399,18 +441,23 @@ Invoke-Step -Name "guided_workflow_assets" -Block {
     Assert-FileContains -Path $guidedFirstRun -Expected "Next Prompt"
     Assert-FileContains -Path $guidedFirstRun -Expected "Boundary Reminder"
     Assert-FileContains -Path $guidedFirstRun -Expected "- owner_decision: Confirm Standard Track and provide missing evidence"
-    Assert-FileContains -Path $guidedFirstRun -Expected "- boundary_flags: Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking"
+    Assert-FileContains -Path $guidedFirstRun -Expected "- owner_response: confirm:"
+    Assert-FileContains -Path $guidedFirstRun -Expected "- boundary_flags: Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no unattended or automated writeback, no benchmark ranking"
     Assert-FileContains -Path $guidedFirstRun -Expected "- active_role: Validation + Governance"
     Assert-FileContains -Path $guidedFirstRun -Expected '| `active_role` | Validation + Governance |'
     Assert-FileContains -Path $guidedFirstRun -Expected "Gate 2 test evidence; Gate 3 owner acceptance; human review before reuse"
     Assert-FileContains -Path $guidedFirstRun -Expected "do not authorize broader writeback from this prompt"
     Assert-FileContains -Path $guidedFirstRun -Expected "confirmation that no broader writeback is authorized by this prompt"
+    Assert-FileContains -Path $guidedFirstRun -Expected "Status legend"
 
     Assert-FileContains -Path $guidedRegression -Expected "role drift"
     Assert-FileContains -Path $guidedRegression -Expected "skipped Gate evidence"
     Assert-FileContains -Path $guidedRegression -Expected "missing owner decision"
     Assert-FileContains -Path $guidedRegression -Expected "writeback overreach"
     Assert-FileContains -Path $guidedRegression -Expected "Enterprise escalation"
+    Assert-FileContains -Path $gateChecklist -Expected 'Owner: `[人类 Project Owner'
+    Assert-FileContains -Path $gateChecklist -Expected "AI PM 仅准备材料与质检，不作准入决策"
+    Assert-FileContains -Path $trackDecisionCard -Expected "External delivery or contractual impact"
 }
 
 Invoke-Step -Name "public_package_scan" -Block {

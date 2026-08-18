@@ -15,14 +15,14 @@ It does not provide:
 - no live provider API integration.
 - Non-Scope: no credential or tenant setup.
 - SDK code.
-- no automated writeback from non-Codex runtimes.
+- no unattended or automated writeback from non-Codex runtimes.
 - no public benchmark ranking or claims about provider capability.
 
 Enterprise trigger: escalate when real data, credentials, tenant integration, automated writeback, or public benchmark claims enter scope.
 
 ## v0.3 Provider Profile Boundary
 
-v0.3 provider profile material is example-only prompt/profile proxy guidance. It is not provider-native evidence and it carries no live API authorization, no credential or tenant setup, no connectors, no tools, no transcripts, no automated writeback, no rankings, no procurement guidance, no release copy, and no public capability claims.
+v0.3 provider profile material is example-only prompt/profile proxy guidance. It is not provider-native evidence and it carries no live API authorization, no credential or tenant setup, no connectors, no tools, no transcripts, no unattended or automated writeback, no rankings, no procurement guidance, no release copy, and no public capability claims.
 
 Use provider labels as routing hypotheses for offline trials. Do not treat a label as proof of runtime behavior.
 
