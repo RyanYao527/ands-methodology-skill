@@ -80,6 +80,22 @@ function Assert-FileContains {
     Assert-TextContains -Text $text -Expected $Expected
 }
 
+function Assert-FileNotContains {
+    param(
+        [Parameter(Mandatory = $true)][string]$Path,
+        [Parameter(Mandatory = $true)][string]$Unexpected
+    )
+
+    if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) {
+        throw "Missing file for content check: $Path"
+    }
+
+    $text = Get-Content -Raw -Encoding UTF8 -LiteralPath $Path
+    if ($text.Contains($Unexpected)) {
+        throw "Expected file not to contain '$Unexpected': $Path"
+    }
+}
+
 function Invoke-Rg {
     param(
         [Parameter(Mandatory = $true)][string]$Pattern,
@@ -411,6 +427,8 @@ Invoke-Step -Name "guided_workflow_assets" -Block {
     Assert-FileContains -Path $guidedReference -Expected "Next Prompt embedded state"
     Assert-FileContains -Path $guidedReference -Expected "no unattended or automated writeback"
     Assert-FileContains -Path $guidedReference -Expected "user-invoked draft generation to an explicit path is allowed only when explicitly requested"
+    Assert-FileContains -Path $guidedReference -Expected 'such as `confirm: ...`, `revise: ...`, `escalate: ...`, `stop: ...`, or `unfilled`'
+    Assert-FileContains -Path $guidedReference -Expected "Owner response values in examples are format demonstrations only"
     Assert-FileContains -Path $glossaryReference -Expected "State Packet"
     Assert-FileContains -Path $glossaryReference -Expected "Gate"
     Assert-FileContains -Path $glossaryReference -Expected "owner_response"
@@ -441,7 +459,10 @@ Invoke-Step -Name "guided_workflow_assets" -Block {
     Assert-FileContains -Path $guidedFirstRun -Expected "Next Prompt"
     Assert-FileContains -Path $guidedFirstRun -Expected "Boundary Reminder"
     Assert-FileContains -Path $guidedFirstRun -Expected "- owner_decision: Confirm Standard Track and provide missing evidence"
-    Assert-FileContains -Path $guidedFirstRun -Expected "- owner_response: confirm:"
+    Assert-FileContains -Path $guidedFirstRun -Expected 'Replace `owner_response` with the human owner''s actual reply before sending each Step Prompt.'
+    Assert-FileContains -Path $guidedFirstRun -Expected "- owner_response: [confirm/revise/escalate/stop before continuing]"
+    Assert-FileContains -Path $guidedFirstRun -Expected "- owner_response: <owner reply: confirm/revise/escalate/stop: ...>"
+    Assert-FileNotContains -Path $guidedFirstRun -Unexpected "- owner_response: confirm:"
     Assert-FileContains -Path $guidedFirstRun -Expected "- boundary_flags: Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no unattended or automated writeback, no benchmark ranking"
     Assert-FileContains -Path $guidedFirstRun -Expected "- active_role: Validation + Governance"
     Assert-FileContains -Path $guidedFirstRun -Expected '| `active_role` | Validation + Governance |'

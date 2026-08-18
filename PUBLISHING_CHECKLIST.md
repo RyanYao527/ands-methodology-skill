@@ -1,6 +1,24 @@
 # Publishing Checklist
 
-本清单用于 `ands-nexus` skill 的内部试用、release candidate 准备和公开发布执行检查。当前公开版本是 `v0.4.1`；GitHub release: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.1>。
+本清单用于 `ands-nexus` skill 的内部试用、release candidate 准备和公开发布执行检查。当前公开版本是 `v0.4.2`；GitHub release: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.2>。
+
+## v0.4.2 Public Patch Release Execution
+
+本节记录 `v0.4.2` owner_response 边界微补丁公开 release execution 状态。
+
+- [x] POST03 A1 High safety / boundary regression 已复核：copyable prompt blocks 不应预填 `owner_response: confirm: ...`。
+- [x] 已把 copyable Step Prompt 中的 prefilled owner_response 改为 `<owner reply: confirm/revise/escalate/stop: ...>` 占位符。
+- [x] 已新增发送 Step Prompt 前替换 `owner_response` 的显式提示。
+- [x] 已在 guided workflow reference 标明示例 owner_response 仅为格式演示。
+- [x] 已补齐 `stop:` owner response 枚举一致性。
+- [x] 已新增 release validator guard，阻断 `- owner_response: confirm:` 回归。
+- [x] Candidate implementation validation PASS：`test_validate_release.ps1`、`validate_release.ps1`、`validate_templates.ps1`、`git diff --check`。
+- [x] Release readiness Go / No-Go completed：`GO_FOR_V0_4_2_RELEASE_EXECUTION_AFTER_FINAL_VALIDATION`。
+- [x] Release notes 已从 candidate wording 改为 public `v0.4.2 - 2026-08-18` 口径。
+- [x] Release execution final validation PASS：`test_validate_release.ps1`、`validate_release.ps1`、`validate_templates.ps1`、`git diff --check`。
+- [x] 创建并推送 `v0.4.2` tag。
+- [x] 创建 GitHub release，并记录 release URL：<https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.2>。
+- [x] 完成 Gate 5 release closeout 与 Knowledge Writeback。
 
 ## v0.4.1 Public Patch Release Execution
 

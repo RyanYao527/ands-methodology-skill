@@ -52,11 +52,13 @@ Every guided step should carry these fields. Values may be short, but the field 
 | `artifacts_created` | List of produced artifacts |
 | `missing_evidence` | Evidence needed before approval |
 | `owner_decision` | Human decision required |
-| `owner_response` | The human owner's actual reply, such as `confirm: ...`, `revise: ...`, `escalate: ...`, or `unfilled` |
+| `owner_response` | The human owner's actual reply, such as `confirm: ...`, `revise: ...`, `escalate: ...`, `stop: ...`, or `unfilled` |
 | `next_prompt` | The exact next prompt to run |
 | `boundary_flags` | Enterprise triggers or Non-Scope reminders |
 
 State timing rule: the returned `State Packet` describes the step just produced. The `Next Prompt embedded state` may pre-set `active_role` for the next step so the next turn activates the right responsibility. Never invent `owner_response`; copy it from the human reply or keep it `unfilled`.
+
+Owner response values in examples are format demonstrations only. Prompt blocks must use placeholders unless the human owner has already replied; never paste a prefilled sample as the human's decision.
 
 ## Guided Lite To Formal Template Mapping
 

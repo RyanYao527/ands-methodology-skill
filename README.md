@@ -23,11 +23,11 @@ Quick fit check:
 
 ## Current Release
 
-当前公开版本是 `v0.4.1`，已于 2026-08-18 发布。
+当前公开版本是 `v0.4.2`，已于 2026-08-18 发布。
 
-Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.1>
+Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.2>
 
-`v0.4.1` is a bounded stabilization patch for the documentation-first guided workflow MVP. It keeps the v0.4 scope and improves package availability, non-Codex and macOS/Linux onboarding, first-run glossary support, owner decision carry-forward, writeback boundary wording, formal-template mapping, validation transparency, and Track/Gate ownership language.
+`v0.4.2` is a bounded owner response boundary micro patch for the documentation-first guided workflow MVP. It keeps the v0.4 scope and prevents copyable first-run prompts from pre-filling sample human owner decisions.
 
 ### Start Here
 
@@ -35,7 +35,7 @@ New users should begin with `START-HERE.md`, then run `examples/guided-workflow-
 
 For the older compact first run, use `examples/first-run-prompt-packet-v0.3.1.md`.
 
-### Included In v0.4.1
+### Included In v0.4.2
 
 - `ands-nexus/references/guided-workflow-mvp.md` for the four-step guided workflow and role/state model.
 - `ands-nexus/references/glossary.md` for first-run terminology.
@@ -55,7 +55,7 @@ For the older compact first run, use `examples/first-run-prompt-packet-v0.3.1.md
 - Governance boundaries for future provider-native/API/tenant/connector/writeback work.
 - Release validation guards for provider-native/API/tenant/writeback/benchmark claim overreach.
 
-### v0.4.1 Release Validation Status
+### v0.4.2 Release Validation Status
 
 - `test_validate_release.ps1`: PASS.
 - `validate_release.ps1`: PASS; when `-QuickValidatePath` is not supplied it prints `SKIP quick_validate (no -QuickValidatePath; external Codex skill-creator tool not in repo)`.
@@ -67,7 +67,7 @@ For the older compact first run, use `examples/first-run-prompt-packet-v0.3.1.md
 
 ### Evidence Level And Boundaries
 
-v0.4.1 的证据等级仍是 documentation / local validation / synthetic example。它可以作为 guided ANDS first-run 和后续 workflow automation discovery 的准备材料，但不能被解读为真实 runtime 能力证明。
+v0.4.2 的证据等级仍是 documentation / local validation / synthetic example。它可以作为 guided ANDS first-run 和后续 workflow automation discovery 的准备材料，但不能被解读为真实 runtime 能力证明。
 
 Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no unattended or automated writeback, no benchmark ranking.
 
@@ -75,6 +75,7 @@ Writeback boundary: user-invoked draft generation to an explicit path is allowed
 
 ## Previous Releases
 
+- `v0.4.1`：guided workflow stabilization patch，修复 installable examples、non-Codex/macOS/Linux onboarding、glossary、owner_response、writeback boundary、template mapping、validation transparency 和 Track/Gate owner wording。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.1>。
 - `v0.4.0`：documentation-first guided workflow MVP，新增 guided workflow reference、state packet template、first-run example 和 regression prompts。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.0>。
 - `v0.3.1`：post-release adoption hardening patch，新增 START-HERE、examples index、feedback intake、10 分钟首跑 prompt packet 和 role-routing regression scenarios。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.3.1>。
 - `v0.3.0`：公开 offline/provider-adaptation documentation package，覆盖 provider adaptation references、role-routing matrix patterns、prompt/profile/template-level guidance 和 synthetic/proxy forward-test methodology。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.3.0>。
@@ -196,13 +197,13 @@ ands-nexus/
 - 不提供完整 37 节课程内容。
 - 不构建生产级 AI Gateway。
 - 不提供一键部署 Dashboard、GitHub Actions 或 Obsidian 自动化。
-- Non-Scope: v0.4.1 has no provider-native validation, no API integration, no credential setup, no tenant connectors, no unattended or automated writeback, no benchmark ranking。
+- Non-Scope: v0.4.2 has no provider-native validation, no API integration, no credential setup, no tenant connectors, no unattended or automated writeback, no benchmark ranking。
 - 不承诺所有团队都适合一次性全量引入五道 Gate。
 - Obsidian writeback MVP 只生成草稿或写入显式指定路径；不扫描或批量改写 Vault。No unattended or automated writeback；user-invoked draft generation to an explicit path is allowed only when explicitly requested。若显式 `-OutputPath` 的父目录不存在，脚本可能创建该父目录，且只作用于用户明确给出的路径。
 - 本包已经完成 v0.1.0 发布前脱敏审查。
 - `v0.2.1` 已完成公开发布前最终脱敏审查；后续真实反馈仍应先脱敏再进入 examples 或 validation。
 - `v0.3.x` 证据来自 design / official-doc-reviewed / proxy or synthetic forward-test 层级，不代表 runtime capability evidence 或 provider selection advice。
-- `v0.4.1` guided workflow material is documentation-first and does not provide workflow automation, hosted UI, or provider-native execution evidence.
+- `v0.4.2` guided workflow material is documentation-first and does not provide workflow automation, hosted UI, or provider-native execution evidence.
 
 ## License
 

@@ -10,6 +10,8 @@ Use this synthetic task:
 
 Expected output sections are self-check examples. Do not paste the Expected output back to the agent.
 
+Replace `owner_response` with the human owner's actual reply before sending each Step Prompt. Values shown in Expected output are format demonstrations only.
+
 ## Step 1 Prompt: Intake Snapshot
 
 ```text
@@ -79,7 +81,7 @@ State:
 - artifacts_created: Intake Snapshot
 - missing_evidence: export fields, filename convention, acceptance owner
 - owner_decision: Confirm Standard Track and provide missing evidence
-- owner_response: [confirm/revise/escalate before continuing]
+- owner_response: [confirm/revise/escalate/stop before continuing]
 - next_prompt: Continue this guided workflow from Intake to ANDS-T using workflow_id GW-SYN-001.
 - boundary_flags: Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no unattended or automated writeback, no benchmark ranking
 
@@ -91,6 +93,8 @@ Return the ANDS-T step only with Current Artifact, State Packet, Gate / Evidence
 Use synthetic or desensitized context only. Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no unattended or automated writeback, no benchmark ranking.
 
 ## Step 2 Prompt: ANDS-T Task Card
+
+Before sending this Step Prompt, replace `owner_response` with the human owner's actual reply.
 
 ```text
 $ands-nexus
@@ -108,7 +112,7 @@ State:
 - artifacts_created: Intake Snapshot
 - missing_evidence: Gate 2 test evidence; Gate 3 owner acceptance after implementation
 - owner_decision: Confirm Standard Track and provide missing evidence
-- owner_response: confirm: Standard Track; export fields date/region/revenue; filename weekly-summary-YYYY-WW.csv; acceptance owner operations lead
+- owner_response: <owner reply: confirm/revise/escalate/stop: ...>
 - next_prompt: Continue this guided workflow from Intake to ANDS-T using workflow_id GW-SYN-001.
 - boundary_flags: Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no unattended or automated writeback, no benchmark ranking
 
@@ -174,7 +178,7 @@ State:
 - artifacts_created: Intake Snapshot; ANDS-T Task Card
 - missing_evidence: Gate 2 test evidence; Gate 3 owner acceptance after implementation
 - owner_decision: Approve or revise the ANDS-T as the task definition before any execution begins
-- owner_response: confirm: ANDS-T approved as task definition; implementation has not started
+- owner_response: <owner reply: confirm/revise/escalate/stop: ...>
 - next_prompt: Continue this guided workflow from ANDS-T to Track + Gate Checklist for workflow_id GW-SYN-001.
 - boundary_flags: Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no unattended or automated writeback, no benchmark ranking
 
@@ -186,6 +190,8 @@ Return the Gate step only with Current Artifact, State Packet, Gate / Evidence C
 Do not treat the ANDS-T as implementation or approval. Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no unattended or automated writeback, no benchmark ranking.
 
 ## Step 3 Prompt: Track + Gate Checklist
+
+Before sending this Step Prompt, replace `owner_response` with the human owner's actual reply.
 
 ```text
 $ands-nexus
@@ -203,7 +209,7 @@ State:
 - artifacts_created: Intake Snapshot; ANDS-T Task Card
 - missing_evidence: Gate 2 test evidence; Gate 3 owner acceptance after implementation
 - owner_decision: Approve or revise the ANDS-T as the task definition before any execution begins
-- owner_response: confirm: ANDS-T approved as task definition; implementation has not started
+- owner_response: <owner reply: confirm/revise/escalate/stop: ...>
 - next_prompt: Continue this guided workflow from ANDS-T to Track + Gate Checklist for workflow_id GW-SYN-001.
 - boundary_flags: Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no unattended or automated writeback, no benchmark ranking
 
@@ -270,7 +276,7 @@ State:
 - artifacts_created: Intake Snapshot; ANDS-T Task Card; Gate Checklist
 - missing_evidence: Gate 2 test evidence; Gate 3 owner acceptance; Gate 5 final outcome
 - owner_decision: Request execution evidence, approve the evidence plan, or escalate before Lessons if evidence is missing
-- owner_response: confirm: evidence plan is acceptable for a synthetic dry run; keep Gate 2 and Gate 3 missing until real evidence exists
+- owner_response: <owner reply: confirm/revise/escalate/stop: ...>
 - next_prompt: Draft candidate Lessons only for workflow_id GW-SYN-001.
 - boundary_flags: Candidate-only writeback; Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no unattended or automated writeback, no benchmark ranking
 
@@ -282,6 +288,8 @@ Draft candidate Lessons only. Do not write to files, Obsidian, GitHub, provider 
 Gate 2 passing cannot replace Gate 3 owner acceptance. Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no unattended or automated writeback, no benchmark ranking.
 
 ## Step 4 Prompt: Lessons Draft
+
+Before sending this Step Prompt, replace `owner_response` with the human owner's actual reply.
 
 ```text
 $ands-nexus
@@ -299,7 +307,7 @@ State:
 - artifacts_created: Intake Snapshot; ANDS-T Task Card; Gate Checklist
 - missing_evidence: Gate 2 test evidence; Gate 3 owner acceptance; Gate 5 final outcome
 - owner_decision: Request execution evidence, approve the evidence plan, or escalate before Lessons if evidence is missing
-- owner_response: confirm: evidence plan is acceptable for a synthetic dry run; keep Gate 2 and Gate 3 missing until real evidence exists
+- owner_response: <owner reply: confirm/revise/escalate/stop: ...>
 - next_prompt: Draft candidate Lessons only for workflow_id GW-SYN-001.
 - boundary_flags: Candidate-only writeback; Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no unattended or automated writeback, no benchmark ranking
 

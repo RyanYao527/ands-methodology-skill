@@ -1,5 +1,41 @@
 # Release Notes
 
+## v0.4.2 - 2026-08-18
+
+`v0.4.2` 已完成公开 patch release execution。
+
+Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.2>
+
+### Summary
+
+v0.4.2 is a bounded owner response boundary micro patch opened from v0.4.1 post-release verification and first-user retest evidence. It keeps the v0.4 documentation-first scope and prevents copyable first-run prompts from pre-filling sample human owner decisions.
+
+### Changed
+
+- Replace prefilled copyable prompt-block `owner_response: confirm: ...` examples with placeholders.
+- Add explicit instruction to replace `owner_response` with the human owner's actual reply before sending each Step Prompt.
+- Clarify that example owner response values are format demonstrations only.
+- Include `stop:` consistently in owner response examples.
+- Add validator assertions that reject the old prefilled prompt-block pattern.
+
+### Validation Evidence
+
+- `test_validate_release.ps1`: PASS.
+- `validate_release.ps1`: PASS.
+- `validate_templates.ps1`: PASS.
+- `git diff --check`: PASS.
+- Release readiness Go / No-Go: `GO_FOR_V0_4_2_RELEASE_EXECUTION_AFTER_FINAL_VALIDATION`.
+- Final release execution validation: PASS.
+
+### Non-Scope
+
+- No provider-native validation.
+- No API integration.
+- No credential setup.
+- No tenant connectors.
+- No unattended or automated writeback.
+- No benchmark ranking, best-provider result, procurement guidance, or public provider capability claim.
+
 ## v0.4.1 - 2026-08-18
 
 `v0.4.1` 已完成公开 patch release execution。

@@ -19,6 +19,17 @@ function Assert-Contains {
     }
 }
 
+function Assert-NotContains {
+    param(
+        [Parameter(Mandatory = $true)][string]$Text,
+        [Parameter(Mandatory = $true)][string]$Unexpected
+    )
+
+    if ($Text.Contains($Unexpected)) {
+        throw "Expected output not to contain: $Unexpected"
+    }
+}
+
 function Assert-Fails {
     param(
         [Parameter(Mandatory = $true)][scriptblock]$Block,
@@ -123,7 +134,9 @@ Gate 2 test evidence; Gate 3 owner acceptance; human review before reuse
 do not authorize broader writeback from this prompt
 confirmation that no broader writeback is authorized by this prompt
 Status legend
-- owner_response: confirm:
+Replace `owner_response` with the human owner's actual reply before sending each Step Prompt.
+- owner_response: [confirm/revise/escalate/stop before continuing]
+- owner_response: <owner reply: confirm/revise/escalate/stop: ...>
 '@
     Set-Content -LiteralPath (Join-Path $fixtureRoot "examples/guided-workflow-regression-v0.4.md") -Encoding UTF8 -Value @'
 # Fixture
@@ -308,6 +321,8 @@ Assert-Contains -Text $guidedReference -Expected "Guided Lite To Formal Template
 Assert-Contains -Text $guidedReference -Expected "Next Prompt embedded state"
 Assert-Contains -Text $guidedReference -Expected "no unattended or automated writeback"
 Assert-Contains -Text $guidedReference -Expected "user-invoked draft generation to an explicit path is allowed only when explicitly requested"
+Assert-Contains -Text $guidedReference -Expected 'such as `confirm: ...`, `revise: ...`, `escalate: ...`, `stop: ...`, or `unfilled`'
+Assert-Contains -Text $guidedReference -Expected "Owner response values in examples are format demonstrations only"
 Assert-Contains -Text $glossaryReference -Expected "State Packet"
 Assert-Contains -Text $glossaryReference -Expected "Gate"
 Assert-Contains -Text $glossaryReference -Expected "owner_response"
@@ -338,7 +353,10 @@ Assert-Contains -Text $guidedFirstRun -Expected "Owner Decision"
 Assert-Contains -Text $guidedFirstRun -Expected "Next Prompt"
 Assert-Contains -Text $guidedFirstRun -Expected "Boundary Reminder"
 Assert-Contains -Text $guidedFirstRun -Expected "- owner_decision: Confirm Standard Track and provide missing evidence"
-Assert-Contains -Text $guidedFirstRun -Expected "- owner_response: confirm:"
+Assert-Contains -Text $guidedFirstRun -Expected 'Replace `owner_response` with the human owner''s actual reply before sending each Step Prompt.'
+Assert-Contains -Text $guidedFirstRun -Expected "- owner_response: [confirm/revise/escalate/stop before continuing]"
+Assert-Contains -Text $guidedFirstRun -Expected "- owner_response: <owner reply: confirm/revise/escalate/stop: ...>"
+Assert-NotContains -Text $guidedFirstRun -Unexpected "- owner_response: confirm:"
 Assert-Contains -Text $guidedFirstRun -Expected "- boundary_flags: Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no unattended or automated writeback, no benchmark ranking"
 Assert-Contains -Text $guidedFirstRun -Expected "- active_role: Validation + Governance"
 Assert-Contains -Text $guidedFirstRun -Expected '| `active_role` | Validation + Governance |'

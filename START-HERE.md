@@ -66,7 +66,7 @@ Write back to a broader methodology only after review confirms the lesson is reu
 
 ## Boundaries
 
-v0.4.1 keeps the same public boundary as v0.3.x:
+v0.4.2 keeps the same public boundary as v0.3.x:
 
 - no provider-native validation;
 - no API integration;
