@@ -1,5 +1,42 @@
 # Release Notes
 
+## v0.4.0 Candidate - Not Released
+
+`v0.4.0` is in release-candidate preparation on main. The current public release remains `v0.3.1`.
+
+No `v0.4.0` tag or GitHub release has been created. Public release still requires explicit Project Owner release Go, final validation, release notes finalization, tag creation, GitHub release creation, and Gate 5 closeout.
+
+### Summary
+
+v0.4.0 candidate material adds a documentation-first guided workflow MVP. It helps a first-time user move through Intake Snapshot, ANDS-T Task Card, Track + Gate Checklist, and Lessons Draft with visible state, owner decisions, and copy-ready next prompts.
+
+Scope remains bounded to references, templates, examples, routing, and validation. Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking.
+
+### Candidate Assets
+
+- `ands-nexus/references/guided-workflow-mvp.md`: four-step workflow, state model, role boundaries, Enterprise triggers, and Non-Scope boundary.
+- `ands-nexus/assets/templates/guided-workflow-state-packet.md`: reusable state packet with stable field names.
+- `examples/guided-workflow-first-run-v0.4.md`: synthetic four-step first run.
+- `examples/guided-workflow-regression-v0.4.md`: role, Gate, owner-decision, writeback, and Enterprise escalation regression prompts.
+- `SKILL.md`, `START-HERE.md`, `README.md`, and `examples/INDEX.md`: routing and reader entry updates.
+- `validate_release.ps1`, `validate_templates.ps1`, and `test_validate_release.ps1`: v0.4 asset manifest and content assertions.
+
+### Validation Evidence
+
+Candidate package validation on 2026-08-18:
+
+- `test_validate_release.ps1`: PASS.
+- `validate_release.ps1 -QuickValidatePath ...`: PASS.
+- `quick_validate.py`: PASS.
+- `git diff --check`: PASS.
+- Public package scan: PASS.
+
+### Release Boundary
+
+- Public `v0.4.0` release is not approved by this candidate section.
+- No tag or GitHub release should be created without explicit Project Owner release Go.
+- Provider-native/API/tenant/connector/writeback/benchmark work remains Enterprise scope.
+
 ## v0.3.1 - 2026-08-18
 
 `v0.3.1` 已完成公开 patch release 执行。

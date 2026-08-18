@@ -109,6 +109,25 @@
 - [x] 创建 GitHub release，并记录 release URL：<https://github.com/RyanYao527/ands-nexus/releases/tag/v0.3.1>。
 - [x] 完成 Gate 5 release closeout 与 Knowledge Writeback。
 
+## v0.4.0 Release Candidate Prep - Not Released
+
+本节记录 `v0.4.0` guided workflow MVP 候选包准备状态。当前公开版本仍是 `v0.3.1`。
+
+- [x] V04-T01 package mapping review 已完成，结论为 `V04_GUIDED_WORKFLOW_PACKAGE_MAPPING_READY_FOR_EDIT_AUTHORIZATION`。
+- [x] 候选 scope 限定为 documentation-first guided workflow references、templates、examples、routing 和 validation。
+- [x] 新增 `ands-nexus/references/guided-workflow-mvp.md`。
+- [x] 新增 `ands-nexus/assets/templates/guided-workflow-state-packet.md`。
+- [x] 新增 `examples/guided-workflow-first-run-v0.4.md`。
+- [x] 新增 `examples/guided-workflow-regression-v0.4.md`。
+- [x] `SKILL.md`、`START-HERE.md`、`README.md` 和 `examples/INDEX.md` 已加入 guided workflow candidate path。
+- [x] release validator 已要求 9 个 references、11 个 templates、20 个 examples，并检查 guided workflow 内容。
+- [x] Candidate validation PASS：`test_validate_release.ps1`、`validate_release.ps1 -QuickValidatePath ...`、`quick_validate.py`、`git diff --check`。
+- [x] Reviewer Important findings 已修复：README candidate/release validation 口径、copy-ready state、Validation + Governance、candidate-only writeback 和 validator assertions。
+- [x] Candidate Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking。
+- [ ] Project Owner 尚未明确确认公开发布 `v0.4.0`。
+- [x] 未创建 `v0.4.0` tag。
+- [x] 未创建 `v0.4.0` GitHub release。
+
 ## Validation Commands
 
 在仓库根目录运行：

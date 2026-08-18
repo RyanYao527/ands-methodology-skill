@@ -15,7 +15,8 @@ $requiredTemplates = @(
     "writeback-note-template.md",
     "30-day-pilot-template.md",
     "capability-matrix-template.md",
-    "agent-model-adapter-card.md"
+    "agent-model-adapter-card.md",
+    "guided-workflow-state-packet.md"
 )
 
 $missing = @()

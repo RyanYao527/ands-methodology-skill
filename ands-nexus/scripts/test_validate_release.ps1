@@ -59,6 +59,8 @@ function New-ReleaseValidationRepoFixture {
         "first-run-prompt-packet-v0.3.1.md",
         "forward-test-scenarios-v0.2.md",
         "gate-checklist-example.md",
+        "guided-workflow-first-run-v0.4.md",
+        "guided-workflow-regression-v0.4.md",
         "lessons-writeback-example.md",
         "management-rollout-plan.md",
         "post-release-feedback-intake-v0.2.1.md",
@@ -73,6 +75,33 @@ function New-ReleaseValidationRepoFixture {
     foreach ($exampleFile in $requiredExampleFiles) {
         Set-Content -LiteralPath (Join-Path $fixtureRoot "examples/$exampleFile") -Encoding UTF8 -Value "# Fixture"
     }
+
+    Set-Content -LiteralPath (Join-Path $fixtureRoot "examples/guided-workflow-first-run-v0.4.md") -Encoding UTF8 -Value @'
+# Fixture
+
+## Current Artifact
+## State Packet
+## Gate / Evidence Check
+## Owner Decision
+## Next Prompt
+## Boundary Reminder
+- owner_decision: Confirm Standard Track and provide missing evidence
+- boundary_flags: Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking
+- active_role: Validation + Governance
+| `active_role` | Validation + Governance |
+Gate 2 test evidence; Gate 3 owner acceptance; human review before reuse
+do not authorize broader writeback from this prompt
+confirmation that no broader writeback is authorized by this prompt
+'@
+    Set-Content -LiteralPath (Join-Path $fixtureRoot "examples/guided-workflow-regression-v0.4.md") -Encoding UTF8 -Value @'
+# Fixture
+
+role drift
+skipped Gate evidence
+missing owner decision
+writeback overreach
+Enterprise escalation
+'@
 
     return $fixtureRoot
 }
@@ -123,6 +152,8 @@ try {
         "first-run-prompt-packet-v0.3.1.md",
         "forward-test-scenarios-v0.2.md",
         "gate-checklist-example.md",
+        "guided-workflow-first-run-v0.4.md",
+        "guided-workflow-regression-v0.4.md",
         "lessons-writeback-example.md",
         "management-rollout-plan.md",
         "post-release-feedback-intake-v0.2.1.md",
@@ -180,17 +211,71 @@ Assert-Contains -Text $adaptationReference -Expected "Writeback boundary: produc
 
 $startHere = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "START-HERE.md")
 $examplesIndex = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "examples/INDEX.md")
+$skillDefinition = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "ands-nexus/SKILL.md")
 $firstRunPacket = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "examples/first-run-prompt-packet-v0.3.1.md")
 $postReleaseFeedback = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "examples/post-release-feedback-intake-v0.3.1.md")
 $roleRoutingRegression = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "examples/role-routing-regression-scenarios-v0.3.1.md")
+$guidedReference = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "ands-nexus/references/guided-workflow-mvp.md")
+$guidedStatePacket = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "ands-nexus/assets/templates/guided-workflow-state-packet.md")
+$guidedFirstRun = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "examples/guided-workflow-first-run-v0.4.md")
+$guidedRegression = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "examples/guided-workflow-regression-v0.4.md")
 
 Assert-Contains -Text $startHere -Expected "10-Minute First Run"
 Assert-Contains -Text $startHere -Expected "examples/first-run-prompt-packet-v0.3.1.md"
+Assert-Contains -Text $startHere -Expected "examples/guided-workflow-first-run-v0.4.md"
 Assert-Contains -Text $examplesIndex -Expected "post-release-feedback-intake-v0.3.1.md"
 Assert-Contains -Text $examplesIndex -Expected "role-routing-regression-scenarios-v0.3.1.md"
+Assert-Contains -Text $examplesIndex -Expected "guided-workflow-first-run-v0.4.md"
+Assert-Contains -Text $examplesIndex -Expected "guided-workflow-regression-v0.4.md"
+Assert-Contains -Text $skillDefinition -Expected "Run guided ANDS workflow"
 Assert-Contains -Text $firstRunPacket -Expected "Expected output: a candidate Lessons draft, not an automatic writeback."
 Assert-Contains -Text $postReleaseFeedback -Expected 'If any answer is `yes` or `unclear`, route to Enterprise review before changing public guidance.'
 Assert-Contains -Text $roleRoutingRegression -Expected "Scenario RR-04: Governance Should Escalate Enterprise Scope"
+
+Assert-Contains -Text $guidedReference -Expected "Intake Snapshot"
+Assert-Contains -Text $guidedReference -Expected "ANDS-T Task Card"
+Assert-Contains -Text $guidedReference -Expected "Track + Gate Checklist"
+Assert-Contains -Text $guidedReference -Expected "Lessons Draft"
+Assert-Contains -Text $guidedReference -Expected "Role Boundaries"
+Assert-Contains -Text $guidedReference -Expected "no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking"
+
+$guidedStateFields = @(
+    "workflow_id",
+    "current_step",
+    "user_goal",
+    "audience",
+    "data_class",
+    "track",
+    "active_role",
+    "artifacts_created",
+    "missing_evidence",
+    "owner_decision",
+    "next_prompt",
+    "boundary_flags"
+)
+foreach ($field in $guidedStateFields) {
+    Assert-Contains -Text $guidedStatePacket -Expected $field
+}
+
+Assert-Contains -Text $guidedFirstRun -Expected "Current Artifact"
+Assert-Contains -Text $guidedFirstRun -Expected "State Packet"
+Assert-Contains -Text $guidedFirstRun -Expected "Gate / Evidence Check"
+Assert-Contains -Text $guidedFirstRun -Expected "Owner Decision"
+Assert-Contains -Text $guidedFirstRun -Expected "Next Prompt"
+Assert-Contains -Text $guidedFirstRun -Expected "Boundary Reminder"
+Assert-Contains -Text $guidedFirstRun -Expected "- owner_decision: Confirm Standard Track and provide missing evidence"
+Assert-Contains -Text $guidedFirstRun -Expected "- boundary_flags: Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking"
+Assert-Contains -Text $guidedFirstRun -Expected "- active_role: Validation + Governance"
+Assert-Contains -Text $guidedFirstRun -Expected '| `active_role` | Validation + Governance |'
+Assert-Contains -Text $guidedFirstRun -Expected "Gate 2 test evidence; Gate 3 owner acceptance; human review before reuse"
+Assert-Contains -Text $guidedFirstRun -Expected "do not authorize broader writeback from this prompt"
+Assert-Contains -Text $guidedFirstRun -Expected "confirmation that no broader writeback is authorized by this prompt"
+
+Assert-Contains -Text $guidedRegression -Expected "role drift"
+Assert-Contains -Text $guidedRegression -Expected "skipped Gate evidence"
+Assert-Contains -Text $guidedRegression -Expected "missing owner decision"
+Assert-Contains -Text $guidedRegression -Expected "writeback overreach"
+Assert-Contains -Text $guidedRegression -Expected "Enterprise escalation"
 
 $readmeAsQuickValidate = Join-Path $repoRoot "README.md"
 Assert-Fails -ExpectedMessage "quick_validate.py failed" -Block {

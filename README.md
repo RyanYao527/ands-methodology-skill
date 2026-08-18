@@ -8,6 +8,7 @@
 
 - 管理落地：设计 30/60/90 天试点计划、选择 Quick / Standard / Enterprise Track、定义治理边界和度量。
 - 任务表达：把普通需求改写成 ANDS-T，并补齐目标、输入、约束、验收和 Gate。
+- 引导式工作流：把 Intake、ANDS-T、Gate Checklist 和 Lessons Draft 拆成可连续执行的 visible-state steps。
 - Agent 协作：区分 AI PM / Orchestrator、Execution、Validation、Governance、Writeback 等角色。
 - 多 runtime 适配：在 prompt / profile / template 层面，为 Codex/OpenAI baseline、KIMI、GLM、MiniMax、Claude、DeepSeek、WorkBuddy 等 runtime 做离线适配准备。
 - 反馈沉淀：把脱敏后的试用反馈、延期原因、返工原因和有效做法转成 Lessons 或 regression prompt。
@@ -24,6 +25,8 @@ Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.3.1>
 
 New users should begin with `START-HERE.md`, then run `examples/first-run-prompt-packet-v0.3.1.md`.
 
+The main branch also contains v0.4 guided workflow candidate material for users who want a more explicit step-by-step path: `examples/guided-workflow-first-run-v0.4.md`.
+
 ### Included In v0.3.1
 
 - `START-HERE.md` for a shorter first-run path.
@@ -38,7 +41,29 @@ New users should begin with `START-HERE.md`, then run `examples/first-run-prompt
 - Governance boundaries for future provider-native/API/tenant/connector/writeback work.
 - Release validation guards for provider-native/API/tenant/writeback/benchmark claim overreach.
 
-### Validation Status
+### v0.4.0 Candidate On Main
+
+The main branch contains candidate v0.4 guided workflow MVP assets. These materials are not a public `v0.4.0` release until Project Owner release Go, tag creation, GitHub release creation, and Gate 5 closeout are completed.
+
+Candidate scope:
+
+- `ands-nexus/references/guided-workflow-mvp.md` explains the four-step guided workflow and role/state model.
+- `ands-nexus/assets/templates/guided-workflow-state-packet.md` provides a copyable state packet.
+- `examples/guided-workflow-first-run-v0.4.md` walks through Intake Snapshot, ANDS-T Task Card, Track + Gate Checklist, and Lessons Draft.
+- `examples/guided-workflow-regression-v0.4.md` checks role drift, skipped Gate evidence, missing owner decision, writeback overreach, and Enterprise escalation.
+
+Candidate boundary: documentation-first workflow guidance only. Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking.
+
+Candidate validation on main:
+
+- `test_validate_release.ps1`: PASS.
+- `validate_release.ps1 -QuickValidatePath ...`: PASS.
+- `quick_validate.py`: PASS.
+- `git diff --check`: PASS.
+- Public package scan: PASS.
+- GitHub release: not created for `v0.4.0`.
+
+### v0.3.1 Release Validation Status
 
 - `test_validate_release.ps1`: PASS.
 - `validate_release.ps1 -QuickValidatePath ...`: PASS.
@@ -121,6 +146,7 @@ $text = Get-Content -LiteralPath .\ands-nexus\SKILL.md -Raw -Encoding UTF8
 - 种子反馈归类：把脱敏后的真实试用反馈转成修订任务和 regression prompt。
 - Obsidian 回写草稿：生成项目内 frontmatter、双链和回写边界说明。
 - 发布后反馈入口：把脱敏后的公开反馈转成 Track、修订任务和 regression prompt。
+- 引导式首跑：用 visible State Packet 和 Next Prompt 串联 Intake、ANDS-T、Gate Checklist、Lessons Draft。
 
 ## Example Prompts
 
@@ -132,7 +158,7 @@ $text = Get-Content -LiteralPath .\ands-nexus\SKILL.md -Raw -Encoding UTF8
 4. 我们想让 AI PM 调度多个 Agent 做需求拆解、开发、测试和发布，请帮我设计最小 Agent 矩阵。
 5. 这次上线延期是因为验收标准写得太模糊，Agent 做完以后业务方说不是他们要的。请按 ANDS 写一次复盘。
 
-v0.2 forward-test 场景见 `examples/forward-test-scenarios-v0.2.md`；种子用户反馈 intake 见 `examples/seed-user-feedback-intake-v0.2.md`；发布后反馈 intake 见 `examples/post-release-feedback-intake-v0.2.1.md`；多 runtime 适配 forward-test 见 `examples/agent-model-adaptation-forward-test-v0.2.2.md`；v0.3 offline provider profile material 见 `examples/provider-profile-cards-v0.3-internal.md` 和 `examples/provider-profile-offline-adoption-packet-v0.3.md`。
+v0.2 forward-test 场景见 `examples/forward-test-scenarios-v0.2.md`；种子用户反馈 intake 见 `examples/seed-user-feedback-intake-v0.2.md`；发布后反馈 intake 见 `examples/post-release-feedback-intake-v0.2.1.md`；多 runtime 适配 forward-test 见 `examples/agent-model-adaptation-forward-test-v0.2.2.md`；v0.3 offline provider profile material 见 `examples/provider-profile-cards-v0.3-internal.md` 和 `examples/provider-profile-offline-adoption-packet-v0.3.md`；v0.4 guided workflow candidate material 见 `examples/guided-workflow-first-run-v0.4.md` 和 `examples/guided-workflow-regression-v0.4.md`。
 
 ## Package Map
 
@@ -162,6 +188,7 @@ ands-nexus/
 - 本包已经完成 v0.1.0 发布前脱敏审查。
 - `v0.2.1` 已完成公开发布前最终脱敏审查；后续真实反馈仍应先脱敏再进入 examples 或 validation。
 - `v0.3.1` 已公开发布；v0.3.x 证据来自 design / official-doc-reviewed / proxy or synthetic forward-test 层级，不代表 runtime capability evidence 或 provider selection advice。
+- `v0.4.0` guided workflow material on main is candidate-only until explicit public release Go.
 
 ## License
 

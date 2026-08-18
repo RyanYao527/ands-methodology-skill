@@ -26,6 +26,21 @@ It is most useful when a team needs to answer:
 
 Expected result: a small, reviewable workflow packet that a human owner can approve, reject, or revise.
 
+## Guided Workflow Candidate
+
+For a step-by-step path, open `examples/guided-workflow-first-run-v0.4.md`.
+
+Use it when you want each answer to return:
+
+- Current Artifact.
+- State Packet.
+- Gate / Evidence Check.
+- Owner Decision.
+- Next Prompt.
+- Boundary Reminder.
+
+The v0.4 guided workflow material on main is a candidate package asset until a public release is explicitly approved. The current public release remains `v0.3.1`.
+
 ## Choose A Track
 
 | Track | Use When | Keep It Small By |
@@ -58,4 +73,3 @@ v0.3.1 keeps the same public boundary as v0.3.0:
 - no benchmark ranking.
 
 For provider/runtime adaptation, treat labels as routing hypotheses until stronger evidence exists.
-

@@ -7,6 +7,7 @@ Use this index to choose the smallest example that matches your task.
 | File | Use When |
 |---|---|
 | `first-run-prompt-packet-v0.3.1.md` | You want to run one 10-minute ANDS-T + Gate + Lessons workflow. |
+| `guided-workflow-first-run-v0.4.md` | You want a step-by-step guided workflow with visible state, owner decision, and next prompt at every step. |
 | `seed-user-prompts.md` | You want the original acceptance prompt set used for early validation. |
 
 ## Adoption And Feedback
@@ -35,6 +36,7 @@ Use this index to choose the smallest example that matches your task.
 | `forward-test-scenarios-v0.2.md` | You want basic v0.2 regression scenarios. |
 | `agent-model-adaptation-forward-test-v0.2.2.md` | You want a multi-runtime adaptation forward-test suite. |
 | `role-routing-regression-scenarios-v0.3.1.md` | You want to check whether a model keeps AI PM, Execution, Validation, Governance, and Writeback roles separate. |
+| `guided-workflow-regression-v0.4.md` | You want to check guided workflow role drift, skipped Gate evidence, missing owner decision, writeback overreach, and Enterprise escalation. |
 
 ## Provider Adaptation
 
