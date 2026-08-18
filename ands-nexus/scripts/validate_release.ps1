@@ -303,20 +303,24 @@ Invoke-Step -Name "asset_counts" -Block {
     Assert-Count -Name "references" -Path (Join-Path $SkillRoot "references") -Expected 8
     Assert-Count -Name "templates" -Path (Join-Path $SkillRoot "assets/templates") -Expected 10
     $examplesRoot = Join-Path $RepoRoot "examples"
-    Assert-Count -Name "examples" -Path $examplesRoot -Expected 14
+    Assert-Count -Name "examples" -Path $examplesRoot -Expected 18
     Assert-RequiredFiles -Name "example" -Path $examplesRoot -RequiredFiles @(
+        "INDEX.md",
         "agent-model-adaptation-forward-test-v0.2.2.md",
         "ands-t-task-example.md",
         "demo-trace-guide-example.md",
         "desensitization-notes.md",
+        "first-run-prompt-packet-v0.3.1.md",
         "forward-test-scenarios-v0.2.md",
         "gate-checklist-example.md",
         "lessons-writeback-example.md",
         "management-rollout-plan.md",
         "post-release-feedback-intake-v0.2.1.md",
+        "post-release-feedback-intake-v0.3.1.md",
         "provider-profile-cards-v0.2.2.md",
         "provider-profile-cards-v0.3-internal.md",
         "provider-profile-offline-adoption-packet-v0.3.md",
+        "role-routing-regression-scenarios-v0.3.1.md",
         "seed-user-feedback-intake-v0.2.md",
         "seed-user-prompts.md"
     )
@@ -325,7 +329,7 @@ Invoke-Step -Name "asset_counts" -Block {
 Invoke-Step -Name "public_package_scan" -Block {
     Push-Location $RepoRoot
     try {
-        $targets = @("README.md", "RELEASE_NOTES.md", "PUBLISHING_CHECKLIST.md", "examples", "ands-nexus")
+        $targets = @("README.md", "START-HERE.md", "RELEASE_NOTES.md", "PUBLISHING_CHECKLIST.md", "examples", "ands-nexus")
         $secretMatches = Invoke-Rg -Pattern "BEGIN (RSA|OPENSSH|PRIVATE)|AKIA[0-9A-Z]{16}|sk-[A-Za-z0-9]{20,}|gh[opsu]_[A-Za-z0-9_]{20,}" -Targets @(".")
         if ($secretMatches.Count -gt 0) {
             throw "Potential secret-like matches found:`n$($secretMatches -join "`n")"

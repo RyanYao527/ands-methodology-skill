@@ -1,6 +1,6 @@
 # Publishing Checklist
 
-本清单用于 `ands-nexus` skill 的内部试用、release candidate 准备和公开发布执行检查。当前公开版本是 `v0.3.0`；GitHub release: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.3.0>。
+本清单用于 `ands-nexus` skill 的内部试用、release candidate 准备和公开发布执行检查。当前公开版本是 `v0.3.1`；GitHub release: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.3.1>。
 
 ## v0.1.0 Released Archive
 
@@ -90,6 +90,25 @@
 - [x] 创建 GitHub release，并记录 release URL：<https://github.com/RyanYao527/ands-nexus/releases/tag/v0.3.0>。
 - [x] 完成 Gate 5 release closeout 与 Knowledge Writeback。
 
+## v0.3.1 Patch Release Execution
+
+本节记录 `v0.3.1` post-release adoption hardening patch 执行状态。
+
+- [x] Project Owner 已确认执行 v0.3.1 patch release chain。
+- [x] 新增 `START-HERE.md`，帮助新用户从 10 分钟 first run 开始。
+- [x] 新增 `examples/INDEX.md`，按 first-run、adoption、feedback、regression、provider adaptation 分组。
+- [x] 新增 `examples/post-release-feedback-intake-v0.3.1.md`，补齐 evidence level 和 boundary fields。
+- [x] 新增 `examples/first-run-prompt-packet-v0.3.1.md`，覆盖 ANDS-T + Gate + Lessons。
+- [x] 新增 `examples/role-routing-regression-scenarios-v0.3.1.md`，覆盖 AI PM、Execution、Validation、Governance、Writeback 分离。
+- [x] `SKILL.md` 已更新 first-run、post-release feedback 和 role-routing regression route。
+- [x] release validator 已更新 required public package assets。
+- [x] release execution 前重新运行 `test_validate_release.ps1`、`validate_release.ps1 -QuickValidatePath ...`、`quick_validate.py`。
+- [x] release execution 前重新完成最终脱敏扫描，覆盖 START-HERE、README、release notes、publishing checklist、SKILL.md、references、templates、examples、scripts。
+- [x] 确认 tag 名、release notes 版本、GitHub release 标题和仓库可见性一致。
+- [x] 创建并推送 `v0.3.1` tag。
+- [x] 创建 GitHub release，并记录 release URL：<https://github.com/RyanYao527/ands-nexus/releases/tag/v0.3.1>。
+- [x] 完成 Gate 5 release closeout 与 Knowledge Writeback。
+
 ## Validation Commands
 
 在仓库根目录运行：
@@ -127,6 +146,7 @@ rg -n "([A-Za-z]:\\Users\\|/Users/|/home/|http[s]?://|\b\d{1,3}(\.\d{1,3}){3}\b)
 - v0.2.2 multi-agent/model adapter pack readiness、forward-test、release execution 和 provider-native/API/benchmark 边界。
 - v0.3 Enterprise discovery 的 V03-T00 Gate plan。
 - v0.3.0 release candidate prep、readiness decision、candidate validation、explicit Owner Go 和 public release execution。
+- v0.3.1 post-release adoption hardening、patch readiness、release execution 和 v0.4 next-path decision。
 - validation 结果与最终脱敏扫描结果。
 - Project Owner 发布决策：Go。
 - 公开发布结果：tag、release URL、release notes 快照和后续 Lessons。

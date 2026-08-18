@@ -1,5 +1,44 @@
 # Release Notes
 
+## v0.3.1 - 2026-08-18
+
+`v0.3.1` 已完成公开 patch release 执行。
+
+Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.3.1>
+
+### Summary
+
+v0.3.1 is a post-release adoption hardening patch for v0.3.0. It improves the public first-run path, feedback intake, examples discoverability, and role-routing regression coverage. Scope remains unchanged: no provider-native validation, no API integration, no tenant connectors, no automated writeback, and no benchmark ranking.
+
+### Added
+
+- `START-HERE.md`: a short first-run guide for new users.
+- `examples/INDEX.md`: an examples index grouped by first-run, adoption, feedback, regression, and provider adaptation use.
+- `examples/post-release-feedback-intake-v0.3.1.md`: a v0.3+ feedback template with evidence-level and boundary fields.
+- `examples/first-run-prompt-packet-v0.3.1.md`: a 10-minute ANDS-T + Gate + Lessons prompt packet.
+- `examples/role-routing-regression-scenarios-v0.3.1.md`: synthetic scenarios for AI PM, Execution, Validation, Governance, and Writeback role separation.
+
+### Changed
+
+- README now points new users to the v0.3.1 first-run path.
+- `SKILL.md` routes first-run, post-release feedback, and role-routing regression tasks to the new v0.3.1 assets.
+- Release validation now treats `START-HERE.md` and the new v0.3.1 examples as required public package assets.
+
+### Validation Evidence
+
+- `test_validate_release.ps1`: PASS.
+- `validate_release.ps1 -QuickValidatePath ...`: PASS.
+- `quick_validate.py`: PASS.
+- `git diff --check`: PASS.
+- Public package scan: PASS.
+
+### Non-Scope
+
+- No provider-native validation.
+- No API integration.
+- No credential setup, no tenant connectors, and no automated writeback.
+- No benchmark ranking, best-provider result, procurement guidance, or public provider capability claim.
+
 ## v0.3.0 - 2026-08-17
 
 `v0.3.0` 已完成公开发布执行。

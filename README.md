@@ -14,14 +14,23 @@
 
 ## Current Release
 
-当前公开版本是 `v0.3.0`，已于 2026-08-17 发布。
+当前公开版本是 `v0.3.1`，已于 2026-08-18 发布。
 
-Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.3.0>
+Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.3.1>
 
-`v0.3.0` 发布的是 **offline/provider-adaptation documentation package**。它提供 provider adaptation references、role-routing matrix patterns、prompt/profile/template-level guidance 和 synthetic/proxy forward-test methodology，用于帮助团队在进入真实 API、企业租户或连接器验证前，先把适配边界和证据口径说清楚。
+`v0.3.1` 是 `v0.3.0` 之后的 post-release adoption hardening patch。它不扩大 provider 能力声明，而是补齐新用户上手、公开反馈入口、10 分钟首跑 prompt packet、examples index 和 role-routing regression scenarios。
 
-### Included In v0.3.0
+### Start Here
 
+New users should begin with `START-HERE.md`, then run `examples/first-run-prompt-packet-v0.3.1.md`.
+
+### Included In v0.3.1
+
+- `START-HERE.md` for a shorter first-run path.
+- `examples/INDEX.md` for choosing the right example.
+- `examples/post-release-feedback-intake-v0.3.1.md` for public feedback triage.
+- `examples/first-run-prompt-packet-v0.3.1.md` for one 10-minute ANDS-T + Gate + Lessons run.
+- `examples/role-routing-regression-scenarios-v0.3.1.md` for checking AI PM, Execution, Validation, Governance, and Writeback separation.
 - Offline/proxy provider adaptation references and handoff patterns.
 - Prompt/profile/template-level guidance for multi-runtime ANDS usage.
 - Provider label and role-routing matrix patterns.
@@ -40,12 +49,13 @@ Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.3.0>
 
 ### Evidence Level And Boundaries
 
-v0.3.0 的证据等级是 design / official-doc-reviewed / proxy or synthetic forward-test。它可以作为离线适配和后续 Enterprise discovery 的准备材料，但不能被解读为真实 runtime 能力证明。
+v0.3.1 的证据等级仍是 design / official-doc-reviewed / proxy or synthetic forward-test。它可以作为离线适配和后续 Enterprise discovery 的准备材料，但不能被解读为真实 runtime 能力证明。
 
 Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking.
 
 ## Previous Releases
 
+- `v0.3.0`：公开 offline/provider-adaptation documentation package，覆盖 provider adaptation references、role-routing matrix patterns、prompt/profile/template-level guidance 和 synthetic/proxy forward-test methodology。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.3.0>。
 - `v0.2.2`：公开 prompt/profile/template-level multi-agent/model adapter pack，覆盖 capability matrix、adapter card、provider profile cards 和 forward-test suite。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.2.2>。
 - `v0.2.1`：新增 30-day pilot template、post-release feedback intake、release validation aggregator 和 `.gitattributes`。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.2.1>。
 - `v0.2.0`：补强 Windows UTF-8 说明、seed-user feedback intake、forward-test scenarios、Track/Gate 反模式和 Obsidian writeback MVP。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.2.0>。
@@ -146,12 +156,12 @@ ands-nexus/
 - 不提供完整 37 节课程内容。
 - 不构建生产级 AI Gateway。
 - 不提供一键部署 Dashboard、GitHub Actions 或 Obsidian 自动化。
-- Non-Scope: v0.3.0 has no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking。
+- Non-Scope: v0.3.1 has no provider-native validation, no API integration, no credential setup, no tenant connectors, no automated writeback, no benchmark ranking。
 - 不承诺所有团队都适合一次性全量引入五道 Gate。
 - Obsidian writeback MVP 只生成草稿或写入显式指定路径；不扫描或批量改写 Vault。若显式 `-OutputPath` 的父目录不存在，脚本可能创建该父目录，且只作用于用户明确给出的路径。
 - 本包已经完成 v0.1.0 发布前脱敏审查。
 - `v0.2.1` 已完成公开发布前最终脱敏审查；后续真实反馈仍应先脱敏再进入 examples 或 validation。
-- `v0.3.0` 已公开发布；v0.3 证据来自 design / official-doc-reviewed / proxy or synthetic forward-test 层级，不代表 runtime capability evidence 或 provider selection advice。
+- `v0.3.1` 已公开发布；v0.3.x 证据来自 design / official-doc-reviewed / proxy or synthetic forward-test 层级，不代表 runtime capability evidence 或 provider selection advice。
 
 ## License
 

@@ -46,22 +46,27 @@ function New-ReleaseValidationRepoFixture {
     New-Item -ItemType Directory -Path (Join-Path $fixtureRoot "examples") -Force | Out-Null
     New-Item -ItemType Directory -Path (Join-Path $fixtureRoot "ands-nexus/scripts") -Force | Out-Null
     Set-Content -LiteralPath (Join-Path $fixtureRoot "README.md") -Encoding UTF8 -Value "# Fixture`nhttps://github.com/RyanYao527/ands-nexus"
+    Set-Content -LiteralPath (Join-Path $fixtureRoot "START-HERE.md") -Encoding UTF8 -Value "# Fixture"
     Set-Content -LiteralPath (Join-Path $fixtureRoot "RELEASE_NOTES.md") -Encoding UTF8 -Value "# Fixture"
     Set-Content -LiteralPath (Join-Path $fixtureRoot "PUBLISHING_CHECKLIST.md") -Encoding UTF8 -Value "# Fixture"
 
     $requiredExampleFiles = @(
+        "INDEX.md",
         "agent-model-adaptation-forward-test-v0.2.2.md",
         "ands-t-task-example.md",
         "demo-trace-guide-example.md",
         "desensitization-notes.md",
+        "first-run-prompt-packet-v0.3.1.md",
         "forward-test-scenarios-v0.2.md",
         "gate-checklist-example.md",
         "lessons-writeback-example.md",
         "management-rollout-plan.md",
         "post-release-feedback-intake-v0.2.1.md",
+        "post-release-feedback-intake-v0.3.1.md",
         "provider-profile-cards-v0.2.2.md",
         "provider-profile-cards-v0.3-internal.md",
         "provider-profile-offline-adoption-packet-v0.3.md",
+        "role-routing-regression-scenarios-v0.3.1.md",
         "seed-user-feedback-intake-v0.2.md",
         "seed-user-prompts.md"
     )
@@ -105,22 +110,27 @@ try {
     New-Item -ItemType Directory -Path (Join-Path $missingRequiredExampleRoot "examples") -Force | Out-Null
     New-Item -ItemType Directory -Path (Join-Path $missingRequiredExampleRoot "ands-nexus") -Force | Out-Null
     Set-Content -LiteralPath (Join-Path $missingRequiredExampleRoot "README.md") -Encoding UTF8 -Value "# Fixture"
+    Set-Content -LiteralPath (Join-Path $missingRequiredExampleRoot "START-HERE.md") -Encoding UTF8 -Value "# Fixture"
     Set-Content -LiteralPath (Join-Path $missingRequiredExampleRoot "RELEASE_NOTES.md") -Encoding UTF8 -Value "# Fixture"
     Set-Content -LiteralPath (Join-Path $missingRequiredExampleRoot "PUBLISHING_CHECKLIST.md") -Encoding UTF8 -Value "# Fixture"
 
     $manifestExampleFiles = @(
+        "INDEX.md",
         "agent-model-adaptation-forward-test-v0.2.2.md",
         "ands-t-task-example.md",
         "demo-trace-guide-example.md",
         "desensitization-notes.md",
+        "first-run-prompt-packet-v0.3.1.md",
         "forward-test-scenarios-v0.2.md",
         "gate-checklist-example.md",
         "lessons-writeback-example.md",
         "management-rollout-plan.md",
         "post-release-feedback-intake-v0.2.1.md",
+        "post-release-feedback-intake-v0.3.1.md",
         "provider-profile-cards-v0.2.2.md",
         "provider-profile-offline-adoption-packet-v0.3.md",
         "release-manifest-placeholder.md",
+        "role-routing-regression-scenarios-v0.3.1.md",
         "seed-user-feedback-intake-v0.2.md",
         "seed-user-prompts.md"
     )
@@ -167,6 +177,20 @@ Assert-Contains -Text $adapterCard -Expected "For Writeback Agent work, return c
 Assert-Contains -Text $adaptationReference -Expected "Execution boundary: produce only the requested deliverable, assumptions, evidence, caveats, and handoff notes."
 Assert-Contains -Text $adaptationReference -Expected "Validation boundary: itemize every Gate Checklist row with status, evidence, missing evidence, and requested fix."
 Assert-Contains -Text $adaptationReference -Expected "Writeback boundary: produce candidate-only Lessons and reusable-rule candidates unless Enterprise review approves persistence."
+
+$startHere = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "START-HERE.md")
+$examplesIndex = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "examples/INDEX.md")
+$firstRunPacket = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "examples/first-run-prompt-packet-v0.3.1.md")
+$postReleaseFeedback = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "examples/post-release-feedback-intake-v0.3.1.md")
+$roleRoutingRegression = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "examples/role-routing-regression-scenarios-v0.3.1.md")
+
+Assert-Contains -Text $startHere -Expected "10-Minute First Run"
+Assert-Contains -Text $startHere -Expected "examples/first-run-prompt-packet-v0.3.1.md"
+Assert-Contains -Text $examplesIndex -Expected "post-release-feedback-intake-v0.3.1.md"
+Assert-Contains -Text $examplesIndex -Expected "role-routing-regression-scenarios-v0.3.1.md"
+Assert-Contains -Text $firstRunPacket -Expected "Expected output: a candidate Lessons draft, not an automatic writeback."
+Assert-Contains -Text $postReleaseFeedback -Expected 'If any answer is `yes` or `unclear`, route to Enterprise review before changing public guidance.'
+Assert-Contains -Text $roleRoutingRegression -Expected "Scenario RR-04: Governance Should Escalate Enterprise Scope"
 
 $readmeAsQuickValidate = Join-Path $repoRoot "README.md"
 Assert-Fails -ExpectedMessage "quick_validate.py failed" -Block {

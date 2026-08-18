@@ -25,11 +25,13 @@ Use this skill to help teams understand, adopt, practice, or review AI-Native De
 | Rewrite a task as ANDS-T | `references/standards-k-t-a-w-g.md`, `assets/templates/ands-t-template.md` | ANDS-T task card |
 | Design Agent roles | `references/methodology-10-models.md`, `references/platform-5-components.md`, `assets/templates/agent-matrix-template.md` | L1/L2/L3 Agent matrix and AI PM prompt |
 | Adapt ANDS to another agent/model runtime | `references/multi-agent-model-adaptation.md`, `assets/templates/agent-model-adapter-card.md`, `assets/templates/capability-matrix-template.md` | Provider profile, runtime prompt packet, forward-test plan |
+| Run a first ANDS workflow | `examples/first-run-prompt-packet-v0.3.1.md`, `assets/templates/ands-t-template.md`, `assets/templates/gate-checklist.md`, `assets/templates/lessons-template.md` | 10-minute ANDS-T, Gate Checklist, and Lessons draft |
+| Check role-routing regressions | `examples/role-routing-regression-scenarios-v0.3.1.md`, `references/multi-agent-model-adaptation.md`, `references/governance-and-metrics.md` | Role-routing pass/fail notes and regression prompt candidates |
 | Design governance | `references/governance-and-metrics.md`, `assets/templates/gate-checklist.md`, `assets/templates/track-decision-card.md` | Track decision and Gate checklist |
 | Review a delivery or incident | `references/demo-trace-guide.md`, `references/governance-and-metrics.md`, `assets/templates/lessons-template.md` | Lessons, follow-up issue, standard update |
 | Prepare internal training | `references/overview.md`, `references/demo-trace-guide.md`, `references/adoption-playbook.md` | Briefing outline or workshop script |
 | Triage seed-user feedback | `references/adoption-playbook.md`, `references/governance-and-metrics.md` | Desensitized feedback classification and regression prompt |
-| Triage post-release feedback | `examples/post-release-feedback-intake-v0.2.1.md`, `references/governance-and-metrics.md` | Desensitized feedback intake, Track decision, regression prompt |
+| Triage post-release feedback | `examples/post-release-feedback-intake-v0.3.1.md`, `references/governance-and-metrics.md` | Desensitized feedback intake, Track decision, regression prompt |
 | Review ANDS anti-patterns | `references/adoption-playbook.md`, `references/governance-and-metrics.md` | Anti-pattern diagnosis and corrected Track/Gate guidance |
 | Draft Obsidian writeback | `references/governance-and-metrics.md`, `assets/templates/writeback-note-template.md` | Project-local writeback draft with backlinks |
 
