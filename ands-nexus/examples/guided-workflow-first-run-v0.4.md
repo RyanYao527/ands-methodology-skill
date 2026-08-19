@@ -110,7 +110,7 @@ State:
 - track: Standard
 - active_role: AI PM
 - artifacts_created: Intake Snapshot
-- missing_evidence: Gate 2 test evidence; Gate 3 owner acceptance after implementation
+- missing_evidence: export fields, filename convention, acceptance owner unless owner_response supplies them
 - owner_decision: Confirm Standard Track and provide missing evidence
 - owner_response: <owner reply: confirm/revise/escalate/stop: ...>
 - next_prompt: Continue this guided workflow from Intake to ANDS-T using workflow_id GW-SYN-001.
@@ -222,11 +222,11 @@ Expected output:
 
 Track + Gate Checklist:
 
-Status legend: `Conditional` means the artifact exists but needs owner/evidence confirmation; `Missing` means required evidence does not exist yet; `Not ready` means the workflow has not reached that Gate.
+Status legend: `Passed` means evidence is sufficient for this synthetic example; `Conditional` means the artifact exists but needs owner/evidence confirmation; `Missing` means required evidence does not exist yet; `Not ready` means the workflow has not reached that Gate.
 
 | Gate | Status | Evidence | Missing Evidence | Owner Action |
 |---|---|---|---|---|
-| Gate 1 Intake | Conditional | Synthetic task and ANDS-T exist | Field list and acceptance owner | Owner confirms or revises |
+| Gate 1 Intake | Passed | Synthetic task, ANDS-T, and owner_response confirm field list, filename convention, and acceptance owner | None for Gate 1 in this synthetic example | Review again if owner revises |
 | Gate 2 Machine Quality | Missing | None yet | Tests or equivalent checks for export behavior | Execution produces evidence |
 | Gate 3 Human Acceptance | Missing | None yet | Owner confirms CSV fields and usability | Owner reviews after Gate 2 |
 | Gate 4 Release Approval | Not ready | Scope is internal and Standard Track | Release note or rollout note if needed | Decide whether release approval is needed |
@@ -386,7 +386,7 @@ Do not write to files, Obsidian, GitHub, provider workspaces, or enterprise syst
 
 ## Boundary Reminder
 
-This is candidate-only. Do not persist to files, Obsidian, GitHub, provider workspaces, or enterprise systems without explicit approval.
+This is candidate-only. Do not persist unless the human explicitly requests draft generation to one allowed local path; never scan or sync files, GitHub, provider workspaces, or enterprise systems.
 
 ## Pass Criteria
 

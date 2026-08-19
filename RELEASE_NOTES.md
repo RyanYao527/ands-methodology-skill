@@ -1,5 +1,46 @@
 # Release Notes
 
+## v0.4.3 - 2026-08-19
+
+`v0.4.3` 已完成公开 patch release execution。
+
+Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.3>
+
+### Summary
+
+v0.4.3 is a bounded governance consistency and guided workflow polish patch. It keeps the v0.4 documentation-first guided workflow scope and clarifies writeback boundaries, external-visible Track gray zones, runtime workflow roles, desensitization outcomes, glossary wording, and guided first-run state continuity.
+
+### Changed
+
+- Align writeback wording across multi-agent adaptation, adapter card, forward-test, guided workflow, and public docs: candidate Lessons remain the default; explicit-path local draft generation is allowed only when explicitly requested; unattended persistence, Vault scans, GitHub sync, provider workspace writes, and enterprise-system updates remain out of scope.
+- Clarify Track treatment for external-visible work: Quick has no external delivery or contractual/customer impact; low-risk external-visible delivery can stay Standard only when it has no sensitive data, customer commitment, or real customer impact; contractual/customer/real customer impact triggers Enterprise review.
+- Add runtime workflow role versus ANDS-A L1/L2/L3 clarification.
+- Add PASS / NEEDS_REDACTION / BLOCKED desensitization criteria.
+- Add `stop:` to the `owner_response` glossary entry.
+- Fix guided first-run state-chain continuity around Step 2 missing evidence and Gate 1 status.
+- Add plain-language boundary explanations for first-run users.
+
+### Validation Evidence
+
+- Release readiness decision: `GO_FOR_V0_4_3_PUBLIC_PATCH_RELEASE_EXECUTION_WITH_CONSTRAINTS`.
+- Independent read-only reviewer: 0 Critical; Important findings resolved before release execution.
+- `pwsh -NoProfile -File ./ands-nexus/scripts/test_validate_release.ps1`: PASS.
+- `pwsh -NoProfile -File ./ands-nexus/scripts/validate_release.ps1`: PASS.
+- `pwsh -NoProfile -File ./ands-nexus/scripts/validate_templates.ps1`: PASS.
+- `git diff --check`: PASS.
+- Root/installable guided first-run example comparison: PASS, no differences.
+- Final release execution validation: PASS.
+
+### Non-Scope
+
+- No provider-native validation.
+- No API integration.
+- No credential setup.
+- No tenant connectors.
+- No unattended or automated writeback.
+- No benchmark ranking, best-provider result, procurement guidance, or public provider capability claim.
+- Windows PowerShell 5.1 validator parser compatibility remains a separate A3/A5 hardening backlog item; this release uses PowerShell Core validation evidence.
+
 ## v0.4.2 - 2026-08-18
 
 `v0.4.2` 已完成公开 patch release execution。

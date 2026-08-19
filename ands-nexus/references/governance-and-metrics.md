@@ -17,18 +17,18 @@
 
 | Track | 适用任务 | Gate 强度 |
 |---|---|---|
-| Quick | 小改、文档、可回滚、低风险、无敏感数据 | 可豁免 Gate 1/3/4/5；保留必要机器检查和红线 |
-| Standard | 普通业务功能，有明确验收，需要 CI 与人验收 | 默认走 7 阶段和 5 道 Gate |
-| Enterprise | 生产关键路径、安全敏感、合规相关、不可轻易回滚、跨团队影响 | Standard + 双人验收、灰度、回滚、审计加强 |
+| Quick | 小改、文档、可回滚、低风险、无敏感数据、无外部交付或合同影响 | 可豁免 Gate 1/3/4/5；保留必要机器检查和红线 |
+| Standard | 普通业务功能，或外部可见但低风险且无敏感数据、真实客户影响、客户承诺和生产关键路径的交付 | 默认走 7 阶段和 5 道 Gate；外部可见时加强 Gate 4 说明 |
+| Enterprise | 生产关键路径、安全敏感、合规相关、不可轻易回滚、跨团队影响、合同/客户承诺、真实客户影响或连接器任务 | Standard + 双人验收、灰度、回滚、审计加强 |
 
 规则：
 
 - Track 必须写进 ANDS-T。
 - Gate 2 校验 Track 声明是否合理，防止大任务走小轨。
 - 裁剪的是检查强度，不是责任本身。
-- Track 判断必须看风险、可回滚性、敏感数据、跨团队影响、验收人和失败动作。
+- Track 判断必须看风险、可回滚性、敏感数据、外部交付/合同影响、跨团队影响、验收人和失败动作。
 - Enterprise 条件不能通过“拆小描述”降级；只能拆成低风险子任务和单独的 Enterprise 审查任务。
-- 外部交付或合同影响但不涉及真实客户数据、生产关键路径、跨团队接口或难回滚承诺时，默认 Standard，并加强 Gate 4 审查；一旦出现客户真实数据、合规、安全、生产关键路径或难回滚承诺，升级 Enterprise。
+- 外部可见但低风险，且不涉及敏感数据、生产关键路径、跨团队接口、合同义务、客户承诺或难回滚时，默认 Standard，并加强 Gate 4 审查；一旦出现真实客户数据、合规、安全、生产关键路径、合同/客户承诺、真实客户影响或难回滚承诺，升级 Enterprise。
 
 ### Gate 1-5
 
@@ -45,8 +45,9 @@
 不是。ANDS 保留 Gate 1-5 的责任模型，但允许按 Track 裁剪证据强度。
 
 - Quick 可以豁免完整 Gate 1 / 3 / 4 / 5 流程，但必须记录 Track 理由，并保留最低质量证据，例如 Gate 2 或等价检查。
-- Standard 默认需要清楚的 ANDS-T、机器质量、人验收、发布审批和 Gate 5 回写或“无需回写”理由。
-- Enterprise 不能因为拆小描述而降级；只要涉及生产关键路径、安全合规、敏感数据、不可轻易回滚或跨团队影响，就需要加强审查。
+- Quick 不适合外部交付、合同影响、客户承诺或公开声明。
+- Standard 默认需要清楚的 ANDS-T、机器质量、人验收、发布审批和 Gate 5 回写或“无需回写”理由；低风险外部可见交付要在 Gate 4 写明为什么没有升级 Enterprise。
+- Enterprise 不能因为拆小描述而降级；只要涉及生产关键路径、安全合规、敏感数据、不可轻易回滚、跨团队影响、合同/客户承诺或真实客户影响，就需要加强审查。
 - 裁剪的是流程成本，不是责任；失败动作、验收人和可追溯证据仍要能说明清楚。
 
 ### Acceptance / Gate 2 / Gate 3 拆分示例
@@ -113,12 +114,14 @@ Gate 5 最小检查：
 
 Prompt-level adaptation across agent/model runtimes stays Standard Track when inputs are desensitized. Non-Scope: no live provider API integration, no credential setup, no tenant setup, no unattended or automated writeback, and no public benchmark ranking.
 
+Plain-language version: offline runtime work can prepare prompts, role routing, and review packets. It must not connect to accounts, send real project data to an external runtime, auto-update a knowledge base, or turn one trial into a public vendor claim.
+
 升级 Enterprise Track 的条件：
 
 - 需要真实 API 调用、SDK 接入或企业连接器。
 - 需要保存、读取或传递 API key、token、OAuth 信息或租户配置。
 - 需要把真实项目材料发送给外部 runtime。
-- 需要由非当前受控环境自动写回 Obsidian、GitHub 或企业知识库。
+- 需要无人值守或自动写回 Obsidian、GitHub、provider workspace 或企业知识库。
 - Enterprise trigger: 需要公开发布厂商能力对比、benchmark ranking 或稳定性结论。
 
 多 runtime 试跑只能记录脱敏观察，不把单轮结果写成通用能力排名。

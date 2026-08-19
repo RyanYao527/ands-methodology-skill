@@ -59,7 +59,17 @@ Vision / Product / Business / Technical / Decision / Prompt / Code Pattern / Les
 | L2 分工 | 架构、前端、后端、测试、安全、UI、数据、文档、发布 | 用于 AI PM 分配任务 |
 | L3 实例 | 具体模型、工具或 Agent 实例 | 用于工程配置，不写成组织岗位 |
 
-边界：AI PM 负责决策级编排；执行 Agent 负责产出；Gateway 只做机械执行级调度。
+Runtime 工作流角色和 ANDS-A 层级不是同一件事：
+
+| Runtime 工作流角色 | 常见 ANDS-A 映射 | 边界 |
+|---|---|---|
+| AI PM / Orchestrator | L1/L2 编排 | 拆解任务、维护 Track/Gate 状态；不替代人类 Gate owner |
+| Execution Agent | L2 分工，L3 实例执行 | 产出被请求的交付物、假设和证据；不扩大范围 |
+| Validation Agent | L2 测试/质量 | 检查 Acceptance、Gate 证据和缺口；不把 Gate 2 当 Gate 3 |
+| Governance Reviewer | L1/L2 治理 | 检查风险、脱敏、发布边界和升级条件；不发布业务批准 |
+| Writeback Agent | L2 文档/知识 | 产出 Lessons 候选和可复用规则；不做无人值守或自动回写 |
+
+边界：AI PM 负责决策级编排；执行 Agent 负责产出；Gateway 只做机械执行级调度；具体模型、工具或会话是 L3 实例，不应被写成组织岗位或人类审批者。
 
 ### ANDS-W：7 阶段工作流
 

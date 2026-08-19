@@ -79,7 +79,7 @@ The first-run example uses compact "guided lite" artifacts so a new user can fin
 | Execution | Produces the requested deliverable and implementation evidence when a task is ready | Does not approve Gate 3, publish releases, or broaden scope |
 | Validation | Checks claims against evidence and records missing evidence | Does not rewrite the implementation, invent evidence, or accept without owner review |
 | Governance | Applies Track, Gate, risk, and Enterprise escalation rules | Does not run provider trials, create public comparisons, or bypass approval |
-| Writeback | Drafts candidate Lessons, reusable rules, and regression prompts | Does not persist to files, Obsidian, GitHub, provider workspaces, or enterprise systems unless explicitly approved |
+| Writeback | Drafts candidate Lessons, reusable rules, and regression prompts | Does not persist unless the human explicitly requests draft generation to one allowed local path; never scans or syncs files, GitHub, provider workspaces, or enterprise systems |
 
 ## Enterprise Triggers
 

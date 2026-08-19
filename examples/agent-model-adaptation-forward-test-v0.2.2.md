@@ -24,8 +24,8 @@ We are a small engineering team piloting ANDS. We want to turn an unclear intern
 
 - Execution boundary: return only the requested documentation deliverable, assumptions, evidence, and handoff notes.
 - Validation boundary: map every Gate Checklist item to status, evidence, missing evidence, and requested fix.
-- Writeback boundary: produce candidate-only Lessons and reusable-rule candidates; do not perform persistence.
-- Non-Scope: no credential setup, no tenant connectors, no automated writeback, and no benchmark ranking.
+- Writeback boundary: produce candidate-only Lessons and reusable-rule candidates. Draft generation to an explicit path is allowed only when explicitly requested in an authorized local/project context.
+- Non-Scope: no credential setup, no tenant connectors, no unattended or automated writeback, no Vault scans, no GitHub sync, no provider workspace writes, no enterprise-system updates, and no benchmark ranking.
 
 ### Scoring Labels
 

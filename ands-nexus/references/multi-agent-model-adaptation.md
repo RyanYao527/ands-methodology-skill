@@ -15,10 +15,12 @@ It does not provide:
 - no live provider API integration.
 - Non-Scope: no credential or tenant setup.
 - SDK code.
-- no unattended or automated writeback from non-Codex runtimes.
+- no unattended or automated writeback in any runtime.
 - no public benchmark ranking or claims about provider capability.
 
-Enterprise trigger: escalate when real data, credentials, tenant integration, automated writeback, or public benchmark claims enter scope.
+User-invoked draft generation to an explicit path is allowed only when explicitly requested and only in an authorized local/project context. It does not authorize unattended persistence, Vault scans, GitHub sync, provider workspace writes, or enterprise-system updates.
+
+Enterprise trigger: escalate when real data, credentials, tenant integration, connector setup, unattended/automated writeback, or public benchmark claims enter scope.
 
 ## v0.3 Provider Profile Boundary
 
@@ -55,11 +57,13 @@ An ANDS-compatible runtime must preserve:
 | Governance Reviewer | Inspect risk, desensitization, release boundary, and escalation |
 | Writeback Agent | Produce project-local Lessons and reusable-rule candidates |
 
+Runtime roles are workflow assignments. They do not replace ANDS-A L1/L2/L3: AI PM usually spans L1/L2 planning, Execution/Validation/Governance/Writeback are L2 responsibilities, and the actual model, tool, or agent session is the L3 instance.
+
 ## Role-Specific Boundaries
 
 - Execution boundary: produce only the requested deliverable, assumptions, evidence, caveats, and handoff notes.
 - Validation boundary: itemize every Gate Checklist row with status, evidence, missing evidence, and requested fix.
-- Writeback boundary: produce candidate-only Lessons and reusable-rule candidates unless Enterprise review approves persistence.
+- Writeback boundary: produce candidate-only Lessons and reusable-rule candidates. If a human explicitly requests draft generation to a specific local path, keep it project-local and explicit-path only; do not scan or bulk-modify knowledge bases, sync GitHub, write provider workspaces, or update enterprise systems.
 
 ## Context Packet
 
@@ -87,7 +91,7 @@ Return evidence, caveats, and next-step recommendations.
 Classify any validation result as PASS, PASS_WITH_NOTE, PASS_WITH_FIXES, or FAIL.
 For Execution Agent work, return only the requested deliverable, assumptions, evidence, and handoff notes.
 For Validation Agent work, map every Gate Checklist item to status, evidence, missing evidence, and requested fix.
-For Writeback Agent work, return candidate-only Lessons and reusable-rule candidates; do not perform persistence.
+For Writeback Agent work, return candidate-only Lessons and reusable-rule candidates. Do not persist unless the human explicitly requested draft generation to a specific allowed path in the current project context; never perform unattended persistence, Vault scans, GitHub sync, provider workspace writes, or enterprise-system updates.
 ```
 
 ## Runtime Selection
@@ -139,7 +143,7 @@ Every row must use synthetic-only or separately approved desensitized input, ret
 | Unsupported integration claim | Place live provider API work in future Enterprise scope |
 | Weak desensitization | Run explicit red-line scan before sharing or writeback |
 | Vague validation | Require PASS / PASS_WITH_NOTE / PASS_WITH_FIXES / FAIL plus per-item Gate evidence |
-| Accidental persistence | Keep writeback as candidate-only unless Enterprise review approves persistence |
+| Accidental persistence | Keep writeback candidate-only unless a human explicitly requests draft generation to one allowed local path |
 | Benchmark overreach | Record observations, not rankings |
 
 ## Provider Profile Handoff
@@ -164,7 +168,7 @@ Escalate when any of these enter scope:
 - live provider API calls.
 - Enterprise trigger: credentials, tokens, tenant setup, or private connectors.
 - real project data sent to an external runtime.
-- Enterprise trigger: automated writeback into Obsidian, GitHub, or enterprise knowledge systems.
+- Enterprise trigger: unattended or automated writeback into Obsidian, GitHub, provider workspaces, or enterprise knowledge systems.
 - public comparative benchmark claims.
 
 ## Gate 5 Writeback

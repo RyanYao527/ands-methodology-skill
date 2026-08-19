@@ -1,6 +1,25 @@
 # Publishing Checklist
 
-本清单用于 `ands-nexus` skill 的内部试用、release candidate 准备和公开发布执行检查。当前公开版本是 `v0.4.2`；GitHub release: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.2>。
+本清单用于 `ands-nexus` skill 的内部试用、release candidate 准备和公开发布执行检查。当前公开版本是 `v0.4.3`；GitHub release: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.3>。
+
+## v0.4.3 Public Patch Release Execution
+
+本节记录 `v0.4.3` governance consistency + guided polish 公开 patch release execution 状态。
+
+- [x] V04-POST08 release readiness review completed：`GO_FOR_V0_4_3_PUBLIC_PATCH_RELEASE_EXECUTION_WITH_CONSTRAINTS`。
+- [x] 独立 reviewer Critical 0；Important findings 已在 release execution 前修复。
+- [x] B1 writeback wording 已对齐：candidate-only 默认；显式路径 local draft 仅在用户明确请求时允许；不授权无人值守、Vault scan、GitHub sync、provider workspace 或企业系统写入。
+- [x] A4 Track 外部交付灰区已对齐：Quick 无外部交付/合同/客户影响；低风险外部可见可 Standard + Gate 4；合同/客户承诺/真实客户影响升级 Enterprise。
+- [x] A6 runtime workflow role 与 ANDS-A L1/L2/L3 已说明；脱敏三值 PASS / NEEDS_REDACTION / BLOCKED 已补。
+- [x] B2 first-run 人话边界说明已补。
+- [x] BL-03 `owner_response` glossary 已补 `stop:`。
+- [x] BL-05 guided first-run state-chain 已小修，且 root / installable copies 保持一致。
+- [x] Release notes 已从 candidate wording 改为 public `v0.4.3 - 2026-08-19` 口径。
+- [x] Release execution final validation PASS：`pwsh test_validate_release.ps1`、`pwsh validate_release.ps1`、`pwsh validate_templates.ps1`、`git diff --check`、guided example comparison。
+- [x] Windows PowerShell 5.1 validator parser compatibility 不作为本 release PASS 证据，已保留为 A3/A5 hardening backlog。
+- [x] 创建并推送 `v0.4.3` tag。
+- [x] 创建 GitHub release，并记录 release URL：<https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.3>。
+- [x] 完成 Gate 5 release closeout 与 Knowledge Writeback。
 
 ## v0.4.2 Public Patch Release Execution
 
@@ -174,13 +193,13 @@
 
 ## Validation Commands
 
-在仓库根目录运行：
+在仓库根目录推荐使用 PowerShell Core 运行：
 
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-nexus\scripts\validate_templates.ps1
-powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-nexus\scripts\test_writeback_mvp.ps1
-powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-nexus\scripts\test_validate_release.ps1
-powershell -NoProfile -ExecutionPolicy Bypass -File .\ands-nexus\scripts\validate_release.ps1
+```bash
+pwsh -NoProfile -File ./ands-nexus/scripts/validate_templates.ps1
+pwsh -NoProfile -File ./ands-nexus/scripts/test_writeback_mvp.ps1
+pwsh -NoProfile -File ./ands-nexus/scripts/test_validate_release.ps1
+pwsh -NoProfile -File ./ands-nexus/scripts/validate_release.ps1
 python <path-to-skill-creator>\scripts\quick_validate.py .\ands-nexus
 ```
 

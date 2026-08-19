@@ -46,11 +46,11 @@ For the older compact path, open `examples/first-run-prompt-packet-v0.3.1.md`. I
 
 | Track | Use When | Keep It Small By |
 |---|---|---|
-| Quick | Low-risk writing, planning, or explanation; no sensitive data, low blast radius, quick rollback | One output, Track reason, Gate 2 or equivalent check |
-| Standard | Internal workflow, reusable template, or agent handoff | Explicit owner, Gate checklist, validation evidence |
-| Enterprise | Real customer data, production-critical path, security/compliance risk, hard rollback, cross-team impact, credentials, tenant systems, connectors, live provider work, or public claims | Require approval, preflight, audit trail, and rollback plan |
+| Quick | Low-risk writing, planning, or explanation; no sensitive data, no external delivery, low blast radius, quick rollback | One output, Track reason, Gate 2 or equivalent check |
+| Standard | Internal workflow, reusable template, agent handoff, or low-risk external-visible delivery without sensitive data, customer commitment, or real customer impact | Explicit owner, Gate checklist, validation evidence, stronger Gate 4 review when externally visible |
+| Enterprise | Real customer data, real customer impact, production-critical path, security/compliance risk, hard rollback, cross-team impact, credentials, tenant systems, connectors, live provider work, contractual/customer commitment, or public claims | Require approval, preflight, audit trail, and rollback plan |
 
-External delivery or contractual impact without sensitive data usually starts as Standard with stronger Gate 4 review unless production-critical, sensitive, hard to rollback, or cross-team facts make it Enterprise.
+External-visible delivery without sensitive data, customer commitment, or real customer impact usually starts as Standard with stronger Gate 4 review unless production-critical, sensitive, hard to rollback, contractual, customer-impacting, or cross-team facts make it Enterprise.
 
 ## What To Save
 
@@ -66,7 +66,7 @@ Write back to a broader methodology only after review confirms the lesson is reu
 
 ## Boundaries
 
-v0.4.2 keeps the same public boundary as v0.3.x:
+v0.4.3 keeps the same public boundary as v0.3.x:
 
 - no provider-native validation;
 - no API integration;
@@ -78,3 +78,5 @@ v0.4.2 keeps the same public boundary as v0.3.x:
 For provider/runtime adaptation, treat labels as routing hypotheses until stronger evidence exists.
 
 Writeback boundary: user-invoked draft generation to an explicit path is allowed only when explicitly requested. It does not authorize unattended persistence, Vault scans, GitHub sync, provider workspace writes, or enterprise-system updates.
+
+Plain-language version: use a fictional or redacted task for the first run. The skill helps you practice the workflow and prepare reviewable drafts; it should not touch real systems, sync knowledge bases, call APIs, or claim one provider is better than another.

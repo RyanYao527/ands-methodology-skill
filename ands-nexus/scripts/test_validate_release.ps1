@@ -245,15 +245,15 @@ $adaptationReference = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $
 
 Assert-Contains -Text $forwardTestSuite -Expected "Execution boundary: return only the requested documentation deliverable, assumptions, evidence, and handoff notes."
 Assert-Contains -Text $forwardTestSuite -Expected "Validation boundary: map every Gate Checklist item to status, evidence, missing evidence, and requested fix."
-Assert-Contains -Text $forwardTestSuite -Expected "Writeback boundary: produce candidate-only Lessons and reusable-rule candidates; do not perform persistence."
+Assert-Contains -Text $forwardTestSuite -Expected "Writeback boundary: produce candidate-only Lessons and reusable-rule candidates. Draft generation to an explicit path is allowed only when explicitly requested in an authorized local/project context."
 
 Assert-Contains -Text $adapterCard -Expected "Before answering, restate the active role, active Gate, non-goals, and forbidden expansions."
 Assert-Contains -Text $adapterCard -Expected "For Validation Agent work, map every Gate Checklist item to status, evidence, missing evidence, and requested fix."
-Assert-Contains -Text $adapterCard -Expected "For Writeback Agent work, return candidate-only Lessons and reusable-rule candidates; do not perform persistence."
+Assert-Contains -Text $adapterCard -Expected "For Writeback Agent work, return candidate-only Lessons and reusable-rule candidates. Do not persist unless the human explicitly requested draft generation to a specific allowed path in the current project context; never perform unattended persistence, Vault scans, GitHub sync, provider workspace writes, or enterprise-system updates."
 
 Assert-Contains -Text $adaptationReference -Expected "Execution boundary: produce only the requested deliverable, assumptions, evidence, caveats, and handoff notes."
 Assert-Contains -Text $adaptationReference -Expected "Validation boundary: itemize every Gate Checklist row with status, evidence, missing evidence, and requested fix."
-Assert-Contains -Text $adaptationReference -Expected "Writeback boundary: produce candidate-only Lessons and reusable-rule candidates unless Enterprise review approves persistence."
+Assert-Contains -Text $adaptationReference -Expected "Writeback boundary: produce candidate-only Lessons and reusable-rule candidates. If a human explicitly requests draft generation to a specific local path, keep it project-local and explicit-path only; do not scan or bulk-modify knowledge bases, sync GitHub, write provider workspaces, or update enterprise systems."
 
 $startHere = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "START-HERE.md")
 $examplesIndex = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot "examples/INDEX.md")
