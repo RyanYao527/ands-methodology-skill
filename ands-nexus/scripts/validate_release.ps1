@@ -1,4 +1,4 @@
-param(
+﻿param(
     [string]$SkillRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path,
     [string]$RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot "../..")).Path,
     [string]$QuickValidatePath = "",
@@ -51,6 +51,76 @@ function Assert-RequiredFiles {
         $requiredPath = Join-Path $Path $requiredFile
         if (-not (Test-Path -LiteralPath $requiredPath -PathType Leaf)) {
             throw "Missing required $Name file: $requiredFile"
+        }
+    }
+}
+
+function Get-ReleaseManifest {
+    param([Parameter(Mandatory = $true)][string]$Path)
+
+    if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) {
+        throw "Missing release manifest: $Path"
+    }
+
+    $json = Get-Content -Raw -Encoding UTF8 -LiteralPath $Path
+    try {
+        return $json | ConvertFrom-Json
+    }
+    catch {
+        throw "Invalid release manifest JSON: $Path`n$($_.Exception.Message)"
+    }
+}
+
+function Assert-ReleaseManifest {
+    param(
+        [Parameter(Mandatory = $true)][string]$ManifestPath,
+        [Parameter(Mandatory = $true)][string]$RepoRoot
+    )
+
+    $manifest = Get-ReleaseManifest -Path $ManifestPath
+    if (-not $manifest.schema_version) {
+        throw "release-manifest.json missing schema_version"
+    }
+    if (-not $manifest.asset_groups) {
+        throw "release-manifest.json missing asset_groups"
+    }
+
+    foreach ($group in @($manifest.asset_groups)) {
+        $groupName = [string]$group.name
+        $basePath = [string]$group.base_path
+        $fileType = [string]$group.file_type
+        $expectedCount = [int]$group.expected_count
+        $requiredFiles = @($group.required_files)
+
+        if (-not $groupName) {
+            throw "release-manifest.json contains an asset group without name"
+        }
+        if (-not $basePath) {
+            throw "release-manifest.json group '$groupName' missing base_path"
+        }
+        if (-not $fileType) {
+            throw "release-manifest.json group '$groupName' missing file_type"
+        }
+        if ($expectedCount -lt 0) {
+            throw "release-manifest.json group '$groupName' has invalid expected_count"
+        }
+
+        $resolvedBasePath = Join-Path $RepoRoot $basePath
+        if (-not (Test-Path -LiteralPath $resolvedBasePath -PathType Container)) {
+            throw "release-manifest.json group '$groupName' missing directory: $basePath"
+        }
+
+        $filter = "*.$fileType"
+        $actualCount = @(Get-ChildItem -LiteralPath $resolvedBasePath -File -Filter $filter).Count
+        if ($actualCount -ne $expectedCount) {
+            throw "release-manifest.json group '$groupName' count mismatch: expected $expectedCount, got $actualCount"
+        }
+
+        foreach ($requiredFile in $requiredFiles) {
+            $requiredPath = Join-Path $resolvedBasePath $requiredFile
+            if (-not (Test-Path -LiteralPath $requiredPath -PathType Leaf)) {
+                throw "release-manifest.json group '$groupName' missing required file: $requiredFile"
+            }
         }
     }
 }
@@ -343,52 +413,9 @@ else {
     Write-Host "SKIP quick_validate (no -QuickValidatePath; external Codex skill-creator tool not in repo)"
 }
 
-Invoke-Step -Name "asset_counts" -Block {
-    $referencesRoot = Join-Path $SkillRoot "references"
-    $templatesRoot = Join-Path $SkillRoot "assets/templates"
-    Assert-Count -Name "references" -Path $referencesRoot -Expected 10
-    Assert-RequiredFiles -Name "reference" -Path $referencesRoot -RequiredFiles @(
-        "guided-workflow-mvp.md",
-        "glossary.md"
-    )
-    Assert-Count -Name "templates" -Path $templatesRoot -Expected 11
-    Assert-RequiredFiles -Name "template" -Path $templatesRoot -RequiredFiles @(
-        "guided-workflow-state-packet.md"
-    )
-    $examplesRoot = Join-Path $RepoRoot "examples"
-    Assert-Count -Name "examples" -Path $examplesRoot -Expected 20
-    Assert-RequiredFiles -Name "example" -Path $examplesRoot -RequiredFiles @(
-        "INDEX.md",
-        "agent-model-adaptation-forward-test-v0.2.2.md",
-        "ands-t-task-example.md",
-        "demo-trace-guide-example.md",
-        "desensitization-notes.md",
-        "first-run-prompt-packet-v0.3.1.md",
-        "forward-test-scenarios-v0.2.md",
-        "gate-checklist-example.md",
-        "guided-workflow-first-run-v0.4.md",
-        "guided-workflow-regression-v0.4.md",
-        "lessons-writeback-example.md",
-        "management-rollout-plan.md",
-        "post-release-feedback-intake-v0.2.1.md",
-        "post-release-feedback-intake-v0.3.1.md",
-        "provider-profile-cards-v0.2.2.md",
-        "provider-profile-cards-v0.3-internal.md",
-        "provider-profile-offline-adoption-packet-v0.3.md",
-        "role-routing-regression-scenarios-v0.3.1.md",
-        "seed-user-feedback-intake-v0.2.md",
-        "seed-user-prompts.md"
-    )
-    $skillExamplesRoot = Join-Path $SkillRoot "examples"
-    Assert-Count -Name "installable routed examples" -Path $skillExamplesRoot -Expected 6
-    Assert-RequiredFiles -Name "installable routed example" -Path $skillExamplesRoot -RequiredFiles @(
-        "first-run-prompt-packet-v0.3.1.md",
-        "guided-workflow-first-run-v0.4.md",
-        "guided-workflow-regression-v0.4.md",
-        "management-rollout-plan.md",
-        "post-release-feedback-intake-v0.3.1.md",
-        "role-routing-regression-scenarios-v0.3.1.md"
-    )
+Invoke-Step -Name "release_manifest" -Block {
+    $manifestPath = Join-Path $RepoRoot "release-manifest.json"
+    Assert-ReleaseManifest -ManifestPath $manifestPath -RepoRoot $RepoRoot
 }
 
 Invoke-Step -Name "guided_workflow_assets" -Block {
@@ -484,19 +511,19 @@ Invoke-Step -Name "guided_workflow_assets" -Block {
 Invoke-Step -Name "public_package_scan" -Block {
     Push-Location $RepoRoot
     try {
-        $targets = @("README.md", "START-HERE.md", "RELEASE_NOTES.md", "PUBLISHING_CHECKLIST.md", "examples", "ands-nexus")
-        $secretMatches = Invoke-Rg -Pattern "BEGIN (RSA|OPENSSH|PRIVATE)|AKIA[0-9A-Z]{16}|sk-[A-Za-z0-9]{20,}|gh[opsu]_[A-Za-z0-9_]{20,}" -Targets @(".")
+        $targets = @("README.md", "START-HERE.md", "RELEASE_NOTES.md", "PUBLISHING_CHECKLIST.md", "release-manifest.json", "examples", "ands-nexus")
+        $secretMatches = Invoke-Rg -Pattern 'BEGIN (RSA|OPENSSH|PRIVATE)|AKIA[0-9A-Z]{16}|sk-[A-Za-z0-9]{20,}|gh[opsu]_[A-Za-z0-9_]{20,}' -Targets @(".")
         if ($secretMatches.Count -gt 0) {
             throw "Potential secret-like matches found:`n$($secretMatches -join "`n")"
         }
 
-        $pathMatches = Invoke-Rg -Pattern "([A-Za-z]:\\Users\\|/Users/|/home/|http[s]?://|\b\d{1,3}(\.\d{1,3}){3}\b|Projects[\\/]ands-nexus|04-Implementation[\\/]repo)" -Targets $targets
+        $pathMatches = Invoke-Rg -Pattern '([A-Za-z]:\\Users\\|/Users/|/home/|http[s]?://|\b\d{1,3}(\.\d{1,3}){3}\b|Projects[\\/]ands-nexus|04-Implementation[\\/]repo)' -Targets $targets
         $pathMatches = Remove-AllowedPublicScanMatches -Matches $pathMatches
         if ($pathMatches.Count -gt 0) {
             throw "Potential local path, URL, or IP matches found:`n$($pathMatches -join "`n")"
         }
 
-        $claimMatches = Invoke-Rg -Pattern "(?i)provider-native validation|native provider validation|API integration|live provider API integration|credential setup|credential or tenant setup|tenant setup|tenant connectors|tenant connector readiness|automated writeback|API key setup|OAuth setup|benchmark ranking|best model|guaranteed provider capability" -Targets $targets
+        $claimMatches = Invoke-Rg -Pattern '(?i)provider-native validation|native provider validation|API integration|live provider API integration|credential setup|credential or tenant setup|tenant setup|tenant connectors|tenant connector readiness|automated writeback|API key setup|OAuth setup|benchmark ranking|best model|guaranteed provider capability' -Targets $targets
         $claimMatches = Remove-AllowedIntegrationClaimMatches -ScanMatches $claimMatches
         if ($claimMatches.Count -gt 0) {
             throw "Potential unsupported integration or benchmark claims found:`n$($claimMatches -join "`n")"

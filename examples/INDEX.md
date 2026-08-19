@@ -30,8 +30,9 @@ Installable routed examples are also copied under `ands-nexus/examples/` so SKIL
 | `lessons-writeback-example.md` | You need a Lessons writeback example. |
 | `demo-trace-guide-example.md` | You need a demo trace example. |
 | `desensitization-notes.md` | You need desensitization guidance for examples and feedback. |
+| `source-provenance-bundle-v0.4.md` | You need a public-safe source provenance example for synthetic or desensitized materials. |
 
-For first-run boundary terms, start with the One-Page Boundary Card in `../START-HERE.md`; use `desensitization-notes.md` when deciding whether feedback is `PASS`, `NEEDS_REDACTION`, or `BLOCKED`.
+For first-run boundary terms, start with the One-Page Boundary Card in `../START-HERE.md`; use `../ands-nexus/references/one-page-glossary-card.md` for a shorter glossary card, and use `desensitization-notes.md` when deciding whether feedback is `PASS`, `NEEDS_REDACTION`, or `BLOCKED`.
 
 ## Forward Tests And Regression
 

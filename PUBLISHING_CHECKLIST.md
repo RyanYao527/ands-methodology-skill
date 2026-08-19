@@ -1,6 +1,28 @@
 # Publishing Checklist
 
-本清单用于 `ands-nexus` skill 的内部试用、release candidate 准备和公开发布执行检查。当前公开版本是 `v0.4.4`；GitHub release: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.4>。
+本清单用于 `ands-nexus` skill 的内部试用、release candidate 准备和公开发布执行检查。当前公开版本是 `v0.4.5`；GitHub release: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.5>。
+
+## v0.4.5 Public Patch Release Execution
+
+本节记录 `v0.4.5` release-engineering patch 公开 release execution 状态。
+
+- [x] Windows PowerShell 5.1 validator parser compatibility 已纳入 A3/A5 hardening，并要求 `powershell.exe` 与 `pwsh` 双 runtime 验证。
+- [x] 新增 `release-manifest.json` 作为 release asset groups、expected counts、required files 的唯一来源。
+- [x] `validate_release.ps1` 的 asset count 检查改为读取 `release-manifest.json`。
+- [x] 新增最小 GitHub Actions release validation gate，只运行验证，不自动发布。
+- [x] GitHub Actions guard 保持 `contents: read`，并拒绝 release 发布命令/action 或写权限混入。
+- [x] 新增 `ands-nexus/references/one-page-glossary-card.md` 作为术语速查卡。
+- [x] 新增 `examples/source-provenance-bundle-v0.4.md` 作为脱敏溯源 bundle 示例。
+- [x] 独立 reviewer 复核完成：无 Critical / Important；minor Non-Scope 与 CI guard 一致性项已修。
+- [x] Non-Scope 保持不变：no provider-native validation, no API integration, no credential setup, no tenant connectors, no unattended or automated writeback, no benchmark ranking。
+- [x] Release notes 已更新为正式 `v0.4.5 - 2026-08-19` 公开 patch release 口径。
+- [x] Release readiness review 结论：`GO_FOR_V0_4_5_RELEASE_ENGINEERING_PATCH_CANDIDATE_OWNER_GO_REQUIRED`。
+- [x] Project Owner Go 已确认。
+- [x] Release execution final validation PASS：`pwsh test_validate_release.ps1`、`powershell.exe test_validate_release.ps1`、`pwsh validate_release.ps1`、`powershell.exe validate_release.ps1`、`pwsh validate_templates.ps1`、`git diff --check`。
+- [x] Commit completed：`docs: release v0.4.5 engineering hardening patch`。
+- [x] 创建并推送 `v0.4.5` tag。
+- [x] 创建 GitHub release，并记录 release URL：<https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.5>。
+- [x] 完成 Gate 5 release closeout 与 Knowledge Writeback。
 
 ## v0.4.4 Public Patch Release Execution
 
@@ -235,6 +257,15 @@ pwsh -NoProfile -File ./ands-nexus/scripts/validate_release.ps1
 ```
 
 `validate_release.ps1` 需要 `rg` / ripgrep 进行 public package scan。公开发布文档可以说明 `quick_validate.py` 来自 Codex skill creator；`quick_validate.py` is external and not included in this repository。release execution 文案不应写入机器特定绝对路径。
+
+Windows PowerShell 5.1 compatibility check:
+
+```powershell
+powershell.exe -NoProfile -File .\ands-nexus\scripts\test_validate_release.ps1
+powershell.exe -NoProfile -File .\ands-nexus\scripts\validate_release.ps1
+```
+
+Release asset counts and required-file checks must be updated in `release-manifest.json`; do not hardcode asset counts directly in `validate_release.ps1`.
 
 ## Desensitization Scan
 

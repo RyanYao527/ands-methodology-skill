@@ -1,5 +1,51 @@
 # Release Notes
 
+## v0.4.5 - 2026-08-19
+
+`v0.4.5` 已完成公开 patch release execution。
+
+Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.5>
+
+### Summary
+
+`v0.4.5` is a bounded release-engineering patch that improves release validation maintainability and cross-runtime script compatibility after `v0.4.4`. It does not change the public evidence boundary.
+
+### Added
+
+- `release-manifest.json` as the source of truth for release asset groups, expected counts, and required files.
+- `.github/workflows/release-validation.yml` as a minimal GitHub Actions validation gate.
+- `ands-nexus/references/one-page-glossary-card.md` as a short first-run terminology card with Chinese aliases.
+- `examples/source-provenance-bundle-v0.4.md` as a public-safe source provenance bundle example.
+
+### Changed
+
+- `validate_release.ps1` now reads release asset requirements from `release-manifest.json` instead of hardcoding asset counts.
+- Release validation is expected to pass under both PowerShell Core and Windows PowerShell 5.1.
+- The GitHub Actions regression guard now rejects write permissions and common release-publishing actions.
+- README and publishing checklist document the `v0.4.5` release-engineering patch scope.
+
+### Validation Evidence
+
+- `pwsh -NoProfile -File ./ands-nexus/scripts/test_validate_release.ps1`: PASS.
+- `powershell.exe -NoProfile -File ./ands-nexus/scripts/test_validate_release.ps1`: PASS.
+- `pwsh -NoProfile -File ./ands-nexus/scripts/validate_release.ps1`: PASS.
+- `powershell.exe -NoProfile -File ./ands-nexus/scripts/validate_release.ps1`: PASS.
+- `pwsh -NoProfile -File ./ands-nexus/scripts/validate_templates.ps1`: PASS.
+- `git diff --check`: PASS.
+- Public package scan: PASS via `validate_release.ps1`.
+- Independent reviewer: PASS; no Critical or Important findings after minor consistency fixes.
+- Final release execution validation: PASS.
+
+### Non-Scope
+
+- No first-user wording patch beyond the glossary/provenance hardening assets in this release-engineering patch.
+- No provider-native validation.
+- No API integration.
+- No credential setup.
+- No tenant connectors.
+- No unattended or automated writeback.
+- No benchmark ranking, best-provider result, procurement guidance, or public provider capability claim.
+
 ## v0.4.4 - 2026-08-19
 
 `v0.4.4` 已完成公开 patch release execution。

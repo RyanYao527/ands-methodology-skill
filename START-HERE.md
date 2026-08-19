@@ -24,7 +24,7 @@ For a first guided run, use `ands-nexus/references/guided-workflow-mvp.md`, `and
 
 ## Core Terms
 
-Read `ands-nexus/references/glossary.md` first if State Packet, Gate, Track, ANDS-T, Writeback, `data_class`, desensitization outcome, or `owner_response` is unfamiliar.
+Read `ands-nexus/references/glossary.md` first if State Packet, Gate, Track, ANDS-T, Writeback, `data_class`, desensitization outcome, or `owner_response` is unfamiliar. For a shorter manager-path card, use `ands-nexus/references/one-page-glossary-card.md`.
 
 ## One-Page Boundary Card
 
@@ -81,7 +81,7 @@ Write back to a broader methodology only after review confirms the lesson is reu
 
 ## Boundaries
 
-v0.4.3 keeps the same public boundary as v0.3.x:
+v0.4.x keeps the same public boundary as v0.3.x:
 
 - no provider-native validation;
 - no API integration;

@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "asset_groups": [
+    {
+      "name": "references",
+      "base_path": "ands-nexus/references",
+      "file_type": "md",
+      "expected_count": 11,
+      "required_files": [
+        "adoption-playbook.md",
+        "demo-trace-guide.md",
+        "glossary.md",
+        "governance-and-metrics.md",
+        "guided-workflow-mvp.md",
+        "methodology-10-models.md",
+        "multi-agent-model-adaptation.md",
+        "one-page-glossary-card.md",
+        "overview.md",
+        "platform-5-components.md",
+        "standards-k-t-a-w-g.md"
+      ]
+    },
+    {
+      "name": "templates",
+      "base_path": "ands-nexus/assets/templates",
+      "file_type": "md",
+      "expected_count": 11,
+      "required_files": [
+        "30-day-pilot-template.md",
+        "adr-template.md",
+        "agent-matrix-template.md",
+        "agent-model-adapter-card.md",
+        "ands-t-template.md",
+        "capability-matrix-template.md",
+        "gate-checklist.md",
+        "guided-workflow-state-packet.md",
+        "lessons-template.md",
+        "track-decision-card.md",
+        "writeback-note-template.md"
+      ]
+    },
+    {
+      "name": "root_examples",
+      "base_path": "examples",
+      "file_type": "md",
+      "expected_count": 21,
+      "required_files": [
+        "INDEX.md",
+        "agent-model-adaptation-forward-test-v0.2.2.md",
+        "ands-t-task-example.md",
+        "demo-trace-guide-example.md",
+        "desensitization-notes.md",
+        "first-run-prompt-packet-v0.3.1.md",
+        "forward-test-scenarios-v0.2.md",
+        "gate-checklist-example.md",
+        "guided-workflow-first-run-v0.4.md",
+        "guided-workflow-regression-v0.4.md",
+        "lessons-writeback-example.md",
+        "management-rollout-plan.md",
+        "post-release-feedback-intake-v0.2.1.md",
+        "post-release-feedback-intake-v0.3.1.md",
+        "provider-profile-cards-v0.2.2.md",
+        "provider-profile-cards-v0.3-internal.md",
+        "provider-profile-offline-adoption-packet-v0.3.md",
+        "role-routing-regression-scenarios-v0.3.1.md",
+        "seed-user-feedback-intake-v0.2.md",
+        "seed-user-prompts.md",
+        "source-provenance-bundle-v0.4.md"
+      ]
+    },
+    {
+      "name": "installable_examples",
+      "base_path": "ands-nexus/examples",
+      "file_type": "md",
+      "expected_count": 6,
+      "required_files": [
+        "first-run-prompt-packet-v0.3.1.md",
+        "guided-workflow-first-run-v0.4.md",
+        "guided-workflow-regression-v0.4.md",
+        "management-rollout-plan.md",
+        "post-release-feedback-intake-v0.3.1.md",
+        "role-routing-regression-scenarios-v0.3.1.md"
+      ]
+    }
+  ]
+}

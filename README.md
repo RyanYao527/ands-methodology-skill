@@ -25,11 +25,11 @@ Quick fit check:
 
 ## Current Release
 
-当前公开版本是 `v0.4.4`，已于 2026-08-19 发布。
+当前公开版本是 `v0.4.5`，已于 2026-08-19 发布。
 
-Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.4>
+Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.5>
 
-`v0.4.4` is a bounded governance-boundary wording patch opened from v0.4.3 retest feedback. It keeps the v0.4 documentation-first scope and improves first-run visibility for `PASS / NEEDS_REDACTION / BLOCKED`, `data_class` separation, external-visible Track gray zones, public claims, provider comparisons, procurement advice, plain-language boundary terms, and explicit-path writeback limits.
+`v0.4.5` is a bounded release-engineering patch. It keeps the v0.4 documentation-first scope while adding Windows PowerShell 5.1 validation compatibility, manifest-driven asset validation, a minimal GitHub Actions release validation gate, a one-page glossary card, and a synthetic source provenance bundle example.
 
 ### Start Here
 
@@ -39,7 +39,7 @@ For the older compact first run, use `examples/first-run-prompt-packet-v0.3.1.md
 
 `START-HERE.md` now includes a one-page boundary card for `data_class`, `PASS / NEEDS_REDACTION / BLOCKED`, external-visible delivery, public claims, explicit paths, Vault scans, no provider-native validation, and no tenant connectors.
 
-### Included In v0.4.4
+### Included In v0.4.5
 
 - `ands-nexus/references/guided-workflow-mvp.md` for the four-step guided workflow and role/state model.
 - `ands-nexus/references/glossary.md` for first-run terminology.
@@ -59,22 +59,28 @@ For the older compact first run, use `examples/first-run-prompt-packet-v0.3.1.md
 - Synthetic/proxy forward-test methodology.
 - Governance boundaries for future provider-native/API/tenant/connector/writeback work.
 - Release validation guards for provider-native/API/tenant/writeback/benchmark claim overreach.
+- `release-manifest.json` as the source of truth for release asset groups, expected counts, and required files.
+- `.github/workflows/release-validation.yml` as a validation-only GitHub Actions gate for push and pull request checks.
+- Windows PowerShell 5.1 and PowerShell Core validation compatibility for release scripts.
+- `ands-nexus/references/one-page-glossary-card.md` for a shorter first-run terminology card with Chinese aliases.
+- `examples/source-provenance-bundle-v0.4.md` for public-safe desensitized source provenance notes.
 
-### v0.4.4 Release Validation Status
+### v0.4.5 Release Validation Status
 
 - `pwsh -NoProfile -File ./ands-nexus/scripts/test_validate_release.ps1`: PASS.
+- `powershell.exe -NoProfile -File ./ands-nexus/scripts/test_validate_release.ps1`: PASS.
 - `pwsh -NoProfile -File ./ands-nexus/scripts/validate_release.ps1`: PASS; when `-QuickValidatePath` is not supplied it prints `SKIP quick_validate (no -QuickValidatePath; external Codex skill-creator tool not in repo)`.
+- `powershell.exe -NoProfile -File ./ands-nexus/scripts/validate_release.ps1`: PASS.
 - `pwsh -NoProfile -File ./ands-nexus/scripts/validate_templates.ps1`: PASS.
 - `quick_validate.py is external` and is not included in this repository.
 - `git diff --check`: PASS.
+- Manifest-driven release validation: PASS.
 - Public package scan: PASS.
 - GitHub release: non-draft, non-prerelease.
 
-Windows PowerShell 5.1 validator parser compatibility is a known backlog item; this release does not claim Windows PowerShell 5.1 validation PASS.
-
 ### Evidence Level And Boundaries
 
-v0.4.4 的证据等级仍是 documentation / local validation / synthetic example。它可以作为 guided ANDS first-run 和后续 workflow automation discovery 的准备材料，但不能被解读为真实 runtime 能力证明。
+v0.4.5 的证据等级仍是 documentation / local validation / synthetic example。它可以作为 guided ANDS first-run 和后续 workflow automation discovery 的准备材料，但不能被解读为真实 runtime 能力证明。
 
 Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no unattended or automated writeback, no benchmark ranking.
 
@@ -84,6 +90,7 @@ Plain-language version: use v0.4.x as a workflow practice kit. It can help prepa
 
 ## Previous Releases
 
+- `v0.4.4`：governance-boundary wording patch，修复三值脱敏说明、A4 外部可见/公开声明/provider 对比/采购建议边界、B2 人话术语、B1 `-OutputPath`/Vault 小澄清。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.4>。
 - `v0.4.3`：governance consistency + guided workflow polish patch，修复 B1/A4/A6/B2/BL-03/BL-05 一致性问题。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.3>。
 - `v0.4.2`：owner_response boundary micro patch，防止 copyable first-run prompts 预填 sample human owner decisions。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.2>。
 - `v0.4.1`：guided workflow stabilization patch，修复 installable examples、non-Codex/macOS/Linux onboarding、glossary、owner_response、writeback boundary、template mapping、validation transparency 和 Track/Gate owner wording。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.1>。
@@ -126,13 +133,18 @@ pwsh -NoProfile -File ./ands-nexus/scripts/validate_release.ps1
 
 On Linux, install equivalent packages for PowerShell Core and ripgrep with your package manager, then use the same `pwsh -File` commands. `validate_release.ps1` requires `rg` for public package scans and will print an install hint if it is missing.
 
-仓库根目录验证建议使用 PowerShell Core：
+仓库根目录验证建议使用 PowerShell Core；Windows users can also run the same validator with Windows PowerShell 5.1 after the post-v0.4.4 hardening:
 
 ```bash
 pwsh -NoProfile -File ./ands-nexus/scripts/validate_templates.ps1
 pwsh -NoProfile -File ./ands-nexus/scripts/test_writeback_mvp.ps1
 pwsh -NoProfile -File ./ands-nexus/scripts/test_validate_release.ps1
 pwsh -NoProfile -File ./ands-nexus/scripts/validate_release.ps1
+```
+
+```powershell
+powershell.exe -NoProfile -File .\ands-nexus\scripts\test_validate_release.ps1
+powershell.exe -NoProfile -File .\ands-nexus\scripts\validate_release.ps1
 ```
 
 ### Windows UTF-8 Note
@@ -207,14 +219,14 @@ ands-nexus/
 
 - 不提供完整 37 节课程内容。
 - 不构建生产级 AI Gateway。
-- 不提供一键部署 Dashboard、GitHub Actions 或 Obsidian 自动化。
-- Non-Scope: v0.4.4 has no provider-native validation, no API integration, no credential setup, no tenant connectors, no unattended or automated writeback, no benchmark ranking。
+- 不提供一键部署 Dashboard 或 Obsidian 自动化；GitHub Actions 仅用于 release validation gate，不做自动发布。
+- Non-Scope: v0.4.5 has no provider-native validation, no API integration, no credential setup, no tenant connectors, no unattended or automated writeback, no benchmark ranking。
 - 不承诺所有团队都适合一次性全量引入五道 Gate。
 - Obsidian writeback MVP 只生成草稿或写入显式指定路径；不扫描或批量改写 Vault。No unattended or automated writeback；user-invoked draft generation to an explicit path is allowed only when explicitly requested。若显式 `-OutputPath` 的父目录不存在，脚本可能创建该父目录；该行为只限于用户明确指定的本地草稿路径，不授权扫描 Vault、GitHub sync、provider workspace 写入或企业知识库自动更新。
 - 本包已经完成 v0.1.0 发布前脱敏审查。
 - `v0.2.1` 已完成公开发布前最终脱敏审查；后续真实反馈仍应先脱敏再进入 examples 或 validation。
 - `v0.3.x` 证据来自 design / official-doc-reviewed / proxy or synthetic forward-test 层级，不代表 runtime capability evidence 或 provider selection advice。
-- `v0.4.4` guided workflow material is documentation-first and does not provide workflow automation, hosted UI, or provider-native execution evidence.
+- `v0.4.5` guided workflow material is documentation-first and does not provide workflow automation, hosted UI, or provider-native execution evidence.
 
 ## License
 

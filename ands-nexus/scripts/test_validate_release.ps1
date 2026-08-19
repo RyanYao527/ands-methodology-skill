@@ -1,8 +1,9 @@
-$ErrorActionPreference = "Stop"
+﻿$ErrorActionPreference = "Stop"
 
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $validator = Join-Path $scriptDir "validate_release.ps1"
 $repoRoot = (Resolve-Path (Join-Path $scriptDir "../..")).Path
+$workflowPath = Join-Path $repoRoot ".github/workflows/release-validation.yml"
 
 if (-not (Test-Path -LiteralPath $validator)) {
     throw "Missing release validator script: $validator"
@@ -50,11 +51,73 @@ function Assert-Fails {
     throw "Expected command to fail with: $ExpectedMessage"
 }
 
+function New-ReleaseManifestJson {
+    param(
+        [Parameter(Mandatory = $true)][string]$RepoRoot,
+        [Parameter(Mandatory = $true)][string[]]$RootExamples,
+        [string[]]$References = @(),
+        [string[]]$Templates = @(),
+        [string[]]$InstallableExamples = @()
+    )
+
+    $manifest = [ordered]@{
+        schema_version = "1.0"
+        asset_groups = @(
+            [ordered]@{
+                name = "root_examples"
+                base_path = "examples"
+                file_type = "md"
+                expected_count = $RootExamples.Count
+                required_files = $RootExamples
+            }
+        )
+    }
+
+    if ($References.Count -gt 0) {
+        $manifest.asset_groups += [ordered]@{
+            name = "references"
+            base_path = "ands-nexus/references"
+            file_type = "md"
+            expected_count = $References.Count
+            required_files = $References
+        }
+    }
+
+    if ($Templates.Count -gt 0) {
+        $manifest.asset_groups += [ordered]@{
+            name = "templates"
+            base_path = "ands-nexus/assets/templates"
+            file_type = "md"
+            expected_count = $Templates.Count
+            required_files = $Templates
+        }
+    }
+
+    if ($InstallableExamples.Count -gt 0) {
+        $manifest.asset_groups += [ordered]@{
+            name = "installable_examples"
+            base_path = "ands-nexus/examples"
+            file_type = "md"
+            expected_count = $InstallableExamples.Count
+            required_files = $InstallableExamples
+        }
+    }
+
+    $json = $manifest | ConvertTo-Json -Depth 6
+    Set-Content -LiteralPath (Join-Path $RepoRoot "release-manifest.json") -Encoding UTF8 -Value $json
+}
+
 function New-ReleaseValidationRepoFixture {
-    param([string]$NamePrefix = "ands-release-validation-fixture")
+    param(
+        [string]$NamePrefix = "ands-release-validation-fixture",
+        [switch]$SkipManifest
+    )
 
     $fixtureRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("{0}-{1}" -f $NamePrefix, [guid]::NewGuid().ToString("N"))
     New-Item -ItemType Directory -Path (Join-Path $fixtureRoot "examples") -Force | Out-Null
+    New-Item -ItemType Directory -Path (Join-Path $fixtureRoot "ands-nexus/references") -Force | Out-Null
+    New-Item -ItemType Directory -Path (Join-Path $fixtureRoot "ands-nexus/assets/templates") -Force | Out-Null
+    New-Item -ItemType Directory -Path (Join-Path $fixtureRoot "ands-nexus/examples") -Force | Out-Null
     New-Item -ItemType Directory -Path (Join-Path $fixtureRoot "ands-nexus/scripts") -Force | Out-Null
     Set-Content -LiteralPath (Join-Path $fixtureRoot "README.md") -Encoding UTF8 -Value @'
 # Fixture
@@ -107,6 +170,51 @@ use a fictional task because this package rehearses the process; it does not con
         Set-Content -LiteralPath (Join-Path $fixtureRoot "examples/$exampleFile") -Encoding UTF8 -Value "# Fixture"
     }
 
+    $requiredReferenceFiles = @(
+        "adoption-playbook.md",
+        "demo-trace-guide.md",
+        "glossary.md",
+        "governance-and-metrics.md",
+        "guided-workflow-mvp.md",
+        "methodology-10-models.md",
+        "multi-agent-model-adaptation.md",
+        "overview.md",
+        "platform-5-components.md",
+        "standards-k-t-a-w-g.md"
+    )
+    foreach ($referenceFile in $requiredReferenceFiles) {
+        Set-Content -LiteralPath (Join-Path $fixtureRoot "ands-nexus/references/$referenceFile") -Encoding UTF8 -Value "# Fixture"
+    }
+
+    $requiredTemplateFiles = @(
+        "30-day-pilot-template.md",
+        "adr-template.md",
+        "agent-matrix-template.md",
+        "agent-model-adapter-card.md",
+        "ands-t-template.md",
+        "capability-matrix-template.md",
+        "gate-checklist.md",
+        "guided-workflow-state-packet.md",
+        "lessons-template.md",
+        "track-decision-card.md",
+        "writeback-note-template.md"
+    )
+    foreach ($templateFile in $requiredTemplateFiles) {
+        Set-Content -LiteralPath (Join-Path $fixtureRoot "ands-nexus/assets/templates/$templateFile") -Encoding UTF8 -Value "# Fixture"
+    }
+
+    $requiredInstallableExampleFiles = @(
+        "first-run-prompt-packet-v0.3.1.md",
+        "guided-workflow-first-run-v0.4.md",
+        "guided-workflow-regression-v0.4.md",
+        "management-rollout-plan.md",
+        "post-release-feedback-intake-v0.3.1.md",
+        "role-routing-regression-scenarios-v0.3.1.md"
+    )
+    foreach ($installableExampleFile in $requiredInstallableExampleFiles) {
+        Set-Content -LiteralPath (Join-Path $fixtureRoot "ands-nexus/examples/$installableExampleFile") -Encoding UTF8 -Value "# Fixture"
+    }
+
     Set-Content -LiteralPath (Join-Path $fixtureRoot "examples/INDEX.md") -Encoding UTF8 -Value @'
 # Fixture
 
@@ -148,6 +256,10 @@ writeback overreach
 Enterprise escalation
 '@
 
+    if (-not $SkipManifest) {
+        New-ReleaseManifestJson -RepoRoot $fixtureRoot -RootExamples $requiredExampleFiles -References $requiredReferenceFiles -Templates $requiredTemplateFiles -InstallableExamples $requiredInstallableExampleFiles
+    }
+
     return $fixtureRoot
 }
 
@@ -176,46 +288,43 @@ $output = & $validator -SkipWritebackTest *>&1 | Out-String
 
 Assert-Contains -Text $output -Expected "PASS validate_templates"
 Assert-Contains -Text $output -Expected "SKIP quick_validate (no -QuickValidatePath; external Codex skill-creator tool not in repo)"
-Assert-Contains -Text $output -Expected "PASS asset_counts"
+Assert-Contains -Text $output -Expected "PASS release_manifest"
 Assert-Contains -Text $output -Expected "PASS public_package_scan"
 Assert-Contains -Text $output -Expected "PASS validate_release"
 
-$missingRequiredExampleRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("ands-release-manifest-fixture-{0}" -f [guid]::NewGuid().ToString("N"))
+if (-not (Test-Path -LiteralPath $workflowPath -PathType Leaf)) {
+    throw "Missing GitHub Actions release validation workflow: $workflowPath"
+}
+$workflow = Get-Content -Raw -Encoding UTF8 -LiteralPath $workflowPath
+Assert-Contains -Text $workflow -Expected "pwsh -NoProfile -File ./ands-nexus/scripts/test_validate_release.ps1"
+Assert-Contains -Text $workflow -Expected "push"
+Assert-Contains -Text $workflow -Expected "pull_request"
+Assert-Contains -Text $workflow -Expected "contents: read"
+Assert-NotContains -Text $workflow -Unexpected "contents: write"
+Assert-NotContains -Text $workflow -Unexpected "write-all"
+Assert-NotContains -Text $workflow -Unexpected "gh release"
+Assert-NotContains -Text $workflow -Unexpected "actions/create-release"
+Assert-NotContains -Text $workflow -Unexpected "softprops/action-gh-release"
+Assert-NotContains -Text $workflow -Unexpected "ncipollo/release-action"
+
+$missingManifestRoot = New-ReleaseValidationRepoFixture -NamePrefix "ands-release-missing-manifest-fixture" -SkipManifest
 try {
-    New-Item -ItemType Directory -Path (Join-Path $missingRequiredExampleRoot "examples") -Force | Out-Null
-    New-Item -ItemType Directory -Path (Join-Path $missingRequiredExampleRoot "ands-nexus") -Force | Out-Null
-    Set-Content -LiteralPath (Join-Path $missingRequiredExampleRoot "README.md") -Encoding UTF8 -Value "# Fixture"
-    Set-Content -LiteralPath (Join-Path $missingRequiredExampleRoot "START-HERE.md") -Encoding UTF8 -Value "# Fixture"
-    Set-Content -LiteralPath (Join-Path $missingRequiredExampleRoot "RELEASE_NOTES.md") -Encoding UTF8 -Value "# Fixture"
-    Set-Content -LiteralPath (Join-Path $missingRequiredExampleRoot "PUBLISHING_CHECKLIST.md") -Encoding UTF8 -Value "# Fixture"
-
-    $manifestExampleFiles = @(
-        "INDEX.md",
-        "agent-model-adaptation-forward-test-v0.2.2.md",
-        "ands-t-task-example.md",
-        "demo-trace-guide-example.md",
-        "desensitization-notes.md",
-        "first-run-prompt-packet-v0.3.1.md",
-        "forward-test-scenarios-v0.2.md",
-        "gate-checklist-example.md",
-        "guided-workflow-first-run-v0.4.md",
-        "guided-workflow-regression-v0.4.md",
-        "lessons-writeback-example.md",
-        "management-rollout-plan.md",
-        "post-release-feedback-intake-v0.2.1.md",
-        "post-release-feedback-intake-v0.3.1.md",
-        "provider-profile-cards-v0.2.2.md",
-        "provider-profile-offline-adoption-packet-v0.3.md",
-        "release-manifest-placeholder.md",
-        "role-routing-regression-scenarios-v0.3.1.md",
-        "seed-user-feedback-intake-v0.2.md",
-        "seed-user-prompts.md"
-    )
-    foreach ($exampleFile in $manifestExampleFiles) {
-        Set-Content -LiteralPath (Join-Path $missingRequiredExampleRoot "examples/$exampleFile") -Encoding UTF8 -Value "# Fixture"
+    Assert-Fails -ExpectedMessage "Missing release manifest:" -Block {
+        & $validator -SkipWritebackTest -RepoRoot $missingManifestRoot *>&1 | Out-String | Out-Null
     }
+}
+finally {
+    if (Test-Path -LiteralPath $missingManifestRoot) {
+        Remove-Item -LiteralPath $missingManifestRoot -Recurse -Force
+    }
+}
 
-    Assert-Fails -ExpectedMessage "Missing required example file: provider-profile-cards-v0.3-internal.md" -Block {
+$missingRequiredExampleRoot = New-ReleaseValidationRepoFixture -NamePrefix "ands-release-manifest-fixture"
+try {
+    Remove-Item -LiteralPath (Join-Path $missingRequiredExampleRoot "examples/provider-profile-cards-v0.3-internal.md") -Force
+    Set-Content -LiteralPath (Join-Path $missingRequiredExampleRoot "examples/release-manifest-placeholder.md") -Encoding UTF8 -Value "# Fixture"
+
+    Assert-Fails -ExpectedMessage "release-manifest.json group 'root_examples' missing required file: provider-profile-cards-v0.3-internal.md" -Block {
         & $validator -SkipWritebackTest -RepoRoot $missingRequiredExampleRoot *>&1 | Out-String | Out-Null
     }
 }
@@ -277,6 +386,7 @@ $glossaryReference = Get-Content -Raw -Encoding UTF8 -LiteralPath $glossaryRefer
 Assert-Contains -Text $startHere -Expected "Guided Workflow First Run"
 Assert-Contains -Text $startHere -Expected "examples/first-run-prompt-packet-v0.3.1.md"
 Assert-Contains -Text $startHere -Expected "examples/guided-workflow-first-run-v0.4.md"
+Assert-Contains -Text $startHere -Expected "one-page-glossary-card.md"
 Assert-Contains -Text $startHere -Expected "Compact First Run"
 Assert-Contains -Text $startHere -Expected "If you are not using Codex"
 Assert-Contains -Text $startHere -Expected "Core Terms"
@@ -286,6 +396,7 @@ Assert-Contains -Text $examplesIndex -Expected "post-release-feedback-intake-v0.
 Assert-Contains -Text $examplesIndex -Expected "role-routing-regression-scenarios-v0.3.1.md"
 Assert-Contains -Text $examplesIndex -Expected "guided-workflow-first-run-v0.4.md"
 Assert-Contains -Text $examplesIndex -Expected "guided-workflow-regression-v0.4.md"
+Assert-Contains -Text $examplesIndex -Expected "source-provenance-bundle-v0.4.md"
 Assert-Contains -Text $examplesIndex -Expected 'Installable routed examples are also copied under `ands-nexus/examples/`'
 Assert-Contains -Text $skillDefinition -Expected "Run guided ANDS workflow"
 Assert-Contains -Text $skillDefinition -Expected "references/glossary.md"
@@ -326,6 +437,7 @@ Assert-Contains -Text $guidedReference -Expected "Owner response values in examp
 Assert-Contains -Text $glossaryReference -Expected "State Packet"
 Assert-Contains -Text $glossaryReference -Expected "Gate"
 Assert-Contains -Text $glossaryReference -Expected "owner_response"
+Assert-Contains -Text $glossaryReference -Expected "One-Page Glossary Card"
 
 $guidedStateFields = @(
     "workflow_id",

@@ -1,4 +1,4 @@
-param(
+﻿param(
     [string]$SkillRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 )
 

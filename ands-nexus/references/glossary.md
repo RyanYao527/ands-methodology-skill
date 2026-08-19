@@ -28,5 +28,6 @@ Use this page when a first-time user asks what the guided workflow terms mean. K
 | Public claim | An external-facing promise, capability statement, provider comparison, compliance/contract statement, or procurement-style recommendation. Public claims route to Enterprise review; a desensitized example or template can remain Standard only when it makes no such claim. |
 | No benchmark ranking | Do not make public or procurement-style provider comparison claims from offline/profile examples. Record observations only. |
 | Regression prompt | A reusable prompt that checks whether a past confusion or failure stays fixed. |
+| One-Page Glossary Card | A short first-run reference at `ands-nexus/references/one-page-glossary-card.md` with plain-language terms, Chinese aliases, and boundary reminders. |
 
 First-run rule: use a fictional task because this package rehearses the process; it does not connect to your systems, call APIs, write to provider workspaces, or automatically update knowledge bases.
