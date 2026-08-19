@@ -300,12 +300,16 @@ Assert-Contains -Text $workflow -Expected "pwsh -NoProfile -File ./ands-nexus/sc
 Assert-Contains -Text $workflow -Expected "push"
 Assert-Contains -Text $workflow -Expected "pull_request"
 Assert-Contains -Text $workflow -Expected "contents: read"
+Assert-Contains -Text $workflow -Expected "command -v rg"
+Assert-Contains -Text $workflow -Expected "timeout 120s sudo apt-get update"
+Assert-Contains -Text $workflow -Expected "timeout 120s sudo apt-get install -y ripgrep"
 Assert-NotContains -Text $workflow -Unexpected "contents: write"
 Assert-NotContains -Text $workflow -Unexpected "write-all"
 Assert-NotContains -Text $workflow -Unexpected "gh release"
 Assert-NotContains -Text $workflow -Unexpected "actions/create-release"
 Assert-NotContains -Text $workflow -Unexpected "softprops/action-gh-release"
 Assert-NotContains -Text $workflow -Unexpected "ncipollo/release-action"
+Assert-NotContains -Text $workflow -Unexpected "sudo apt-get update && sudo apt-get install -y ripgrep"
 
 $missingManifestRoot = New-ReleaseValidationRepoFixture -NamePrefix "ands-release-missing-manifest-fixture" -SkipManifest
 try {

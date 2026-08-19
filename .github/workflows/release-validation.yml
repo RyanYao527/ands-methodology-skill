@@ -19,8 +19,17 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Install ripgrep
-        run: sudo apt-get update && sudo apt-get install -y ripgrep
+      - name: Prepare ripgrep
+        shell: bash
+        run: |
+          set -euo pipefail
+          if command -v rg >/dev/null 2>&1; then
+            rg --version
+            exit 0
+          fi
+          timeout 120s sudo apt-get update
+          timeout 120s sudo apt-get install -y ripgrep
+          rg --version
 
       - name: Run release validation tests
         shell: pwsh
