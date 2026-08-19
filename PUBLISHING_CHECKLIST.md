@@ -1,6 +1,27 @@
 # Publishing Checklist
 
-本清单用于 `ands-nexus` skill 的内部试用、release candidate 准备和公开发布执行检查。当前公开版本是 `v0.4.3`；GitHub release: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.3>。
+本清单用于 `ands-nexus` skill 的内部试用、release candidate 准备和公开发布执行检查。当前公开版本是 `v0.4.4`；GitHub release: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.4>。
+
+## v0.4.4 Public Patch Release Execution
+
+本节记录 `v0.4.4` governance-boundary wording 公开 patch release execution 状态。
+
+- [x] V04-POST10 v0.4.3 retest round 01 completed：0 Critical / 5 Important / 10 Minor / 8 Observation。
+- [x] V04-POST11 bounded governance-boundary patch implementation completed and validated。
+- [x] V04-POST12 release readiness review completed：`CONDITIONAL_GO_FOR_V0_4_4_PUBLIC_PATCH_RELEASE_EXECUTION_AFTER_REQUIRED_WORDING_FIXES`。
+- [x] Required wording fixes completed：README plain-language boundary includes `procurement advice`; governance Enterprise summary row includes `采购建议`。
+- [x] One-page boundary card added to `START-HERE.md` without adding a new release package asset.
+- [x] `data_class` versus `PASS / NEEDS_REDACTION / BLOCKED` clarified on the first-run path and in desensitization guidance.
+- [x] A4 Track wording aligned for external-visible low-risk delivery, public claims, provider comparisons, procurement advice, customer commitments, contract/compliance statements, and Enterprise review.
+- [x] B2 plain-language terms added for explicit path, Vault scan, no provider-native validation, and no tenant connectors.
+- [x] B1 writeback `-OutputPath` wording tightened to the human-specified local draft path.
+- [x] A3/A5 script or validator hardening, GitHub Actions, manifest-driven asset counts, desensitized source-file bundle, no API integration, no tenant connectors, no unattended or automated writeback, and v0.5 automation discovery were kept out of scope.
+- [x] Release notes updated to public `v0.4.4 - 2026-08-19`口径。
+- [x] Release execution final validation PASS：`pwsh test_validate_release.ps1`、`pwsh validate_release.ps1`、`pwsh validate_templates.ps1`、`git diff --check`。
+- [x] Windows PowerShell 5.1 validator parser compatibility 不作为本 release PASS 证据，继续保留为 A3/A5 hardening backlog。
+- [x] 创建并推送 `v0.4.4` tag。
+- [x] 创建 GitHub release，并记录 release URL：<https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.4>。
+- [x] 完成 Gate 5 release closeout 与 Knowledge Writeback。
 
 ## v0.4.3 Public Patch Release Execution
 

@@ -31,6 +31,8 @@ Installable routed examples are also copied under `ands-nexus/examples/` so SKIL
 | `demo-trace-guide-example.md` | You need a demo trace example. |
 | `desensitization-notes.md` | You need desensitization guidance for examples and feedback. |
 
+For first-run boundary terms, start with the One-Page Boundary Card in `../START-HERE.md`; use `desensitization-notes.md` when deciding whether feedback is `PASS`, `NEEDS_REDACTION`, or `BLOCKED`.
+
 ## Forward Tests And Regression
 
 | File | Use When |

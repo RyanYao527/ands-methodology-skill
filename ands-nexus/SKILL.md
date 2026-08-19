@@ -31,8 +31,8 @@ Use this skill to help teams understand, adopt, practice, or review AI-Native De
 | Design governance | `references/governance-and-metrics.md`, `assets/templates/gate-checklist.md`, `assets/templates/track-decision-card.md` | Track decision and Gate checklist |
 | Review a delivery or incident | `references/demo-trace-guide.md`, `references/governance-and-metrics.md`, `assets/templates/lessons-template.md` | Lessons, follow-up issue, standard update |
 | Prepare internal training | `references/overview.md`, `references/demo-trace-guide.md`, `references/adoption-playbook.md` | Briefing outline or workshop script |
-| Triage seed-user feedback | `references/adoption-playbook.md`, `references/governance-and-metrics.md` | Desensitized feedback classification and regression prompt |
-| Triage post-release feedback | `examples/post-release-feedback-intake-v0.3.1.md`, `references/governance-and-metrics.md` | Desensitized feedback intake, Track decision, regression prompt |
+| Triage seed-user feedback | `references/adoption-playbook.md`, `references/governance-and-metrics.md`, `references/glossary.md` | Desensitized feedback classification and regression prompt |
+| Triage post-release feedback | `examples/post-release-feedback-intake-v0.3.1.md`, `references/governance-and-metrics.md`, `references/glossary.md` | Desensitized feedback intake, Track decision, regression prompt |
 | Review ANDS anti-patterns | `references/adoption-playbook.md`, `references/governance-and-metrics.md` | Anti-pattern diagnosis and corrected Track/Gate guidance |
 | Draft Obsidian writeback | `references/governance-and-metrics.md`, `assets/templates/writeback-note-template.md` | Project-local writeback draft with backlinks |
 
@@ -69,4 +69,4 @@ Before answering, verify that the output:
 
 When the answer produces reusable knowledge, suggest where it should be written back: Technical, Prompt, Product, Decision, or Lessons. Do not modify a knowledge base unless the user explicitly asks.
 
-For Obsidian writeback drafts, keep project facts in the project first. Boundary wording: no unattended or automated writeback; user-invoked draft generation to an explicit path is allowed only when explicitly requested. If script automation is appropriate, use `scripts/new_writeback_note.ps1` only to generate a draft or write an explicitly provided output path; do not scan or bulk-modify a Vault.
+For Obsidian writeback drafts, keep project facts in the project first. Boundary wording: no unattended or automated writeback; user-invoked draft generation to one human-specified local draft path is allowed only when explicitly requested. If script automation is appropriate, use `scripts/new_writeback_note.ps1` only to generate a draft or write an explicitly provided output path; do not scan or bulk-modify a Vault.

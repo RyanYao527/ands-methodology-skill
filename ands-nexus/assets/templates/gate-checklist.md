@@ -15,16 +15,16 @@
 
 | Track | 默认 Gate 范围 | 裁剪说明 |
 |---|---|---|
-| Quick | Gate 2 必选，其他 Gate 可裁剪 | 仅限低风险、可回滚、小范围、无敏感数据、无外部交付或合同影响任务 |
-| Standard | Gate 1-5 默认执行 | 常规业务需求，或外部可见但低风险且无敏感数据、真实客户影响、客户承诺和生产关键路径的交付；需要 CI、人验收和必要的 Gate 4 说明 |
-| Enterprise | Gate 1-5 + 加强审查 | 生产关键路径、安全敏感、合规相关、跨团队、难回滚、合同/客户承诺、真实客户影响或连接器任务 |
+| Quick | Gate 2 必选，其他 Gate 可裁剪 | 仅限低风险、可回滚、小范围、无敏感数据、无外部交付、无公开声明或合同影响任务 |
+| Standard | Gate 1-5 默认执行 | 常规业务需求，或外部可见但低风险且不涉及敏感数据、真实客户影响、客户承诺、公开声明、provider 对比、采购建议或生产关键路径的交付；需要 CI、人验收和必要的 Gate 4 说明 |
+| Enterprise | Gate 1-5 + 加强审查 | 生产关键路径、安全敏感、合规相关、跨团队、难回滚、合同/客户承诺、真实客户影响、公开声明、provider 对比、采购建议或连接器任务 |
 
 ## Tailoring Questions
 
 - Risk Level: `[低 / 中 / 高]`
 - Reversibility: `[可快速回滚 / 可回滚但有成本 / 难回滚]`
 - Data Sensitivity: `[无敏感数据 / 内部数据 / 权限、隐私、合规或生产数据]`
-- External delivery or contractual impact: `[无 / 外部可见但低风险 / 有合同、合规、客户承诺或真实客户影响]`
+- External delivery or contractual impact: `[无 / 外部可见但低风险且无公开声明 / 有公开声明、合同、合规、客户承诺、provider 对比、采购建议或真实客户影响]`
 - Human Validation Owner: `[填写角色；无则不能进入 Standard/Enterprise Gate 3]`
 - Failure Action: `[返修 / 回滚 / 暂停发布 / 升级 Track / 人工接管]`
 - Tailoring Rationale: `[说明为什么保留、裁剪或加强对应 Gate]`
@@ -76,7 +76,7 @@
   - [ ] 回滚方案就绪。
   - [ ] 灰度、开关或回退条件已定义。
   - [ ] 五资产快照按任务需要同步：Knowledge、Prompt、Architecture、Workflow、Code。
-  - [ ] 外部可见交付已说明为什么仍可保持 Standard，或已升级 Enterprise。
+  - [ ] 外部可见交付已说明为什么仍可保持 Standard，或已升级 Enterprise；若保持 Standard，必须确认无公开声明、provider 对比、采购建议、客户承诺、合同/合规口径或真实客户影响。
   - [ ] Enterprise Track 已完成加强审批或双人确认。
 - 通过结论：`[通过 / 不通过 / 裁剪]`
 - 失败动作：`[暂停发布；补齐发布资产或回滚方案后重新审批]`

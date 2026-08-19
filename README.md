@@ -10,6 +10,7 @@ Quick fit check:
 - A 30-day pilot should produce ANDS-T cards, Track/Gate records, and reusable Lessons; it should not require platform work.
 - Not a production AI Gateway, provider benchmark, hosted workflow product, or connector pack.
 - First runs should use synthetic or desensitized tasks.
+- For public examples or validation, `data_class` says what kind of input/context was used; `PASS / NEEDS_REDACTION / BLOCKED` says whether the feedback or example can be published after review.
 - If you need live APIs, credentials, tenant systems, automatic persistence, or public provider comparisons, route to Enterprise review first.
 - Plain-language boundary: this package helps you rehearse tasks, roles, Gates, owner decisions, and Lessons. It does not connect your systems, run provider APIs, store credentials, change files automatically, or prove vendor capability.
 
@@ -24,11 +25,11 @@ Quick fit check:
 
 ## Current Release
 
-当前公开版本是 `v0.4.3`，已于 2026-08-19 发布。
+当前公开版本是 `v0.4.4`，已于 2026-08-19 发布。
 
-Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.3>
+Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.4>
 
-`v0.4.3` is a bounded governance consistency and guided workflow polish patch. It keeps the v0.4 documentation-first scope and clarifies writeback boundaries, external-visible Track gray zones, runtime workflow roles, desensitization outcomes, glossary wording, and guided first-run state continuity.
+`v0.4.4` is a bounded governance-boundary wording patch opened from v0.4.3 retest feedback. It keeps the v0.4 documentation-first scope and improves first-run visibility for `PASS / NEEDS_REDACTION / BLOCKED`, `data_class` separation, external-visible Track gray zones, public claims, provider comparisons, procurement advice, plain-language boundary terms, and explicit-path writeback limits.
 
 ### Start Here
 
@@ -36,14 +37,16 @@ New users should begin with `START-HERE.md`, then run `examples/guided-workflow-
 
 For the older compact first run, use `examples/first-run-prompt-packet-v0.3.1.md`.
 
-### Included In v0.4.3
+`START-HERE.md` now includes a one-page boundary card for `data_class`, `PASS / NEEDS_REDACTION / BLOCKED`, external-visible delivery, public claims, explicit paths, Vault scans, no provider-native validation, and no tenant connectors.
+
+### Included In v0.4.4
 
 - `ands-nexus/references/guided-workflow-mvp.md` for the four-step guided workflow and role/state model.
 - `ands-nexus/references/glossary.md` for first-run terminology.
 - `ands-nexus/assets/templates/guided-workflow-state-packet.md` for copyable workflow state.
 - `examples/guided-workflow-first-run-v0.4.md` for a synthetic Intake -> ANDS-T -> Gate -> Lessons run.
 - `examples/guided-workflow-regression-v0.4.md` for checking role drift, skipped Gate evidence, missing owner decision, writeback overreach, and Enterprise escalation.
-- Governance wording for explicit-path local writeback drafts, external-visible Track gray zones, runtime workflow roles versus ANDS-A L1/L2/L3, and PASS / NEEDS_REDACTION / BLOCKED desensitization criteria.
+- Governance wording for explicit-path local writeback drafts, external-visible Track gray zones, public claims, provider comparisons, procurement advice, runtime workflow roles versus ANDS-A L1/L2/L3, and PASS / NEEDS_REDACTION / BLOCKED desensitization criteria.
 - `validate_release.ps1`, `validate_templates.ps1`, and `test_validate_release.ps1` checks for the v0.4 guided workflow assets.
 - `START-HERE.md` for a shorter first-run path.
 - `examples/INDEX.md` for choosing the right example.
@@ -57,7 +60,7 @@ For the older compact first run, use `examples/first-run-prompt-packet-v0.3.1.md
 - Governance boundaries for future provider-native/API/tenant/connector/writeback work.
 - Release validation guards for provider-native/API/tenant/writeback/benchmark claim overreach.
 
-### v0.4.3 Release Validation Status
+### v0.4.4 Release Validation Status
 
 - `pwsh -NoProfile -File ./ands-nexus/scripts/test_validate_release.ps1`: PASS.
 - `pwsh -NoProfile -File ./ands-nexus/scripts/validate_release.ps1`: PASS; when `-QuickValidatePath` is not supplied it prints `SKIP quick_validate (no -QuickValidatePath; external Codex skill-creator tool not in repo)`.
@@ -71,16 +74,17 @@ Windows PowerShell 5.1 validator parser compatibility is a known backlog item; t
 
 ### Evidence Level And Boundaries
 
-v0.4.3 的证据等级仍是 documentation / local validation / synthetic example。它可以作为 guided ANDS first-run 和后续 workflow automation discovery 的准备材料，但不能被解读为真实 runtime 能力证明。
+v0.4.4 的证据等级仍是 documentation / local validation / synthetic example。它可以作为 guided ANDS first-run 和后续 workflow automation discovery 的准备材料，但不能被解读为真实 runtime 能力证明。
 
 Non-Scope: no provider-native validation, no API integration, no credential setup, no tenant connectors, no unattended or automated writeback, no benchmark ranking.
 
 Writeback boundary: user-invoked draft generation to an explicit path is allowed only when explicitly requested. It does not authorize unattended persistence, Vault scans, GitHub sync, provider workspace writes, or enterprise-system updates.
 
-Plain-language version: use v0.4.x as a workflow practice kit. It can help prepare what a human should review next; it should not be treated as a live integration, automatic knowledge-base updater, or public vendor comparison.
+Plain-language version: use v0.4.x as a workflow practice kit. It can help prepare what a human should review next; it should not be treated as a live integration, automatic knowledge-base updater, or public vendor comparison. A desensitized public example or template can be Standard with stronger Gate 4 review only when it makes no public capability claim, customer commitment, contract/compliance statement, provider comparison, or procurement advice.
 
 ## Previous Releases
 
+- `v0.4.3`：governance consistency + guided workflow polish patch，修复 B1/A4/A6/B2/BL-03/BL-05 一致性问题。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.3>。
 - `v0.4.2`：owner_response boundary micro patch，防止 copyable first-run prompts 预填 sample human owner decisions。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.2>。
 - `v0.4.1`：guided workflow stabilization patch，修复 installable examples、non-Codex/macOS/Linux onboarding、glossary、owner_response、writeback boundary、template mapping、validation transparency 和 Track/Gate owner wording。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.1>。
 - `v0.4.0`：documentation-first guided workflow MVP，新增 guided workflow reference、state packet template、first-run example 和 regression prompts。Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.0>。
@@ -204,13 +208,13 @@ ands-nexus/
 - 不提供完整 37 节课程内容。
 - 不构建生产级 AI Gateway。
 - 不提供一键部署 Dashboard、GitHub Actions 或 Obsidian 自动化。
-- Non-Scope: v0.4.3 has no provider-native validation, no API integration, no credential setup, no tenant connectors, no unattended or automated writeback, no benchmark ranking。
+- Non-Scope: v0.4.4 has no provider-native validation, no API integration, no credential setup, no tenant connectors, no unattended or automated writeback, no benchmark ranking。
 - 不承诺所有团队都适合一次性全量引入五道 Gate。
-- Obsidian writeback MVP 只生成草稿或写入显式指定路径；不扫描或批量改写 Vault。No unattended or automated writeback；user-invoked draft generation to an explicit path is allowed only when explicitly requested。若显式 `-OutputPath` 的父目录不存在，脚本可能创建该父目录，且只作用于用户明确给出的路径；这不授权 GitHub sync、provider workspace 写入或企业知识库自动更新。
+- Obsidian writeback MVP 只生成草稿或写入显式指定路径；不扫描或批量改写 Vault。No unattended or automated writeback；user-invoked draft generation to an explicit path is allowed only when explicitly requested。若显式 `-OutputPath` 的父目录不存在，脚本可能创建该父目录；该行为只限于用户明确指定的本地草稿路径，不授权扫描 Vault、GitHub sync、provider workspace 写入或企业知识库自动更新。
 - 本包已经完成 v0.1.0 发布前脱敏审查。
 - `v0.2.1` 已完成公开发布前最终脱敏审查；后续真实反馈仍应先脱敏再进入 examples 或 validation。
 - `v0.3.x` 证据来自 design / official-doc-reviewed / proxy or synthetic forward-test 层级，不代表 runtime capability evidence 或 provider selection advice。
-- `v0.4.3` guided workflow material is documentation-first and does not provide workflow automation, hosted UI, or provider-native execution evidence.
+- `v0.4.4` guided workflow material is documentation-first and does not provide workflow automation, hosted UI, or provider-native execution evidence.
 
 ## License
 

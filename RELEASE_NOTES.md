@@ -1,5 +1,51 @@
 # Release Notes
 
+## v0.4.4 - 2026-08-19
+
+`v0.4.4` 已完成公开 patch release execution。
+
+Release URL: <https://github.com/RyanYao527/ands-nexus/releases/tag/v0.4.4>
+
+### Summary
+
+v0.4.4 is a bounded governance-boundary wording patch opened from v0.4.3 retest feedback. It keeps the v0.4 documentation-first guided workflow scope and improves first-run clarity for desensitization outcomes, Track gray zones, plain-language boundary terms, and explicit-path writeback limits.
+
+### Changed
+
+- Add a one-page boundary card to `START-HERE.md` covering `data_class`, `PASS / NEEDS_REDACTION / BLOCKED`, external-visible delivery, public claims, explicit paths, Vault scans, no provider-native validation, and no tenant connectors.
+- Clarify that `data_class` is input/context classification, while `PASS / NEEDS_REDACTION / BLOCKED` is publication-readiness judgment for examples or feedback.
+- Add first-run glossary entries for `PASS`, `NEEDS_REDACTION`, `BLOCKED`, explicit path, Vault scan, no provider-native validation, no tenant connectors, external-visible low-risk delivery, and public claim.
+- Align Track and Gate wording so low-risk external-visible desensitized examples/templates can remain Standard with stronger Gate 4 only when they make no public capability claim, customer commitment, contract/compliance statement, provider comparison, or procurement advice.
+- Clarify that public claims, provider comparisons, procurement advice, customer commitments, contract/compliance statements, real customer impact, sensitive data, hard rollback, or connector work require Enterprise review.
+- Tighten Obsidian writeback wording so `-OutputPath` parent directory creation is limited to the human-specified local draft path and does not authorize Vault scans, GitHub sync, provider workspace writes, or enterprise-system updates.
+- Route seed-user and post-release feedback triage through `references/glossary.md` so desensitization outcome definitions are available during classification.
+
+### Validation Evidence
+
+- V04-POST12 release readiness: `CONDITIONAL_GO_FOR_V0_4_4_PUBLIC_PATCH_RELEASE_EXECUTION_AFTER_REQUIRED_WORDING_FIXES`.
+- V04-POST12A required wording fixes: complete and revalidated.
+- `pwsh -NoProfile -File ./ands-nexus/scripts/test_validate_release.ps1`: PASS.
+- `pwsh -NoProfile -File ./ands-nexus/scripts/validate_release.ps1`: PASS.
+- `pwsh -NoProfile -File ./ands-nexus/scripts/validate_templates.ps1`: PASS.
+- `git diff --check`: PASS.
+- Public package scan: PASS.
+- Asset counts unchanged: root examples 20, installable routed examples 6.
+- Final release execution validation: PASS.
+
+### Non-Scope
+
+- No provider-native validation.
+- No API integration.
+- No credential setup.
+- No tenant connectors.
+- No unattended or automated writeback.
+- No benchmark ranking, best-provider result, procurement guidance, or public provider capability claim.
+- No A3/A5 script or validator hardening.
+- No GitHub Actions.
+- No manifest-driven asset-count refactor.
+- No desensitized Obsidian/canvas source-file bundle.
+- No v0.5 automation discovery.
+
 ## v0.4.3 - 2026-08-19
 
 `v0.4.3` 已完成公开 patch release execution。

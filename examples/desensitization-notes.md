@@ -11,6 +11,15 @@
 - 数据只写字段类别和验收口径，不写真实客户、交易、财务、人事或生产数据。
 - Gateway 和 Dashboard 可以作为 mock 展示字段，但必须声明 mock 边界。
 
+## `data_class` 与脱敏三值的关系
+
+这两组字段不是同一个分级轴：
+
+- `data_class` 判断任务输入/上下文来自哪里：`synthetic`、`desensitized` 或 `Enterprise review`。
+- `PASS / NEEDS_REDACTION / BLOCKED` 判断一条反馈或一个示例能否进入公开 examples、validation 或 release 材料。
+- 一个任务可以标为 `desensitized`，但对应反馈仍可能是 `NEEDS_REDACTION`，因为它还保留了路径、截图、人员影子、仓库影子或业务细节。
+- 一个反馈只有在三值判定为 `PASS` 后，才可进入公开 examples 或 validation；`NEEDS_REDACTION` 先改写再复核，`BLOCKED` 不进入发布包。
+
 ## 不得出现的信息类型
 
 | 类型 | 处理规则 |

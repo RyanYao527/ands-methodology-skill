@@ -24,7 +24,22 @@ For a first guided run, use `ands-nexus/references/guided-workflow-mvp.md`, `and
 
 ## Core Terms
 
-Read `ands-nexus/references/glossary.md` first if State Packet, Gate, Track, ANDS-T, Writeback, `data_class`, or `owner_response` is unfamiliar.
+Read `ands-nexus/references/glossary.md` first if State Packet, Gate, Track, ANDS-T, Writeback, `data_class`, desensitization outcome, or `owner_response` is unfamiliar.
+
+## One-Page Boundary Card
+
+Use this card before a first run, public example, or feedback review.
+
+| Term | Plain Meaning | First-Run Rule |
+|---|---|---|
+| `data_class` | What kind of input/context the task uses: synthetic, desensitized, or needs Enterprise review. | Use synthetic for first runs. Do not use real customer, credential, tenant, or private project material. |
+| `PASS / NEEDS_REDACTION / BLOCKED` | Whether a feedback item or example is safe enough to enter public examples or validation. This is not the same axis as `data_class`. | `PASS` can be used; `NEEDS_REDACTION` must be rewritten and reviewed; `BLOCKED` must stay out of public material. |
+| External-visible low-risk delivery | Something people outside the immediate team may see, but it has no sensitive data, customer commitment, real customer impact, public capability claim, or hard rollback. | Usually Standard Track with stronger Gate 4 review. |
+| Public claim | An external-facing promise, capability statement, provider comparison, compliance/contract statement, or procurement-style recommendation. | Route to Enterprise review before publishing. |
+| Explicit path | One human-named local draft path. | Allowed only when explicitly requested; it does not authorize scans, sync, or broader writeback. |
+| Vault scan | Reading or modifying a whole Obsidian vault or knowledge base. | Out of scope. No unattended or automated writeback. |
+| Provider-native validation | No provider-native validation in v0.4.x; plain meaning is a real run on a provider API, SDK, console, tenant, connector, or tool surface. | Route to Enterprise review. v0.4.x examples are documentation/local/synthetic evidence only. |
+| Tenant connector | No tenant connectors in v0.4.x; plain meaning is connecting an AI workflow to a company or customer system with account, permission, or tenant configuration. | Route to Enterprise review before setup or use. |
 
 ## Guided Workflow First Run
 
@@ -46,11 +61,11 @@ For the older compact path, open `examples/first-run-prompt-packet-v0.3.1.md`. I
 
 | Track | Use When | Keep It Small By |
 |---|---|---|
-| Quick | Low-risk writing, planning, or explanation; no sensitive data, no external delivery, low blast radius, quick rollback | One output, Track reason, Gate 2 or equivalent check |
-| Standard | Internal workflow, reusable template, agent handoff, or low-risk external-visible delivery without sensitive data, customer commitment, or real customer impact | Explicit owner, Gate checklist, validation evidence, stronger Gate 4 review when externally visible |
-| Enterprise | Real customer data, real customer impact, production-critical path, security/compliance risk, hard rollback, cross-team impact, credentials, tenant systems, connectors, live provider work, contractual/customer commitment, or public claims | Require approval, preflight, audit trail, and rollback plan |
+| Quick | Low-risk writing, planning, or explanation; no sensitive data, no external delivery, no public claims, low blast radius, quick rollback | One output, Track reason, Gate 2 or equivalent check |
+| Standard | Internal workflow, reusable template, agent handoff, or low-risk external-visible delivery without sensitive data, customer commitment, public claim, or real customer impact | Explicit owner, Gate checklist, validation evidence, stronger Gate 4 review when externally visible |
+| Enterprise | Real customer data, real customer impact, production-critical path, security/compliance risk, hard rollback, cross-team impact, credentials, tenant systems, connectors, live provider work, contractual/customer commitment, public claims, provider comparisons, or procurement advice | Require approval, preflight, audit trail, and rollback plan |
 
-External-visible delivery without sensitive data, customer commitment, or real customer impact usually starts as Standard with stronger Gate 4 review unless production-critical, sensitive, hard to rollback, contractual, customer-impacting, or cross-team facts make it Enterprise.
+External-visible delivery without sensitive data, customer commitment, public claim, or real customer impact usually starts as Standard with stronger Gate 4 review unless production-critical, sensitive, hard to rollback, contractual, customer-impacting, cross-team, or provider-comparison facts make it Enterprise.
 
 ## What To Save
 
@@ -77,6 +92,6 @@ v0.4.3 keeps the same public boundary as v0.3.x:
 
 For provider/runtime adaptation, treat labels as routing hypotheses until stronger evidence exists.
 
-Writeback boundary: user-invoked draft generation to an explicit path is allowed only when explicitly requested. It does not authorize unattended persistence, Vault scans, GitHub sync, provider workspace writes, or enterprise-system updates.
+Writeback boundary: user-invoked draft generation to an explicit path is allowed only when explicitly requested. The path must be the one human-specified local draft path; it does not authorize unattended persistence, Vault scans, GitHub sync, provider workspace writes, or enterprise-system updates.
 
 Plain-language version: use a fictional or redacted task for the first run. The skill helps you practice the workflow and prepare reviewable drafts; it should not touch real systems, sync knowledge bases, call APIs, or claim one provider is better than another.
