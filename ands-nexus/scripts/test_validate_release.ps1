@@ -300,12 +300,18 @@ Assert-Contains -Text $workflow -Expected "pwsh -NoProfile -File ./ands-nexus/sc
 Assert-Contains -Text $workflow -Expected "push"
 Assert-Contains -Text $workflow -Expected "pull_request"
 Assert-Contains -Text $workflow -Expected "contents: read"
-Assert-Contains -Text $workflow -Expected "command -v rg"
+Assert-Contains -Text $workflow -Expected "timeout-minutes: 10"
+Assert-Contains -Text $workflow -Expected "timeout-minutes: 5"
 Assert-Contains -Text $workflow -Expected "RIPGREP_VERSION: 14.1.1"
 Assert-Contains -Text $workflow -Expected "RIPGREP_TARGET: x86_64-unknown-linux-musl"
+Assert-Contains -Text $workflow -Expected "RIPGREP_SHA256: 4cf9f2741e6c465ffdb7c26f38056a59e2a2544b51f7cc128ef28337eeae4d8e"
 Assert-Contains -Text $workflow -Expected "BurntSushi/ripgrep/releases/download"
-Assert-Contains -Text $workflow -Expected "curl -fsSL --retry 3 --retry-delay 2"
+Assert-Contains -Text $workflow -Expected "--connect-timeout 10"
+Assert-Contains -Text $workflow -Expected "--max-time 60"
+Assert-Contains -Text $workflow -Expected "--retry-max-time 180"
+Assert-Contains -Text $workflow -Expected 'printf "%s  %s\n" "$RIPGREP_SHA256" "$archive"'
 Assert-Contains -Text $workflow -Expected "sha256sum -c"
+Assert-Contains -Text $workflow -Expected '>> "$GITHUB_PATH"'
 Assert-NotContains -Text $workflow -Unexpected "contents: write"
 Assert-NotContains -Text $workflow -Unexpected "write-all"
 Assert-NotContains -Text $workflow -Unexpected "gh release"
@@ -314,6 +320,7 @@ Assert-NotContains -Text $workflow -Unexpected "softprops/action-gh-release"
 Assert-NotContains -Text $workflow -Unexpected "ncipollo/release-action"
 Assert-NotContains -Text $workflow -Unexpected "apt-get"
 Assert-NotContains -Text $workflow -Unexpected "sudo "
+Assert-NotContains -Text $workflow -Unexpected "command -v rg"
 
 $missingManifestRoot = New-ReleaseValidationRepoFixture -NamePrefix "ands-release-missing-manifest-fixture" -SkipManifest
 try {

@@ -15,21 +15,20 @@ jobs:
   validate:
     name: Validate ANDS Nexus package
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     env:
       RIPGREP_VERSION: 14.1.1
       RIPGREP_TARGET: x86_64-unknown-linux-musl
+      RIPGREP_SHA256: 4cf9f2741e6c465ffdb7c26f38056a59e2a2544b51f7cc128ef28337eeae4d8e
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
       - name: Prepare ripgrep
+        timeout-minutes: 5
         shell: bash
         run: |
           set -euo pipefail
-          if command -v rg >/dev/null 2>&1; then
-            rg --version
-            exit 0
-          fi
           if [ "$(uname -m)" != "x86_64" ]; then
             echo "Unsupported runner architecture for pinned ripgrep tarball: $(uname -m)" >&2
             exit 1
@@ -38,10 +37,11 @@ jobs:
           base_url="https://github.com/BurntSushi/ripgrep/releases/download/${RIPGREP_VERSION}"
           tmpdir="$(mktemp -d)"
           install_dir="${RUNNER_TEMP}/ripgrep/bin"
+          curl_opts=(--fail --silent --show-error --location --retry 3 --retry-delay 2 --connect-timeout 10 --max-time 60 --retry-max-time 180)
           trap 'rm -rf "$tmpdir"' EXIT
           mkdir -p "$install_dir"
-          curl -fsSL --retry 3 --retry-delay 2 "${base_url}/${archive}" -o "${tmpdir}/${archive}"
-          curl -fsSL --retry 3 --retry-delay 2 "${base_url}/${archive}.sha256" -o "${tmpdir}/${archive}.sha256"
+          curl "${curl_opts[@]}" "${base_url}/${archive}" -o "${tmpdir}/${archive}"
+          printf "%s  %s\n" "$RIPGREP_SHA256" "$archive" > "${tmpdir}/${archive}.sha256"
           (cd "$tmpdir" && sha256sum -c "${archive}.sha256")
           tar -xzf "${tmpdir}/${archive}" -C "$tmpdir"
           cp "${tmpdir}/ripgrep-${RIPGREP_VERSION}-${RIPGREP_TARGET}/rg" "${install_dir}/rg"
