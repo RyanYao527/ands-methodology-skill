@@ -15,6 +15,9 @@ jobs:
   validate:
     name: Validate ANDS Nexus package
     runs-on: ubuntu-latest
+    env:
+      RIPGREP_VERSION: 14.1.1
+      RIPGREP_TARGET: x86_64-unknown-linux-musl
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -27,9 +30,24 @@ jobs:
             rg --version
             exit 0
           fi
-          timeout 120s sudo apt-get update
-          timeout 120s sudo apt-get install -y ripgrep
-          rg --version
+          if [ "$(uname -m)" != "x86_64" ]; then
+            echo "Unsupported runner architecture for pinned ripgrep tarball: $(uname -m)" >&2
+            exit 1
+          fi
+          archive="ripgrep-${RIPGREP_VERSION}-${RIPGREP_TARGET}.tar.gz"
+          base_url="https://github.com/BurntSushi/ripgrep/releases/download/${RIPGREP_VERSION}"
+          tmpdir="$(mktemp -d)"
+          install_dir="${RUNNER_TEMP}/ripgrep/bin"
+          trap 'rm -rf "$tmpdir"' EXIT
+          mkdir -p "$install_dir"
+          curl -fsSL --retry 3 --retry-delay 2 "${base_url}/${archive}" -o "${tmpdir}/${archive}"
+          curl -fsSL --retry 3 --retry-delay 2 "${base_url}/${archive}.sha256" -o "${tmpdir}/${archive}.sha256"
+          (cd "$tmpdir" && sha256sum -c "${archive}.sha256")
+          tar -xzf "${tmpdir}/${archive}" -C "$tmpdir"
+          cp "${tmpdir}/ripgrep-${RIPGREP_VERSION}-${RIPGREP_TARGET}/rg" "${install_dir}/rg"
+          chmod +x "${install_dir}/rg"
+          echo "$install_dir" >> "$GITHUB_PATH"
+          "${install_dir}/rg" --version
 
       - name: Run release validation tests
         shell: pwsh
